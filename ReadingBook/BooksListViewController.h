@@ -10,6 +10,6 @@
 
 @interface BooksListViewController : SecondLevelViewController
 
-@property (strong, nonatomic) NSMutableArray *books;
+@property (strong, nonatomic) NSMutableDictionary *books;
 
 @end

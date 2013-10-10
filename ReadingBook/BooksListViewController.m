@@ -26,7 +26,7 @@ static NSString *CellIdentifier = @"BooksListCell";
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.books = [[NSMutableArray alloc] init];
+    self.books = [[NSMutableDictionary alloc] init];
     NSArray *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDir = [documentPath objectAtIndex:0];
     NSLog(@"%@",documentDir);
@@ -36,9 +36,11 @@ static NSString *CellIdentifier = @"BooksListCell";
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
 }
 
--(NSMutableArray *)getBooksList:(NSString *)dirPath
+-(NSMutableDictionary *)getBooksList:(NSString *)dirPath
 {
-    NSMutableArray *booksList = [[NSMutableArray alloc] init];
+    NSMutableArray *txtBooksList = [[NSMutableArray alloc] init];
+    NSMutableArray *pdfBooksList = [[NSMutableArray alloc] init];
+    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
     NSArray *fileList = [[NSArray alloc] init];
@@ -47,30 +49,58 @@ static NSString *CellIdentifier = @"BooksListCell";
     for (NSString *file in fileList) {
         NSString *path = [dirPath stringByAppendingPathComponent:file];
         [fileManager fileExistsAtPath:path isDirectory:(&isDir)];
-        if (!isDir) {
-            [booksList addObject:file];
+        NSLog(@"File Extension -> %@", [file pathExtension]);
+        //if (!isDir) {
+        if ([[file pathExtension]  isEqualToString: @"txt"]) {
+            [txtBooksList addObject:file];
         }
-        else{
-            [booksList addObjectsFromArray:[self getBooksList:path]];
+        
+        if ([[file pathExtension] isEqualToString:@"pdf"]) {
+            [pdfBooksList addObject:file];
         }
-        isDir = NO;
+        // }
+        //else{
+        //   [allBooks addObjectsFromArray:[self getBooksList:path]];
+        //}
+        //isDir = NO;
     }
-    return booksList;
+    NSMutableDictionary *allBooks = [[NSMutableDictionary alloc] initWithObjectsAndKeys:txtBooksList,@"TEXT",pdfBooksList,@"PDF", nil];
+    return allBooks;
 }
 
 #pragma mark - Table View Data Source Methods
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
     return [self.books count];
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSMutableArray *bookSection = [[NSMutableArray alloc]init];
+    for (NSArray *ar in [self.books allValues]) {
+        [bookSection addObject:ar];
+    }
+    return [[bookSection objectAtIndex:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSUInteger section = [indexPath section];
+    NSUInteger row = [indexPath row];
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-    cell.textLabel.text = self.books[indexPath.row];
+    //    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    NSMutableArray *bookSection = [[NSMutableArray alloc]init];
+    for (NSArray *ar in [self.books allValues]) {
+        [bookSection addObject:ar];
+    }
+    
+    cell.textLabel.text = [[bookSection objectAtIndex:section] objectAtIndex:row];
     return cell;
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return [[self.books allKeys]objectAtIndex:section];
+}
+
 #pragma mark - Table View Delegate Methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -81,7 +111,7 @@ static NSString *CellIdentifier = @"BooksListCell";
     //                          cancelButtonTitle:@"Won’t happen again"
     //                          otherButtonTitles:nil];
     //    [alert show];
-    NSString *selectedBook = self.books[indexPath.row];
+    NSString *selectedBook = [[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     NSLog(@"Selected Book is ->%@",selectedBook);
     
     if ([selectedBook hasSuffix:@"txt"]) {
@@ -133,7 +163,10 @@ static NSString *CellIdentifier = @"BooksListCell";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.books removeObjectAtIndex:indexPath.row];
+    [[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] removeObjectAtIndex:indexPath.row];
+//    if ([[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] count] == 0) {
+//        [self.books removeObjectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]];
+//    }
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
