@@ -9,6 +9,7 @@
 #import "ReadingRootViewController.h"
 #import "SecondLevelViewController.h"
 #import "BooksListViewController.h"
+#import "SettingViewController.h"
 
 @implementation ReadingRootViewController
 
@@ -29,6 +30,9 @@ static NSString *RootLevelCell = @"RootLevelCell";
     [array addObject:booksListViewController];
     
     //Setting View
+    SettingViewController *settingViewController = [[SettingViewController alloc] init];
+    settingViewController.title = @"Setting";
+    [array addObject:settingViewController];
     
     self.controllers = array;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:RootLevelCell];
@@ -62,7 +66,7 @@ static NSString *RootLevelCell = @"RootLevelCell";
     NSUInteger row = [indexPath row];
     SecondLevelViewController *controller = [controllers objectAtIndex:row];
     cell.textLabel.text = controller.title;
-    cell.imageView.image = controller.rowImage;
+    //cell.imageView.image = controller.rowImage;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }

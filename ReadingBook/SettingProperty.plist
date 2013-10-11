@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>访问设置</key>
+        <dict>
+            <key>iCould登陆</key>
+            <string>iCould Cound</string>
+            <key>本地口令</key>
+            <integer>0</integer>
+        </dict>
+        <key>阅读设置</key>
+        <dict>
+            <key>字体颜色</key>
+            <string>字体颜色</string>
+            <key>阅读背景颜色</key>
+            <string>阅读背景颜色</string>
+            <key>无操作退出</key>
+            <false/>
+            <key>屏幕长背光</key>
+            <true/>
+            <key>自动打开上次阅读</key>
+            <true/>
+            <key>阅读进度条</key>
+            <false/>
+            <key>压缩空行</key>
+            <false/>
+            <key>字体带下划线</key>
+            <false/>
+            <key>字体平滑</key>
+            <false/>
+            <key>翻页保留最后一行</key>
+            <false/>
+            <key>夜间模式</key>
+            <false/>
+            <key>自动全屏</key>
+            <false/>
+        </dict>
+    </dict>
+</plist>

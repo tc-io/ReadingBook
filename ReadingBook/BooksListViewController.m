@@ -83,17 +83,13 @@ static NSString *CellIdentifier = @"BooksListCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger section = [indexPath section];
-    NSUInteger row = [indexPath row];
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     //    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-    NSMutableArray *bookSection = [[NSMutableArray alloc]init];
-    for (NSArray *ar in [self.books allValues]) {
-        [bookSection addObject:ar];
+    if (cell == Nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [[bookSection objectAtIndex:section] objectAtIndex:row];
+    cell.textLabel.text = [[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     return cell;
 }
 
