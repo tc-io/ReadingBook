@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */; };
 		4856D0DD17FBB9B10095DEA8 /* SecondLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */; };
 		4856D0E017FBBDE60095DEA8 /* BooksListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4856D0DF17FBBDE60095DEA8 /* BooksListViewController.m */; };
 		4856D0E817FC2D6F0095DEA8 /* checkmarkControllerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E217FC2D6F0095DEA8 /* checkmarkControllerIcon.png */; };
@@ -47,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontColorSecectActionSheet.h; sourceTree = "<group>"; };
+		4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontColorSecectActionSheet.m; sourceTree = "<group>"; };
 		4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondLevelViewController.h; sourceTree = "<group>"; };
 		4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondLevelViewController.m; sourceTree = "<group>"; };
 		4856D0DE17FBBDE60095DEA8 /* BooksListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooksListViewController.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				48954CCC18084E0F000036B3 /* SettingProperty.plist */,
 				48954CCE18084E24000036B3 /* SettingViewController.h */,
 				48954CCF18084E24000036B3 /* SettingViewController.m */,
+				4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */,
+				4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */,
 			);
 			path = ReadingBook;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				488EF39B17F966D900E03F0F /* AppDelegate.m in Sources */,
+				4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */,
 				48772CF71802AD2100A59201 /* BookReadViewController.m in Sources */,
 				4856D0DD17FBB9B10095DEA8 /* SecondLevelViewController.m in Sources */,
 				48772CF3180284FB00A59201 /* PDFViewer.m in Sources */,

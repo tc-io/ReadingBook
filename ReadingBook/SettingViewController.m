@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "FontColorSecectActionSheet.h"
 
 @interface SettingViewController ()
 
@@ -92,14 +93,9 @@
         NSLog(@"%@",cellConfig);
     }
     else{
-        BOOL cellb = [[self.settingConfig objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        BOOL cellb = [(NSNumber*)[[self.settingConfig objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] boolValue];
         UISwitch *switchView = [[UISwitch alloc] init];
-        if (cellb) {
-            [switchView setOn:YES animated:YES];
-        }
-        else{
-            [switchView setOn:NO animated:YES];
-        }
+        [switchView setOn:cellb animated:YES];
         [switchView addTarget:self action:@selector(updateSwitchAtIndexPath:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = switchView;
     }
@@ -112,6 +108,18 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
+    FontColorSecectActionSheet* sheet = [[FontColorSecectActionSheet alloc] initWithHeight:284.0f WithSheetTitle:@"自定义ActionSheet"];
+    
+    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
+    NSDate *now = [[NSDate alloc] init];
+    [datePicker setDate:now animated:NO];
+    
+    //    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,50, 320, 50)];
+    //    label.text = @"这里是要自定义放的控制";
+    //    label.backgroundColor = [UIColor clearColor];
+    //    label.textAlignment = UITextAlignmentCenter;
+    [sheet.view addSubview:datePicker];
+    [sheet showInView:self.view];
     //
     ////    self.bookReadController.message = detailMessage;
     ////    self.bookReadController.title = selectedMovie;
@@ -125,13 +133,18 @@
 
 - (IBAction)updateSwitchAtIndexPath:(id)sender
 {
+    NSInteger section = [self.settingTableView indexPathForCell:((UITableViewCell*)[[sender superview]superview])].section;
+    NSInteger row = [self.settingTableView indexPathForCell:((UITableViewCell*)[[sender superview]superview])].row;
+    NSLog(@"section ->%d, row -> %d",section,row);
     UISwitch *switchView = (UISwitch *)sender;
-    if ([switchView isOn]) {
+        if ([switchView isOn]) {
         NSLog(@"ON");
     }
     else{
         NSLog(@"OFF");
     }
+    NSNumber *switchStatue =[[NSNumber alloc]initWithBool:[switchView isOn]];
+    [[self.settingConfig objectAtIndex:section] setObject:switchStatue atIndex:row];
 }
 
 @end
