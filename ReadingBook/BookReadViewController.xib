@@ -7,7 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookReadViewController">
             <connections>
                 <outlet property="view" destination="1" id="3"/>
-                <outlet property="webView" destination="Tam-So-391" id="qHg-JG-hgv"/>
+                <outlet property="webView" destination="Tam-So-391" id="Hoi-9D-qtl"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

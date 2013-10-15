@@ -10,12 +10,12 @@
 
 @implementation PDFViewer
 
-- (void)drawInContext:(CGContextRef)context :(size_t)pageNumber
+- (void)drawInContext:(CGContextRef)context
 {
     CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     
-    CGPDFPageRef page = CGPDFDocumentGetPage(pdf, pageNumber);
+    CGPDFPageRef page = CGPDFDocumentGetPage(pdf, 1);
     
     CGContextSaveGState(context);
     CGAffineTransform pdfTransform = CGPDFPageGetDrawingTransform(page, kCGPDFCropBox, self.bounds, 0, true);
@@ -25,14 +25,14 @@
 }
 
 
-- (CGPDFDocumentRef) getPDFDocumentRef:(const char *)fileName
+CGPDFDocumentRef getPDFDocumentRef(NSString *fileName)
 {
-    CFStringRef path = CFStringCreateWithCString(NULL, fileName, kCFStringEncodingUTF8);
+    CFStringRef path = CFStringCreateWithCString(NULL, [fileName UTF8String], kCFStringEncodingUTF8);
     CFURLRef url = CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, 0);
     CGPDFDocumentRef document = CGPDFDocumentCreateWithURL(url);
     size_t count = CGPDFDocumentGetNumberOfPages(document);
     if (count == 0) {
-        NSLog(@"there is no page in file <%s>",fileName);
+        NSLog(@"there is no page in file <%@>",fileName);
         return NULL;
     }
     CFRelease(path);
@@ -40,39 +40,39 @@
     return document;
 }
 
-- (void) displayPDFPage:(CGContextRef) pdfContext:(size_t) pageNumber:(const char *)fileName
+void displayPDFPage(CGContextRef pdfContext, size_t pageNumber, NSString *fileName)
 {
-    CGPDFDocumentRef document = [self getPDFDocumentRef:fileName];
+    CGPDFDocumentRef document = getPDFDocumentRef(fileName);
     CGPDFPageRef page = CGPDFDocumentGetPage(document, pageNumber);
     CGContextDrawPDFPage(pdfContext, page);
     CGPDFDocumentRelease(document);
 }
 
-- (void) createPDFFile:(CGRect) pageRect:(const char *)fileName
-{
-    CFStringRef path = CFStringCreateWithCString(NULL, fileName, kCFStringEncodingUTF8);
-    CFURLRef url = CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, 0);
-    CFRelease(path);
-    CFMutableDictionaryRef myDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    CFDictionarySetValue(myDictionary, kCGPDFContextTitle, CFSTR("MY PDF File"));
-    CFDictionarySetValue(myDictionary, kCGPDFContextCreator, CFSTR("My Name"));
-    CGContextRef pdfContext = CGPDFContextCreateWithURL(url, &pageRect, myDictionary);
-    CFRelease(myDictionary);
-    CFRelease(url);
-    
-    CFMutableDictionaryRef pageDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    CFDataRef boxData = CFDataCreate(NULL, (const UInt8 *)&pageRect, sizeof(pageRect));
-    CFDictionarySetValue(pageDictionary, kCGPDFContextMediaBox, boxData);
-    CGPDFContextBeginPage(pdfContext, pageDictionary);
-    CGPDFContextEndPage(pdfContext);
-    
-    [self drawInContext:pdfContext];
-    NSLog(@"Creat PDF Context->%@",pdfContext);
-    CGContextRelease(pdfContext);
-    CFRelease(pageDictionary);
-    CFRelease(boxData);
-
-}
+//- (void) createPDFFile:(CGRect) pageRect :(const char *)fileName
+//{
+//    CFStringRef path = CFStringCreateWithCString(NULL, fileName, kCFStringEncodingUTF8);
+//    CFURLRef url = CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, 0);
+//    CFRelease(path);
+//    CFMutableDictionaryRef myDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+//    CFDictionarySetValue(myDictionary, kCGPDFContextTitle, CFSTR("MY PDF File"));
+//    CFDictionarySetValue(myDictionary, kCGPDFContextCreator, CFSTR("My Name"));
+//    CGContextRef pdfContext = CGPDFContextCreateWithURL(url, &pageRect, myDictionary);
+//    CFRelease(myDictionary);
+//    CFRelease(url);
+//    
+//    CFMutableDictionaryRef pageDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+//    CFDataRef boxData = CFDataCreate(NULL, (const UInt8 *)&pageRect, sizeof(pageRect));
+//    CFDictionarySetValue(pageDictionary, kCGPDFContextMediaBox, boxData);
+//    CGPDFContextBeginPage(pdfContext, pageDictionary);
+//    CGPDFContextEndPage(pdfContext);
+//    
+//    [self drawInContext:pdfContext];
+//    NSLog(@"Creat PDF Context->%@",pdfContext);
+//    CGContextRelease(pdfContext);
+//    CFRelease(pageDictionary);
+//    CFRelease(boxData);
+//
+//}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -92,18 +92,17 @@
     return self;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"123");
-}
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
-    [self drawInContext:UIGraphicsGetCurrentContext():98];
+    [self drawInContext:UIGraphicsGetCurrentContext()];
     NSLog(@"Current Context->%@",UIGraphicsGetCurrentContext());
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touches Began");
+}
 @end

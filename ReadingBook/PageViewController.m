@@ -6,128 +6,224 @@
 //  Copyright (c) 2013年 Jeff.King. All rights reserved.
 //
 
+#define kFontSizeId @"FontSizeId"
+#define kAutoReadId @"AutoRead"
+#define kAutoSpeedId @"AutoSpeed"
+
 #import "PageViewController.h"
-//#import "PDFViewer.h"
+#import "PDFViewer.h"
+
+@interface PageViewController()
+
+@property (nonatomic, copy) NSString * bookName;
+@property (nonatomic, copy) NSString * bookPath;
+@property (nonatomic, copy) NSString * bookContent;
+@property (nonatomic, strong) NSUserDefaults * userDefault;
+
+@property (nonatomic, strong) UITextView * textView;
+@property (nonatomic, strong) PDFViewer *pdfView;
+
+@property (nonatomic, assign) BOOL autoPage;
+@property (nonatomic, strong) NSTimer * pageTimer;
+
+@property (nonatomic, assign) BOOL visible;  //判断是隐藏还是出现
+
+@property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, assign) CGFloat autoSpeed;
+
+@property (nonatomic, strong) UIBarButtonItem * configBarButton;
+
+//@property (nonatomic, strong) SNPopupView * popupView;
+//@property (nonatomic, assign) BOOL popupVisible;
+//@property (nonatomic, strong) UIView * configView;
+//@property (nonatomic, strong) UILabel * fontLabel;
+//@property (nonatomic, strong) UISwitch * autoPageSwitch;
+//@property (nonatomic, strong) UISlider * fontSizeSlider;
+//@property (nonatomic, strong) UILabel * speedLabel;
+//@property (nonatomic, strong) UISlider * speedSlider;
+
+- (void) prevPage;
+- (void) nextPage;
+
+@end
 
 @implementation PageViewController
 
-@synthesize pageController;
-@synthesize pageContent;
-
--(void) createContentPages
+- (id) initWithBookName:(NSString *)bookName :(NSString *)bookPath
 {
-    NSMutableArray *pageStrings = [[NSMutableArray alloc]init];
-    for (int i = 1; i< 3; i++) {
-        NSString *contentString = [[NSString alloc] initWithFormat:@"<Html><body><p>Content %d</p></body></html>",i];
-        [pageStrings addObject:contentString];
-        NSLog(@"%@",contentString);
-    }
-    pageContent = [[NSArray alloc] initWithArray:pageStrings];
-}
-
--(BookReadViewController *)viewControllerAtIndex:(NSUInteger)index
-{
-    // Return the data view controller for the given index
-    
-    // By checking to see if the requested page is outside of available page(0 ~ page count) or not
-    if (([self.pageContent count] == 0) || (index >= [self.pageContent count])) {
-        return Nil;
-    }
-    
-    // Create a new view controller and pass the suitable data
-    BookReadViewController *dataViewController = [[BookReadViewController alloc]initWithNibName:@"BookReadViewController" bundle:nil];
-    
-    dataViewController.dataObject = [self.pageContent objectAtIndex:index];
-    return dataViewController;
-}
-
--(NSUInteger) indexofViewController:(BookReadViewController *)viewController
-{
-    // return the index value of the controller
-    // by extracting the data object property of the view controller and finding the index of the match element in the pageContent array
-    return [self.pageContent indexOfObject:viewController.dataObject];
-}
-
--(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
-    // get the view controller which is before the current view controller
-    NSUInteger index = [self indexofViewController:(BookReadViewController *)viewController];
-    if((index == 0) || (index == NSNotFound)){
-        return nil;
-    }
-    index--;
-    return [self viewControllerAtIndex:index];
-}
-
--(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
-    // get the view controller which is after the current view controller
-    NSUInteger index = [self indexofViewController:(BookReadViewController *)viewController];
-    if (index == NSNotFound) {
-        return nil;
-    }
-    index++;
-    if (index == [self.pageContent count]) {
-        return nil;
-    }
-    return [self viewControllerAtIndex:index];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:Nil bundle:Nil];
     if (self) {
-        // Custom initialization
+        self.bookName = bookName;
+        self.bookPath = bookPath;
+        self.fontSize = 14.0f;
+        self.autoPage = NO;
+        //self.popupVisible = NO;
+        
+        self.userDefault = [NSUserDefaults standardUserDefaults];
+        if ([self.userDefault objectForKey:kFontSizeId]) {
+            self.fontSize = [[self.userDefault objectForKey:kFontSizeId] floatValue];
+        }
+        
+        if ([self.userDefault objectForKey:kAutoSpeedId]) {
+            self.autoSpeed = [[self.userDefault objectForKey:kAutoSpeedId] floatValue];
+        } else {
+            self.autoSpeed = 1.0f;
+        }
+        
     }
     return self;
+}
+
+- (void) loadView
+{
+    [super loadView];
+    
+    // Get Txt Book's Content
+    NSString *bookPath = [NSString stringWithFormat:@"%@/%@",self.bookPath,self.bookName];
+    NSLog(@"%@",bookPath);
+    self.bookContent = [[NSString alloc]initWithContentsOfFile:bookPath encoding:NSUTF8StringEncoding error:NULL];
+    if (!self.bookContent) {
+        self.bookContent = [NSString stringWithContentsOfFile:bookPath encoding:NSASCIIStringEncoding error:NULL];
+    }
+    if (!self.bookContent) {
+        self.bookContent = [NSString stringWithContentsOfFile:bookPath encoding:NSUTF16StringEncoding error:NULL];
+    }
+    if (!(self.bookContent.length > 0)) {
+        NSLog(@"Empy Book");
+        return;
+    }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    [self createContentPages];
-    NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
-                                                        forKey:UIPageViewControllerOptionSpineLocationKey];
+    self.navigationItem.title = self.bookName;
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    self.pageController = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
+    tapGesture.numberOfTapsRequired = 1;
+    //左右滑动的手势
     
-    pageController.dataSource=self;
-    [[pageController view]setFrame:[[self view] bounds]];
+    UISwipeGestureRecognizer * swipeLeftGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeGestureAction:)];
+    swipeLeftGesture.direction = UISwipeGestureRecognizerDirectionLeft;
     
-    BookReadViewController *initialViewController = [self viewControllerAtIndex:0];
-    NSArray *viewControllers = [NSArray arrayWithObject:initialViewController];
-    
-    [pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    [self addChildViewController:pageController];
-    [[self view] addSubview:[pageController view]];
-    [pageController didMoveToParentViewController:self];
-    
-    NSLog(@"Reading Book =====%@",self.bookName);
-    
-    //    CGRect frame = CGRectMake(0, 0, 300, 500);
-    //    PDFViewer *pdfView = [[PDFViewer alloc] initWithFrame:frame];
-    //    pdfView.backgroundColor = [UIColor brownColor];
-    //    [self.view addSubview:pdfView];
-    
-    //    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 300, 500)];
-    //    NSURL *targetURL = [NSURL fileURLWithPath:@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents/哈哈.txt"];
-    //    NSURLRequest *request = [NSURLRequest requestWithURL:targetURL];
-    //    [webView loadRequest:request];
-    //    [self.view addSubview:webView];
+    UISwipeGestureRecognizer * swipeRightGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeGestureAction:)];
+    swipeRightGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    if ([self.bookName hasSuffix:@"txt"]) {
+        self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        self.textView.editable = NO;
+        self.textView.text = self.bookContent;
+        self.textView.font = [UIFont systemFontOfSize:self.fontSize];
+        [self.textView addGestureRecognizer:tapGesture];
+        [self.textView addGestureRecognizer:swipeLeftGesture];
+        [self.textView addGestureRecognizer:swipeRightGesture];
+        self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        [self.view addSubview:self.textView];
+    }
+    else if ([self.bookName hasSuffix:@"pdf"]){
+        self.pdfView = [[PDFViewer alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        self.pdfView.backgroundColor = [UIColor whiteColor];
+       //[self.pdfView addGestureRecognizer:tapGesture];
+        [self.view addSubview:self.pdfView];
+    }
 }
 
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    NSLog(@"Touch Began");
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:NO];
+    CATransition * animation = [CATransition animation];
+    animation.type = @"oglFlip";
+    animation.subtype = kCATransitionFromLeft;
+    animation.duration = 0.45;
+    animation.removedOnCompletion = YES;
+    [self.navigationController.view.layer addAnimation:animation forKey:nil];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:NO];
+    [self.pageTimer invalidate];
+    self.pageTimer = nil;
+    CATransition * animation = [CATransition animation];
+    animation.type = @"oglFlip";
+    animation.subtype = kCATransitionFromRight;
+    animation.duration = 0.45;
+    animation.removedOnCompletion = YES;
+    [self.navigationController.view.layer addAnimation:animation forKey:nil];
+    
+}
+
+- (void) prevPage {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.75];
+    CGPoint offset = self.textView.contentOffset;
+    CGSize viewSize = self.textView.frame.size;
+    
+    offset.y -= viewSize.height - self.fontSize;
+    if (offset.y < 0) {
+        offset.y = 0;
+    } else {
+        [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.textView cache:YES];
+    }
+    [UIView commitAnimations];
+    
+    self.textView.contentOffset = offset;
+}
+- (void) nextPage {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:nil context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.75];
+    CGPoint offset = self.textView.contentOffset;
+    CGSize viewSize = self.textView.frame.size;
+    CGSize contentSize = self.textView.contentSize;
+    offset.y += viewSize.height - self.fontSize;
+    if (offset.y > (contentSize.height - viewSize.height)) {
+        offset.y = contentSize.height - viewSize.height;
+    } else {
+        [UIView setAnimationTransition:UIViewAnimationTransitionCurlUp forView:self.textView cache:YES];
+    }
+    
+    [UIView commitAnimations];
+    self.textView.contentOffset = offset;
+}
+
+- (void) singleTapAction:(id)sender {
+    //判断导航栏和toolbar是隐藏还是显示
+    if(!self.visible) {
+        self.visible = YES;
+        [self.navigationController setNavigationBarHidden:self.visible animated:YES];
+    } else {
+        self.visible = NO;
+        [self.navigationController setNavigationBarHidden:self.visible animated:YES];
+    }
+}
+
+- (void) swipeGestureAction:(UISwipeGestureRecognizer *)recognizer {
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+        [self nextPage];
+    }
+    else if (recognizer.direction == UISwipeGestureRecognizerDirectionRight){
+        [self prevPage];
+    }
+}
+
+- (void) readConfigFinished {
+    self.fontSize = (int) 10;
+    self.textView.font = [UIFont systemFontOfSize:self.fontSize];
+    
+    [self.userDefault setValue:@(self.fontSize) forKey:kFontSizeId];
+    self.autoPage = YES;
+    self.autoSpeed = 12.0f;
+    [self.userDefault setValue:@(self.autoSpeed) forKey:kAutoSpeedId];
+    [self.userDefault synchronize];
+    
+    if (self.autoPage) {
+        self.pageTimer = [NSTimer scheduledTimerWithTimeInterval:self.autoSpeed target:self selector:@selector(nextPage) userInfo:nil repeats:YES];
+    } else {
+        [self.pageTimer invalidate];
+        self.pageTimer = nil;
+    }
 }
 
 @end

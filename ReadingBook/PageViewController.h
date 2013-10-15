@@ -10,13 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "BookReadViewController.h"
 
-@interface PageViewController : UIViewController <UIPageViewControllerDataSource>
-{
-    UIPageViewController *pageController;
-    NSArray *pageContent;
-}
-@property (strong, nonatomic) UIPageViewController *pageController;
-@property (strong, nonatomic) NSArray *pageContent;
-@property (strong, nonatomic) NSString *bookName;
+@interface PageViewController : UIViewController
+
+- (id) initWithBookName:(NSString *)bookName :(NSString*)bookPath;
 
 @end

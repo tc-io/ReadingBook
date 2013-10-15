@@ -30,7 +30,7 @@ static NSString *CellIdentifier = @"BooksListCell";
     NSArray *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDir = [documentPath objectAtIndex:0];
     NSLog(@"%@",documentDir);
-    self.books = [self getBooksList:documentDir];
+    self.books = [self getBooksList :documentDir];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
@@ -110,18 +110,11 @@ static NSString *CellIdentifier = @"BooksListCell";
     NSString *selectedBook = [[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     NSLog(@"Selected Book is ->%@",selectedBook);
     
-    if ([selectedBook hasSuffix:@"txt"]) {
-            readController = [[PageViewController alloc] init];
-        self.readController.title=selectedBook;
-        self.readController.bookName = selectedBook;
+    if ([selectedBook hasSuffix:@"txt"] || [selectedBook hasSuffix:@"pdf"]) {
+        readController = [[PageViewController alloc] initWithBookName:selectedBook :@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents"];
+
+
         [self.navigationController pushViewController:self.readController animated:YES];
-    }
-    else if ([selectedBook hasSuffix:@"pdf"]) {
-            CGRect frame = CGRectMake(0, 0, 200, 300);
-        PDFViewer *pdfView = [[PDFViewer alloc] initWithFrame:frame];
-        pdfView.backgroundColor = [UIColor redColor];
-        //[self.navigationController pushViewController:pdfView animated:YES];
-        [self.view addSubview:pdfView];
     }
     else{
         BookReadViewController *bookreadController = [[BookReadViewController alloc]initWithNibName:@"BookReadViewController" bundle:nil];
