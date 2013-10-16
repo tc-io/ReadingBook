@@ -11,7 +11,6 @@
 #define kAutoSpeedId @"AutoSpeed"
 
 #import "PageViewController.h"
-#import "PDFViewer.h"
 
 @interface PageViewController()
 
@@ -21,7 +20,6 @@
 @property (nonatomic, strong) NSUserDefaults * userDefault;
 
 @property (nonatomic, strong) UITextView * textView;
-@property (nonatomic, strong) PDFViewer *pdfView;
 
 @property (nonatomic, assign) BOOL autoPage;
 @property (nonatomic, strong) NSTimer * pageTimer;
@@ -119,12 +117,6 @@
         [self.textView addGestureRecognizer:swipeRightGesture];
         self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         [self.view addSubview:self.textView];
-    }
-    else if ([self.bookName hasSuffix:@"pdf"]){
-        self.pdfView = [[PDFViewer alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        self.pdfView.backgroundColor = [UIColor whiteColor];
-       //[self.pdfView addGestureRecognizer:tapGesture];
-        [self.view addSubview:self.pdfView];
     }
 }
 

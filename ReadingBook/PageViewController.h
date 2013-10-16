@@ -8,7 +8,6 @@
 // Create Data Model For BookRead View Controller
 
 #import <UIKit/UIKit.h>
-#import "BookReadViewController.h"
 
 @interface PageViewController : UIViewController
 

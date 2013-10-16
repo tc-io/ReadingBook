@@ -8,13 +8,15 @@
 
 #import "BooksListViewController.h"
 #import "PageViewController.h"
-#import "PDFViewer.h"
+#import "PDFViewController.h"
 
 static NSString *CellIdentifier = @"BooksListCell";
 
 @interface BooksListViewController()
+
 @property (strong, nonatomic) PageViewController *readController;
 -(NSMutableArray *)getBooksList:(NSString *)dirPath;
+
 @end
 
 @implementation BooksListViewController
@@ -110,23 +112,15 @@ static NSString *CellIdentifier = @"BooksListCell";
     NSString *selectedBook = [[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
     NSLog(@"Selected Book is ->%@",selectedBook);
     
-    if ([selectedBook hasSuffix:@"txt"] || [selectedBook hasSuffix:@"pdf"]) {
+    if ([selectedBook hasSuffix:@"txt"]) {
         readController = [[PageViewController alloc] initWithBookName:selectedBook :@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents"];
 
 
         [self.navigationController pushViewController:self.readController animated:YES];
     }
-    else{
-        BookReadViewController *bookreadController = [[BookReadViewController alloc]initWithNibName:@"BookReadViewController" bundle:nil];
-        bookreadController.title = selectedBook;
-        bookreadController.webView.backgroundColor = [UIColor redColor];
-        NSString *filePath = @"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents/2.pdf";
-        NSURLRequest *req = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:filePath]];
-        //bookreadController.webView.scalesPageToFit = YES;
-        [self.view setBackgroundColor:[UIColor blueColor]];
-        [bookreadController.webView loadRequest:req];
-        [bookreadController didMoveToParentViewController:self];
-        [self.navigationController pushViewController:bookreadController animated:YES];
+    else if([selectedBook hasSuffix:@"pdf"]){
+        PDFViewController *pdfViewController = [[PDFViewController alloc] initWithNibName:@"PDFViewController" bundle:Nil filePath:@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents" fileName:selectedBook ];
+        [self.navigationController pushViewController:pdfViewController animated:YES];
     }
     //    /// --- Read Content from text type file
     //    /// *** Solution 1 ***
@@ -159,8 +153,5 @@ static NSString *CellIdentifier = @"BooksListCell";
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    NSLog(@"Touch Begain");
-}
 
 @end

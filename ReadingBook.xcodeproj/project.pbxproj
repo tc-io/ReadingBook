@@ -16,9 +16,9 @@
 		4856D0EB17FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E517FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png */; };
 		4856D0EC17FC2D6F0095DEA8 /* moveMeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E617FC2D6F0095DEA8 /* moveMeIcon.png */; };
 		4856D0ED17FC2D6F0095DEA8 /* rowControlsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E717FC2D6F0095DEA8 /* rowControlsIcon.png */; };
-		48772CF3180284FB00A59201 /* PDFViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 48772CF2180284FB00A59201 /* PDFViewer.m */; };
-		48772CF71802AD2100A59201 /* BookReadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48772CF51802AD2100A59201 /* BookReadViewController.m */; };
-		48772CF81802AD2100A59201 /* BookReadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48772CF61802AD2100A59201 /* BookReadViewController.xib */; };
+		48772CF3180284FB00A59201 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48772CF2180284FB00A59201 /* PDFView.m */; };
+		488A13AF180E59580079594E /* PDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488A13AD180E59580079594E /* PDFViewController.m */; };
+		488A13B0180E59580079594E /* PDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 488A13AE180E59580079594E /* PDFViewController.xib */; };
 		488EF38B17F966D900E03F0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488EF38A17F966D900E03F0F /* Foundation.framework */; };
 		488EF38D17F966D900E03F0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488EF38C17F966D900E03F0F /* CoreGraphics.framework */; };
 		488EF38F17F966D900E03F0F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488EF38E17F966D900E03F0F /* UIKit.framework */; };
@@ -60,11 +60,11 @@
 		4856D0E517FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosureButtonControllerIcon.png; sourceTree = "<group>"; };
 		4856D0E617FC2D6F0095DEA8 /* moveMeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moveMeIcon.png; sourceTree = "<group>"; };
 		4856D0E717FC2D6F0095DEA8 /* rowControlsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rowControlsIcon.png; sourceTree = "<group>"; };
-		48772CF1180284FB00A59201 /* PDFViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFViewer.h; sourceTree = "<group>"; };
-		48772CF2180284FB00A59201 /* PDFViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFViewer.m; sourceTree = "<group>"; };
-		48772CF41802AD2100A59201 /* BookReadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookReadViewController.h; sourceTree = "<group>"; };
-		48772CF51802AD2100A59201 /* BookReadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookReadViewController.m; sourceTree = "<group>"; };
-		48772CF61802AD2100A59201 /* BookReadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookReadViewController.xib; sourceTree = "<group>"; };
+		48772CF1180284FB00A59201 /* PDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFView.h; sourceTree = "<group>"; };
+		48772CF2180284FB00A59201 /* PDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFView.m; sourceTree = "<group>"; };
+		488A13AC180E59580079594E /* PDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFViewController.h; sourceTree = "<group>"; };
+		488A13AD180E59580079594E /* PDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFViewController.m; sourceTree = "<group>"; };
+		488A13AE180E59580079594E /* PDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFViewController.xib; sourceTree = "<group>"; };
 		488EF38717F966D900E03F0F /* ReadingBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadingBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		488EF38A17F966D900E03F0F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		488EF38C17F966D900E03F0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -171,13 +171,13 @@
 				4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */,
 				4856D0DE17FBBDE60095DEA8 /* BooksListViewController.h */,
 				4856D0DF17FBBDE60095DEA8 /* BooksListViewController.m */,
-				48772CF41802AD2100A59201 /* BookReadViewController.h */,
-				48772CF51802AD2100A59201 /* BookReadViewController.m */,
-				48772CF61802AD2100A59201 /* BookReadViewController.xib */,
 				4898E31E17FE5F370071FC16 /* PageViewController.h */,
 				4898E31F17FE5F370071FC16 /* PageViewController.m */,
-				48772CF1180284FB00A59201 /* PDFViewer.h */,
-				48772CF2180284FB00A59201 /* PDFViewer.m */,
+				488A13AC180E59580079594E /* PDFViewController.h */,
+				488A13AD180E59580079594E /* PDFViewController.m */,
+				488A13AE180E59580079594E /* PDFViewController.xib */,
+				48772CF1180284FB00A59201 /* PDFView.h */,
+				48772CF2180284FB00A59201 /* PDFView.m */,
 				48954CCC18084E0F000036B3 /* SettingProperty.plist */,
 				48954CCE18084E24000036B3 /* SettingViewController.h */,
 				48954CCF18084E24000036B3 /* SettingViewController.m */,
@@ -295,12 +295,12 @@
 				4856D0E917FC2D6F0095DEA8 /* deleteMeIcon.png in Resources */,
 				48954CCD18084E0F000036B3 /* SettingProperty.plist in Resources */,
 				4856D0E817FC2D6F0095DEA8 /* checkmarkControllerIcon.png in Resources */,
-				48772CF81802AD2100A59201 /* BookReadViewController.xib in Resources */,
 				4856D0ED17FC2D6F0095DEA8 /* rowControlsIcon.png in Resources */,
 				488EF39D17F966D900E03F0F /* Images.xcassets in Resources */,
 				4856D0EA17FC2D6F0095DEA8 /* detailEditIcon.png in Resources */,
 				4856D0EB17FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png in Resources */,
 				4856D0EC17FC2D6F0095DEA8 /* moveMeIcon.png in Resources */,
+				488A13B0180E59580079594E /* PDFViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,9 +321,9 @@
 			files = (
 				488EF39B17F966D900E03F0F /* AppDelegate.m in Sources */,
 				4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */,
-				48772CF71802AD2100A59201 /* BookReadViewController.m in Sources */,
 				4856D0DD17FBB9B10095DEA8 /* SecondLevelViewController.m in Sources */,
-				48772CF3180284FB00A59201 /* PDFViewer.m in Sources */,
+				48772CF3180284FB00A59201 /* PDFView.m in Sources */,
+				488A13AF180E59580079594E /* PDFViewController.m in Sources */,
 				4856D0E017FBBDE60095DEA8 /* BooksListViewController.m in Sources */,
 				48954CD018084E24000036B3 /* SettingViewController.m in Sources */,
 				488EF39717F966D900E03F0F /* main.m in Sources */,
