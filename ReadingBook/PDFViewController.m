@@ -9,34 +9,32 @@
 #import "PDFViewController.h"
 
 @implementation PDFViewController
+@synthesize pdfView;
+@synthesize dataObject;
+@synthesize currentPage;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filePath:(NSString*)fPath fileName:(NSString*)fName
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filePath:(NSString*)fPath pageNumber:(int)curPageNum
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        pdfPath = fPath;
-        pdfName = fName;
+        self.filePath = fPath;
+        self.currentPage = curPageNum;
     }
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-    NSString *pdfFullPath = [[NSString alloc]initWithFormat:@"%@/%@",pdfPath,pdfName];
-    pdfView = [[PDFView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) filePath:pdfFullPath];
-    [self.view addSubview:pdfView];
+    NSLog(@"file Path %@, %d",self.filePath, self.currentPage);
+    self.pdfView.pdf = [self.pdfView createPDFWithFilePath:self.filePath];
+    self.pdfView.currentPage = self.currentPage;
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [pdfView goDownPage];
 }
 
 @end

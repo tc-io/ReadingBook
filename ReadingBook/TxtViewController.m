@@ -10,9 +10,9 @@
 #define kAutoReadId @"AutoRead"
 #define kAutoSpeedId @"AutoSpeed"
 
-#import "PageViewController.h"
+#import "TxtViewController.h"
 
-@interface PageViewController()
+@interface TxtViewController()
 
 @property (nonatomic, copy) NSString * bookName;
 @property (nonatomic, copy) NSString * bookPath;
@@ -45,7 +45,7 @@
 
 @end
 
-@implementation PageViewController
+@implementation TxtViewController
 
 - (id) initWithBookName:(NSString *)bookName :(NSString *)bookPath
 {

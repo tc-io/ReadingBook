@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ReadingRootViewController : UITableViewController
+@interface JKReaderRootViewController : UITableViewController
 
 @property (copy, nonatomic) NSArray *controllers;
 

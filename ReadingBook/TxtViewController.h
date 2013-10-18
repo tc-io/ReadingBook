@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PageViewController : UIViewController
+@interface TxtViewController : UIViewController
 
 - (id) initWithBookName:(NSString *)bookName :(NSString*)bookPath;
 

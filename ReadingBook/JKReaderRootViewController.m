@@ -6,12 +6,12 @@
 //  Copyright (c) 2013年 Jeff.King. All rights reserved.
 //
 
-#import "ReadingRootViewController.h"
+#import "JKReaderRootViewController.h"
 #import "SecondLevelViewController.h"
 #import "BooksListViewController.h"
 #import "SettingViewController.h"
 
-@implementation ReadingRootViewController
+@implementation JKReaderRootViewController
 
 static NSString *RootLevelCell = @"RootLevelCell";
 @synthesize controllers;

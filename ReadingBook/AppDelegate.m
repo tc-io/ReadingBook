@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ReadingRootViewController.h"
+#import "JKReaderRootViewController.h"
 
 @implementation AppDelegate
 
@@ -15,7 +15,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    ReadingRootViewController *rootController = [[ReadingRootViewController alloc] init];
+    JKReaderRootViewController *rootController = [[JKReaderRootViewController alloc] init];
     UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:rootController];
     self.window.rootViewController = navigation;
     

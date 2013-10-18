@@ -10,11 +10,14 @@
 
 @implementation PDFView
 
+@synthesize pdf;
+@synthesize page;
+@synthesize totalPages;
+@synthesize currentPage;
+
 - (id)initWithFrame:(CGRect)frame filePath:(NSString *)fPath
 {
     if (self = [super initWithFrame:frame]) {
-        NSLog(@"%@",fPath);
-        pdf = [self createPDFWithFilePath:fPath];
         self.backgroundColor = [UIColor blueColor];
     }
     return self;
@@ -43,10 +46,13 @@
 
 - (void)drawRect:(CGRect)rect
 {
+    NSLog(@"PDFView Draw Rect ->%@, CurrentPageNumber -> %d",self.pdf,self.currentPage);
+    
     //得到绘图上下文环境
     CGContextRef context = UIGraphicsGetCurrentContext();
+    
     //得到一个PDF页面
-    page = CGPDFDocumentGetPage(pdf, currentPage);
+    page = CGPDFDocumentGetPage(pdf, self.currentPage);
     //坐标转换，Quartz的坐标系统是以左下角为起始点，但iPhone视图以左上角为起点
     CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
     //坐标系转换

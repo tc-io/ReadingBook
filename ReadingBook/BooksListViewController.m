@@ -7,14 +7,14 @@
 //
 
 #import "BooksListViewController.h"
-#import "PageViewController.h"
-#import "PDFViewController.h"
+#import "TxtViewController.h"
+#import "PageModelViewController.h"
 
 static NSString *CellIdentifier = @"BooksListCell";
 
 @interface BooksListViewController()
 
-@property (strong, nonatomic) PageViewController *readController;
+@property (strong, nonatomic) TxtViewController *readController;
 -(NSMutableArray *)getBooksList:(NSString *)dirPath;
 
 @end
@@ -113,14 +113,13 @@ static NSString *CellIdentifier = @"BooksListCell";
     NSLog(@"Selected Book is ->%@",selectedBook);
     
     if ([selectedBook hasSuffix:@"txt"]) {
-        readController = [[PageViewController alloc] initWithBookName:selectedBook :@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents"];
-
-
+        readController = [[TxtViewController alloc] initWithBookName:selectedBook :@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents"];
         [self.navigationController pushViewController:self.readController animated:YES];
     }
     else if([selectedBook hasSuffix:@"pdf"]){
-        PDFViewController *pdfViewController = [[PDFViewController alloc] initWithNibName:@"PDFViewController" bundle:Nil filePath:@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents" fileName:selectedBook ];
-        [self.navigationController pushViewController:pdfViewController animated:YES];
+        NSString *filePath = [[NSString alloc]initWithFormat:@"%@/%@",@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents",selectedBook];
+        PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePath:filePath];
+        [self.navigationController pushViewController:pageModelViewController animated:YES];
     }
     //    /// --- Read Content from text type file
     //    /// *** Solution 1 ***
@@ -147,9 +146,9 @@ static NSString *CellIdentifier = @"BooksListCell";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] removeObjectAtIndex:indexPath.row];
-//    if ([[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] count] == 0) {
-//        [self.books removeObjectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]];
-//    }
+    //    if ([[self.books objectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]] count] == 0) {
+    //        [self.books removeObjectForKey:[[self.books allKeys] objectAtIndex:indexPath.section]];
+    //    }
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

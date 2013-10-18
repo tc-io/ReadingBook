@@ -31,10 +31,11 @@
 		488EF3A617F966D900E03F0F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 488EF38E17F966D900E03F0F /* UIKit.framework */; };
 		488EF3AE17F966D900E03F0F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 488EF3AC17F966D900E03F0F /* InfoPlist.strings */; };
 		488EF3B017F966D900E03F0F /* ReadingBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EF3AF17F966D900E03F0F /* ReadingBookTests.m */; };
-		488EF40517F97E0B00E03F0F /* ReadingRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EF40417F97E0B00E03F0F /* ReadingRootViewController.m */; };
+		488EF40517F97E0B00E03F0F /* JKReaderRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EF40417F97E0B00E03F0F /* JKReaderRootViewController.m */; };
 		48954CCD18084E0F000036B3 /* SettingProperty.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48954CCC18084E0F000036B3 /* SettingProperty.plist */; };
 		48954CD018084E24000036B3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48954CCF18084E24000036B3 /* SettingViewController.m */; };
-		4898E32017FE5F370071FC16 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4898E31F17FE5F370071FC16 /* PageViewController.m */; };
+		4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4898E31F17FE5F370071FC16 /* TxtViewController.m */; };
+		48D754EC180FBDAA004EBB57 /* PageModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D754EB180FBDAA004EBB57 /* PageModelViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,13 +82,15 @@
 		488EF3AB17F966D900E03F0F /* ReadingBookTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReadingBookTests-Info.plist"; sourceTree = "<group>"; };
 		488EF3AD17F966D900E03F0F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		488EF3AF17F966D900E03F0F /* ReadingBookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadingBookTests.m; sourceTree = "<group>"; };
-		488EF40317F97E0B00E03F0F /* ReadingRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadingRootViewController.h; sourceTree = "<group>"; };
-		488EF40417F97E0B00E03F0F /* ReadingRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadingRootViewController.m; sourceTree = "<group>"; };
+		488EF40317F97E0B00E03F0F /* JKReaderRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKReaderRootViewController.h; sourceTree = "<group>"; };
+		488EF40417F97E0B00E03F0F /* JKReaderRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKReaderRootViewController.m; sourceTree = "<group>"; };
 		48954CCC18084E0F000036B3 /* SettingProperty.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingProperty.plist; sourceTree = "<group>"; };
 		48954CCE18084E24000036B3 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		48954CCF18084E24000036B3 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		4898E31E17FE5F370071FC16 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
-		4898E31F17FE5F370071FC16 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		4898E31E17FE5F370071FC16 /* TxtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TxtViewController.h; sourceTree = "<group>"; };
+		4898E31F17FE5F370071FC16 /* TxtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TxtViewController.m; sourceTree = "<group>"; };
+		48D754EA180FBDAA004EBB57 /* PageModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageModelViewController.h; sourceTree = "<group>"; };
+		48D754EB180FBDAA004EBB57 /* PageModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageModelViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,19 +168,21 @@
 				488EF39A17F966D900E03F0F /* AppDelegate.m */,
 				488EF39C17F966D900E03F0F /* Images.xcassets */,
 				488EF39117F966D900E03F0F /* Supporting Files */,
-				488EF40317F97E0B00E03F0F /* ReadingRootViewController.h */,
-				488EF40417F97E0B00E03F0F /* ReadingRootViewController.m */,
+				488EF40317F97E0B00E03F0F /* JKReaderRootViewController.h */,
+				488EF40417F97E0B00E03F0F /* JKReaderRootViewController.m */,
 				4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */,
 				4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */,
 				4856D0DE17FBBDE60095DEA8 /* BooksListViewController.h */,
 				4856D0DF17FBBDE60095DEA8 /* BooksListViewController.m */,
-				4898E31E17FE5F370071FC16 /* PageViewController.h */,
-				4898E31F17FE5F370071FC16 /* PageViewController.m */,
+				4898E31E17FE5F370071FC16 /* TxtViewController.h */,
+				4898E31F17FE5F370071FC16 /* TxtViewController.m */,
+				48772CF1180284FB00A59201 /* PDFView.h */,
+				48772CF2180284FB00A59201 /* PDFView.m */,
 				488A13AC180E59580079594E /* PDFViewController.h */,
 				488A13AD180E59580079594E /* PDFViewController.m */,
 				488A13AE180E59580079594E /* PDFViewController.xib */,
-				48772CF1180284FB00A59201 /* PDFView.h */,
-				48772CF2180284FB00A59201 /* PDFView.m */,
+				48D754EA180FBDAA004EBB57 /* PageModelViewController.h */,
+				48D754EB180FBDAA004EBB57 /* PageModelViewController.m */,
 				48954CCC18084E0F000036B3 /* SettingProperty.plist */,
 				48954CCE18084E24000036B3 /* SettingViewController.h */,
 				48954CCF18084E24000036B3 /* SettingViewController.m */,
@@ -327,8 +332,9 @@
 				4856D0E017FBBDE60095DEA8 /* BooksListViewController.m in Sources */,
 				48954CD018084E24000036B3 /* SettingViewController.m in Sources */,
 				488EF39717F966D900E03F0F /* main.m in Sources */,
-				488EF40517F97E0B00E03F0F /* ReadingRootViewController.m in Sources */,
-				4898E32017FE5F370071FC16 /* PageViewController.m in Sources */,
+				488EF40517F97E0B00E03F0F /* JKReaderRootViewController.m in Sources */,
+				48D754EC180FBDAA004EBB57 /* PageModelViewController.m in Sources */,
+				4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
