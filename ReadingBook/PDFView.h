@@ -17,8 +17,9 @@
 
 // 当前视图初始化类，在该方法中会创建CGPDFDocumentRef对象，传递PDF文件的名字和所需页面的大小
 - (id)initWithFrame:(CGRect)frame filePath:(NSString *)fPath;
+
 // 创建一个PDF对象，此方法在初始化类中被调用
-- (CGPDFDocumentRef)createPDFWithFilePath:(NSString *)aFilePath;
+- (CGPDFDocumentRef)getPDFRefWithFilePath:(NSString *)aFilePath;
 
 - (void)reloadView;
 

@@ -40,19 +40,19 @@
 //@property (nonatomic, strong) UILabel * speedLabel;
 //@property (nonatomic, strong) UISlider * speedSlider;
 
-- (void) prevPage;
-- (void) nextPage;
 
 @end
 
 @implementation TxtViewController
 
-- (id) initWithBookName:(NSString *)bookName :(NSString *)bookPath
+- (id) initWithBookPath:(NSString *)bookPath
 {
     self = [super initWithNibName:Nil bundle:Nil];
     if (self) {
-        self.bookName = bookName;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
         self.bookPath = bookPath;
+        self.bookName = [fileManager displayNameAtPath:self.bookPath];
+        
         self.fontSize = 14.0f;
         self.autoPage = NO;
         //self.popupVisible = NO;
@@ -61,13 +61,11 @@
         if ([self.userDefault objectForKey:kFontSizeId]) {
             self.fontSize = [[self.userDefault objectForKey:kFontSizeId] floatValue];
         }
-        
         if ([self.userDefault objectForKey:kAutoSpeedId]) {
             self.autoSpeed = [[self.userDefault objectForKey:kAutoSpeedId] floatValue];
         } else {
             self.autoSpeed = 1.0f;
         }
-        
     }
     return self;
 }
@@ -77,14 +75,12 @@
     [super loadView];
     
     // Get Txt Book's Content
-    NSString *bookPath = [NSString stringWithFormat:@"%@/%@",self.bookPath,self.bookName];
-    NSLog(@"%@",bookPath);
-    self.bookContent = [[NSString alloc]initWithContentsOfFile:bookPath encoding:NSUTF8StringEncoding error:NULL];
+    self.bookContent = [[NSString alloc]initWithContentsOfFile:self.bookPath encoding:NSUTF8StringEncoding error:NULL];
     if (!self.bookContent) {
-        self.bookContent = [NSString stringWithContentsOfFile:bookPath encoding:NSASCIIStringEncoding error:NULL];
+        self.bookContent = [NSString stringWithContentsOfFile:self.bookPath encoding:NSASCIIStringEncoding error:NULL];
     }
     if (!self.bookContent) {
-        self.bookContent = [NSString stringWithContentsOfFile:bookPath encoding:NSUTF16StringEncoding error:NULL];
+        self.bookContent = [NSString stringWithContentsOfFile:self.bookPath encoding:NSUTF16StringEncoding error:NULL];
     }
     if (!(self.bookContent.length > 0)) {
         NSLog(@"Empy Book");

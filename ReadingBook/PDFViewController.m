@@ -26,7 +26,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"file Path %@, %d",self.filePath, self.currentPage);
-    self.pdfView.pdf = [self.pdfView createPDFWithFilePath:self.filePath];
+    self.pdfView.pdf = [self.pdfView getPDFRefWithFilePath:self.filePath];
     self.pdfView.currentPage = self.currentPage;
     [super viewWillAppear:animated];
 }

@@ -11,6 +11,10 @@
 
 @interface TxtViewController : UIViewController
 
-- (id) initWithBookName:(NSString *)bookName :(NSString*)bookPath;
+- (id) initWithBookPath:(NSString*)bookPath;
+
+
+- (void) prevPage;
+- (void) nextPage;
 
 @end
