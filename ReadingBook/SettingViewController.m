@@ -61,7 +61,7 @@
         [self.settingConfig addObject:nsmuary];
     }
     
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(clickRightBarButton:)];
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(rightBarButtonAction:)];
     self.navigationItem.rightBarButtonItem = rightBarButton;
     NSLog(@"View Did Load");
 
@@ -126,7 +126,7 @@
     ////    [self.navigationController pushViewController:self.bookReadController animated:YES];
 }
 
-- (void)clickRightBarButton:(id)sender
+- (void)rightBarButtonAction:(id)sender
 {
     NSLog(@"Click Right Bar Button");
 }

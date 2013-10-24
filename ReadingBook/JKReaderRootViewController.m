@@ -8,9 +8,7 @@
 
 #import "JKReaderRootViewController.h"
 #import "SecondLevelViewController.h"
-#import "BooksListViewController.h"
 #import "SettingViewController.h"
-#import "RecentReadListViewController.h"
 
 #import "TxtViewController.h"
 #import "PageModelViewController.h"
@@ -37,11 +35,7 @@ static NSString *RootLevelCell = @"RootLevelCell";
         NSString *path = [documentDir stringByAppendingPathComponent:file];
         [fileManager fileExistsAtPath:path isDirectory:(&isDir)];
         //if (!isDir) {
-        if ([[file pathExtension]  isEqualToString: @"txt"]) {
-            [books addObject:path];
-        }
-        
-        if ([[file pathExtension] isEqualToString:@"pdf"]) {
+        if ([[file pathExtension]  isEqualToString: @"txt"] || [[file pathExtension] isEqualToString:@"pdf"]) {
             [books addObject:path];
         }
         // }
@@ -63,14 +57,18 @@ static NSString *RootLevelCell = @"RootLevelCell";
         }
     }
     [self.recentReadBookInfo addObject:bookPath];
+    [self.tableView reloadData];
 }
 
 - (void) checkRecentBookIsExist
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    for (NSString *i in self.recentReadBookInfo) {
-        if (![fileManager fileExistsAtPath:i])
-            [self.recentReadBookInfo removeObject:i];
+    for (int i=0; i<[self.recentReadBookInfo count]; i++) {
+        NSString *filePath = [self.recentReadBookInfo objectAtIndex:i];
+        if (![fileManager fileExistsAtPath:filePath]){
+            NSLog(@"%@",filePath);
+            [self.recentReadBookInfo removeObjectAtIndex:i];
+        }
     }
     [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
 }
@@ -79,14 +77,13 @@ static NSString *RootLevelCell = @"RootLevelCell";
     NSLog(@"Root init");
     self = [super initWithNibName:Nil bundle:Nil];
     self.navigationController.navigationBar.translucent = NO;
-    UIBarButtonItem *leftBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(leftBarButtonAction:)];
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(rightBarButtonAction:)];
-    self.navigationItem.leftBarButtonItem = leftBarButton;
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(rightBarButtonAction:)];
     self.navigationItem.rightBarButtonItem = rightBarButton;
     self.title = @"Root Level";
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     self.plistPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"RecentReadBookInfo.plist"];
+    NSLog(@"%@",self.plistPath);
     
     self.recentReadBookInfo = [[NSMutableArray alloc]init];
     
@@ -198,19 +195,32 @@ static NSString *RootLevelCell = @"RootLevelCell";
         PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePath:filePath];
         [self.navigationController pushViewController:pageModelViewController animated:YES];
     }
-    [self.recentReadBookInfo addObject:filePath];
+    [self addBookInfoToArray:filePath];
+    [self.tableView reloadData];
 }
 
-- (void)leftBarButtonAction:(id)sender
+- (void)rightBarButtonAction:(id)sender
 {
     SettingViewController *settingViewController = [[SettingViewController alloc] init];
     settingViewController.title = @"Setting";
     [self.navigationController pushViewController:settingViewController animated:YES];
 }
 
-- (void)rightBarButtonAction:(id)sender
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 0) {
+        [self.recentReadBookInfo removeObjectAtIndex:indexPath.row];
+        [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
+    }
+    if (indexPath.section == 1) {
+        NSFileManager *fileManger = [NSFileManager defaultManager];
+        NSLog(@"Remove Book Path is->%@",[self.allBooks objectAtIndex:indexPath.row]);
+        [fileManger removeItemAtPath:[self.allBooks objectAtIndex:indexPath.row] error:Nil];
+        [self.allBooks removeObjectAtIndex:indexPath.row];
+    }
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self checkRecentBookIsExist];
+    [self.tableView reloadData];
 }
 
 
