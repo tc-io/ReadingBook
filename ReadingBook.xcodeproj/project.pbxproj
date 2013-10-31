@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F19D8D7182228A5009C67A9 /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F19D8D6182228A5009C67A9 /* DDMenuController.m */; };
+		1F19D8D918222B64009C67A9 /* nav_menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */; };
 		4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */; };
 		4856D0DD17FBB9B10095DEA8 /* SecondLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */; };
 		4856D0E017FBBDE60095DEA8 /* BooksListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4856D0DF17FBBDE60095DEA8 /* BooksListViewController.m */; };
@@ -17,10 +19,6 @@
 		4856D0EC17FC2D6F0095DEA8 /* moveMeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E617FC2D6F0095DEA8 /* moveMeIcon.png */; };
 		4856D0ED17FC2D6F0095DEA8 /* rowControlsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E717FC2D6F0095DEA8 /* rowControlsIcon.png */; };
 		48772CF3180284FB00A59201 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48772CF2180284FB00A59201 /* PDFView.m */; };
-		488558591817676F00143FCF /* CellLevel1.m in Sources */ = {isa = PBXBuildFile; fileRef = 488558581817676F00143FCF /* CellLevel1.m */; };
-		4885585C1817678800143FCF /* CellLevel2.m in Sources */ = {isa = PBXBuildFile; fileRef = 4885585B1817678800143FCF /* CellLevel2.m */; };
-		48855862181767E100143FCF /* CellLevel1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48855861181767E100143FCF /* CellLevel1.xib */; };
-		48855864181767E900143FCF /* CellLevel2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48855863181767E900143FCF /* CellLevel2.xib */; };
 		48855869181768C800143FCF /* DownAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 48855865181768C800143FCF /* DownAccessory.png */; };
 		4885586A181768C800143FCF /* DownAccessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48855866181768C800143FCF /* DownAccessory@2x.png */; };
 		4885586B181768C800143FCF /* UpAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 48855867181768C800143FCF /* UpAccessory.png */; };
@@ -60,6 +58,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F19D8D5182228A5009C67A9 /* DDMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMenuController.h; sourceTree = "<group>"; };
+		1F19D8D6182228A5009C67A9 /* DDMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMenuController.m; sourceTree = "<group>"; };
+		1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_menu_icon@2x.png"; sourceTree = "<group>"; };
 		4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontColorSecectActionSheet.h; sourceTree = "<group>"; };
 		4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontColorSecectActionSheet.m; sourceTree = "<group>"; };
 		4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondLevelViewController.h; sourceTree = "<group>"; };
@@ -74,12 +75,6 @@
 		4856D0E717FC2D6F0095DEA8 /* rowControlsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rowControlsIcon.png; sourceTree = "<group>"; };
 		48772CF1180284FB00A59201 /* PDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFView.h; sourceTree = "<group>"; };
 		48772CF2180284FB00A59201 /* PDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFView.m; sourceTree = "<group>"; };
-		488558571817676F00143FCF /* CellLevel1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellLevel1.h; sourceTree = "<group>"; };
-		488558581817676F00143FCF /* CellLevel1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellLevel1.m; sourceTree = "<group>"; };
-		4885585A1817678800143FCF /* CellLevel2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellLevel2.h; sourceTree = "<group>"; };
-		4885585B1817678800143FCF /* CellLevel2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellLevel2.m; sourceTree = "<group>"; };
-		48855861181767E100143FCF /* CellLevel1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellLevel1.xib; sourceTree = "<group>"; };
-		48855863181767E900143FCF /* CellLevel2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellLevel2.xib; sourceTree = "<group>"; };
 		48855865181768C800143FCF /* DownAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownAccessory.png; sourceTree = "<group>"; };
 		48855866181768C800143FCF /* DownAccessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownAccessory@2x.png"; sourceTree = "<group>"; };
 		48855867181768C800143FCF /* UpAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UpAccessory.png; sourceTree = "<group>"; };
@@ -146,6 +141,7 @@
 		4856D0E117FC2D5F0095DEA8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */,
 				48855865181768C800143FCF /* DownAccessory.png */,
 				48855866181768C800143FCF /* DownAccessory@2x.png */,
 				48855867181768C800143FCF /* UpAccessory.png */,
@@ -199,6 +195,8 @@
 				488EF39A17F966D900E03F0F /* AppDelegate.m */,
 				488EF39C17F966D900E03F0F /* Images.xcassets */,
 				488EF39117F966D900E03F0F /* Supporting Files */,
+				1F19D8D5182228A5009C67A9 /* DDMenuController.h */,
+				1F19D8D6182228A5009C67A9 /* DDMenuController.m */,
 				488EF40317F97E0B00E03F0F /* JKReaderRootViewController.h */,
 				488EF40417F97E0B00E03F0F /* JKReaderRootViewController.m */,
 				4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */,
@@ -223,12 +221,6 @@
 				48954CCF18084E24000036B3 /* SettingViewController.m */,
 				4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */,
 				4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */,
-				488558571817676F00143FCF /* CellLevel1.h */,
-				488558581817676F00143FCF /* CellLevel1.m */,
-				48855861181767E100143FCF /* CellLevel1.xib */,
-				4885585A1817678800143FCF /* CellLevel2.h */,
-				4885585B1817678800143FCF /* CellLevel2.m */,
-				48855863181767E900143FCF /* CellLevel2.xib */,
 			);
 			path = ReadingBook;
 			sourceTree = "<group>";
@@ -337,9 +329,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48855862181767E100143FCF /* CellLevel1.xib in Resources */,
 				488EF39517F966D900E03F0F /* InfoPlist.strings in Resources */,
 				4856D0E917FC2D6F0095DEA8 /* deleteMeIcon.png in Resources */,
+				1F19D8D918222B64009C67A9 /* nav_menu_icon@2x.png in Resources */,
 				4885586B181768C800143FCF /* UpAccessory.png in Resources */,
 				48C0324E1816429C00BB864F /* arrow.png in Resources */,
 				48855869181768C800143FCF /* DownAccessory.png in Resources */,
@@ -350,7 +342,6 @@
 				488EF39D17F966D900E03F0F /* Images.xcassets in Resources */,
 				4856D0EA17FC2D6F0095DEA8 /* detailEditIcon.png in Resources */,
 				4856D0EB17FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png in Resources */,
-				48855864181767E900143FCF /* CellLevel2.xib in Resources */,
 				4856D0EC17FC2D6F0095DEA8 /* moveMeIcon.png in Resources */,
 				4885586A181768C800143FCF /* DownAccessory@2x.png in Resources */,
 				488A13B0180E59580079594E /* PDFViewController.xib in Resources */,
@@ -378,14 +369,13 @@
 				4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */,
 				4856D0DD17FBB9B10095DEA8 /* SecondLevelViewController.m in Sources */,
 				48772CF3180284FB00A59201 /* PDFView.m in Sources */,
-				4885585C1817678800143FCF /* CellLevel2.m in Sources */,
 				488A13AF180E59580079594E /* PDFViewController.m in Sources */,
 				4856D0E017FBBDE60095DEA8 /* BooksListViewController.m in Sources */,
 				48954CD018084E24000036B3 /* SettingViewController.m in Sources */,
 				488EF39717F966D900E03F0F /* main.m in Sources */,
-				488558591817676F00143FCF /* CellLevel1.m in Sources */,
 				488EF40517F97E0B00E03F0F /* JKReaderRootViewController.m in Sources */,
 				48D754EC180FBDAA004EBB57 /* PageModelViewController.m in Sources */,
+				1F19D8D7182228A5009C67A9 /* DDMenuController.m in Sources */,
 				4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

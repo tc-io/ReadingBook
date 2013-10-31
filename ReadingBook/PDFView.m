@@ -19,38 +19,11 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor blueColor];
+        
     }
     return self;
 }
 
-- (void) createPDFFilewithFilePaht:(CGRect) pageRect :(const char *)filePath
-{
-    CGContextRef pdfContext;
-    CFStringRef path;
-    CFURLRef url;
-    CFDataRef boxData = NULL;
-    CFMutableDictionaryRef myDictionary = NULL;
-    CFMutableDictionaryRef pageDictionary = NULL;
-    
-    path = CFStringCreateWithCString(NULL, filePath, kCFStringEncodingUTF8);
-    url =CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, 0);
-    CFRelease(path);
-    myDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    CFDictionarySetValue(myDictionary, kCGPDFContextTitle, CFSTR("CreatedPDF"));
-    CFDictionarySetValue(myDictionary, kCGPDFContextCreator, CFSTR("JK_Reader"));
-    pdfContext = CGPDFContextCreateWithURL(url, &pageRect, myDictionary);
-    CFRelease(myDictionary);
-    CFRelease(url);
-    pageDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    boxData = CFDataCreate(NULL, (const UInt8 *)&pageRect, sizeof(CGRect));
-    CFDictionarySetValue(pageDictionary, kCGPDFContextMediaBox, boxData);
-    CGPDFContextBeginPage(pdfContext, pageDictionary);
-    //myDrawContent(pdfContext)
-    CGPDFContextEndPage(pdfContext);
-    CGContextRelease(pdfContext);
-    CFRelease(pageDictionary);
-    CFRelease(boxData);
-}
 
 - (CGPDFDocumentRef)getPDFRefWithFilePath:(NSString *)aFilePath
 {

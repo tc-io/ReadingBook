@@ -8,17 +8,27 @@
 
 #import "AppDelegate.h"
 #import "JKReaderRootViewController.h"
+#import "DDMenuController.h"
+#import "SettingViewController.h"
+
 
 @implementation AppDelegate
+@synthesize window = _window;
+@synthesize menuController = _menuController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    JKReaderRootViewController *rootController = [[JKReaderRootViewController alloc] init];
-    UINavigationController *navigation = [[UINavigationController alloc]initWithRootViewController:rootController];
-    self.window.rootViewController = navigation;
+    JKReaderRootViewController *mainController = [[JKReaderRootViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainController];
     
+    DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
+    _menuController = rootController;
+    SettingViewController *settingController = [[SettingViewController alloc] init];
+    rootController.rightViewController = settingController;
+    
+    self.window.rootViewController = rootController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

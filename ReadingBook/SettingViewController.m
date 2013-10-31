@@ -32,8 +32,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    self.settingTableView = [[UITableView alloc]initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+
+    CGRect frame = self.view.bounds;
+    frame.origin.x = 40.0f;
+    frame.size.width -= 40.0f;
+    
+    self.settingTableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStyleGrouped];
     self.settingTableView.delegate = self;
     self.settingTableView.dataSource = self;
     [self.view addSubview:self.settingTableView];
