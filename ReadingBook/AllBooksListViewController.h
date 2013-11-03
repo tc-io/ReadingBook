@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PullRefreshTableViewController.h"
 
-@interface BooksListViewController : PullRefreshTableViewController
+@interface AllBooksListViewController : PullRefreshTableViewController
 
 @property (strong, nonatomic) NSMutableDictionary *allBooks;
 @property (strong, nonatomic)UIImage *bookDisplayImage; // the book display image

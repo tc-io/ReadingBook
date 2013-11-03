@@ -6,49 +6,48 @@
 //  Copyright (c) 2013年 Jeff.King. All rights reserved.
 //
 
-#import "JKReaderRootViewController.h"
-#import "SecondLevelViewController.h"
-#import "SettingViewController.h"
+#import "ReaderMainViewController.h"
+#import "ReaderSettingViewController.h"
 
+#import "SecondLevelViewController.h"
 #import "TxtViewController.h"
 #import "PageModelViewController.h"
 
-@implementation JKReaderRootViewController
+@implementation ReaderMainViewController
 
-static NSString *RootLevelCell = @"RootLevelCell";
+static NSString *RootLevelCell = @"MainViewCell";
 @synthesize controllers;
 @synthesize allBooks;
 @synthesize recentReadBookInfo;
 @synthesize plistPath;
 
--(NSMutableArray *)getAllBooksList
+- (void) getBooksListFromPath:(NSString *)searchPath
 {
-    NSArray *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentDir = [documentPath objectAtIndex:0];
+    NSLog(@"[ReaderMainViewController.getBooksListFromPath] Start");
     NSFileManager *fileManager = [NSFileManager defaultManager];
+    
     NSArray *fileList = [[NSArray alloc] init];
-    fileList = [fileManager contentsOfDirectoryAtPath:documentDir error:nil];
-    NSMutableArray *books = [[NSMutableArray alloc]init];
+    fileList = [fileManager contentsOfDirectoryAtPath:searchPath error:nil];
     
     BOOL isDir = NO;
     for (NSString *file in fileList) {
-        NSString *path = [documentDir stringByAppendingPathComponent:file];
+        NSString *path = [searchPath stringByAppendingPathComponent:file];
         [fileManager fileExistsAtPath:path isDirectory:(&isDir)];
-        //if (!isDir) {
-        if ([[file pathExtension]  isEqualToString: @"txt"] || [[file pathExtension] isEqualToString:@"pdf"]) {
-            [books addObject:path];
+        if (!isDir) {
+        if ([[file pathExtension]  isEqualToString: @"txt"] || [[file pathExtension] isEqualToString:@"pdf"])
+            [self.allBooks addObject:path];
         }
-        // }
-        //else{
-        //   [allBooks addObjectsFromArray:[self getBooksList:path]];
-        //}
-        //isDir = NO;
+        else{
+           [self getBooksListFromPath:path];
+        }
+        isDir = NO;
     }
-    return books;
+    NSLog(@"[ReaderMainViewController.getBooksListFromPath] End");
 }
 
-- (void) addBookInfoToArray:(NSString*)bookPath
+- (void) addBookInforToArray:(NSString*)bookPath
 {
+    NSLog(@"[ReaderMainViewController.addBookInforToArray] Start");
     if ([self.recentReadBookInfo count] > 0) {
         for (int i=0; i<[self.recentReadBookInfo count]; i++) {
             if ([[self.recentReadBookInfo objectAtIndex:i] isEqualToString:bookPath]) {
@@ -58,40 +57,39 @@ static NSString *RootLevelCell = @"RootLevelCell";
     }
     [self.recentReadBookInfo addObject:bookPath];
     [self.tableView reloadData];
+    NSLog(@"[ReaderMainViewController.addBookInforToArray] End");
 }
 
 - (void) checkRecentBookIsExist
 {
+    NSLog(@"[ReaderMainViewController.checkRecentBookIsExist] Start");
     NSFileManager *fileManager = [NSFileManager defaultManager];
     for (int i=0; i<[self.recentReadBookInfo count]; i++) {
         NSString *filePath = [self.recentReadBookInfo objectAtIndex:i];
         if (![fileManager fileExistsAtPath:filePath]){
-            NSLog(@"%@",filePath);
+            NSLog(@"<%@> is not Exist",filePath);
             [self.recentReadBookInfo removeObjectAtIndex:i];
         }
     }
     [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
+    NSLog(@"[ReaderMainViewController.checkRecentBookIsExist] End");
 }
 
 - (id)init{
-    NSLog(@"Root init");
+    NSLog(@"[ReaderMainViewController.init] Start");
     self = [super initWithNibName:Nil bundle:Nil];
     self.navigationController.navigationBar.translucent = NO;
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(rightBarButtonAction:)];
     self.navigationItem.rightBarButtonItem = rightBarButton;
-    self.title = @"Root Level";
-    
+    self.title = @"主菜单";
+    self.recentReadBookInfo = [[NSMutableArray alloc]init];
+    self.allBooks = [[NSMutableArray alloc]init];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     self.plistPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"RecentReadBookInfo.plist"];
-    NSLog(@"%@",self.plistPath);
-    
-    self.recentReadBookInfo = [[NSMutableArray alloc]init];
-    
-    allBooks = [[NSMutableArray alloc]initWithArray:[self getAllBooksList]];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:self.plistPath]) {
         self.recentReadBookInfo = [[NSMutableArray alloc] initWithContentsOfFile:self.plistPath];
-        if ([self.recentReadBookInfo count] >0){
+        if ([self.recentReadBookInfo count] > 0){
             [self checkRecentBookIsExist];
         }
     }
@@ -99,18 +97,27 @@ static NSString *RootLevelCell = @"RootLevelCell";
         self.recentReadBookInfo = [[NSMutableArray alloc] init];
         [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
     }
-    
+    NSLog(@"[ReaderMainViewController.init] End");
     return self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
+    NSLog(@"[ReaderMainViewController.viewWillDisappear] Start");
     [super viewWillDisappear:animated];
     [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
+    NSLog(@"[ReaderMainViewController.viewWillDisappear] Write Book information into plist");
+    NSLog(@"[ReaderMainViewController.viewWillDisappear] End");
 }
 
 - (void)viewDidLoad
 {
+    NSLog(@"[ReaderMainViewController.viewDidLoad] Start");
     [super viewDidLoad];
+    
+    NSArray *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentDir = [documentPath objectAtIndex:0];
+    [self getBooksListFromPath:documentDir];
+    
 //    NSMutableArray *array = [[NSMutableArray alloc]init];
 //    //Book List View
 //    BooksListViewController *booksListViewController = [[BooksListViewController alloc]initWithStyle:UITableViewStylePlain];
@@ -130,6 +137,7 @@ static NSString *RootLevelCell = @"RootLevelCell";
 //    
 //    self.controllers = array;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:RootLevelCell];
+    NSLog(@"[ReaderMainViewController.viewDidLoad] End");
 }
 
 #pragma mark - Table view data source
@@ -170,23 +178,20 @@ static NSString *RootLevelCell = @"RootLevelCell";
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section == 0)
-        return @"Recent Read";
+        return @"最近阅读";
     else
-        return @"Books list";
+        return @"本地图书列表";
 }
 
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"section ->%d, row ->%d",indexPath.section,indexPath.row);
-
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *filePath = [[NSString alloc] init];
     if (indexPath.section == 0)
         filePath = [self.recentReadBookInfo objectAtIndex:indexPath.row];
     else if (indexPath.section == 1)
         filePath = [self.allBooks objectAtIndex:indexPath.row];
-    NSLog(@"%@",filePath);
     if ([[fileManager displayNameAtPath:filePath]hasSuffix:@"txt"]) {
         TxtViewController *readController = [[TxtViewController alloc] initWithBookPath:filePath];
         [self.navigationController pushViewController:readController animated:YES];
@@ -195,14 +200,14 @@ static NSString *RootLevelCell = @"RootLevelCell";
         PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePath:filePath];
         [self.navigationController pushViewController:pageModelViewController animated:YES];
     }
-    [self addBookInfoToArray:filePath];
+    [self addBookInforToArray:filePath];
     [self.tableView reloadData];
 }
 
 - (void)rightBarButtonAction:(id)sender
 {
-    SettingViewController *settingViewController = [[SettingViewController alloc] init];
-    settingViewController.title = @"Setting";
+    ReaderSettingViewController *settingViewController = [[ReaderSettingViewController alloc] init];
+    settingViewController.title = @"阅读设置";
     [self.navigationController pushViewController:settingViewController animated:YES];
 }
 

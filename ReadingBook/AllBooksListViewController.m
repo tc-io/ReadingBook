@@ -6,13 +6,14 @@
 //  Copyright (c) 2013年 Jeff.King. All rights reserved.
 //
 
-#import "BooksListViewController.h"
+#import "AllBooksListViewController.h"
+
 #import "TxtViewController.h"
 #import "PageModelViewController.h"
 
-static NSString *CellIdentifier = @"BooksListCell";
+static NSString *CellIdentifier = @"ALLBooksListCell";
 
-@implementation BooksListViewController
+@implementation AllBooksListViewController
 
 @synthesize allBooks;
 @synthesize bookDisplayImage;

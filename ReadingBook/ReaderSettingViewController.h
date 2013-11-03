@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface ReaderSettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property (strong, nonatomic) NSDictionary *settingListData;
 @property (strong, nonatomic) UITableView *settingTableView;
 @property (strong, nonatomic) UITableViewCell *settingViewCell;
 @property (strong, nonatomic) NSMutableArray *settingConfig;
+
+- (id) init;
 
 @end

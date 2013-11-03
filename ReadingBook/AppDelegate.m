@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "JKReaderRootViewController.h"
+#import "ReaderMainViewController.h"
 #import "DDMenuController.h"
-#import "SettingViewController.h"
 
+#import "ReaderSettingViewController.h"
 
 @implementation AppDelegate
 @synthesize window = _window;
@@ -20,12 +20,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    JKReaderRootViewController *mainController = [[JKReaderRootViewController alloc] init];
+    ReaderMainViewController *mainController = [[ReaderMainViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainController];
     
     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
     _menuController = rootController;
-    SettingViewController *settingController = [[SettingViewController alloc] init];
+    ReaderSettingViewController *settingController = [[ReaderSettingViewController alloc] init];
     rootController.rightViewController = settingController;
     
     self.window.rootViewController = rootController;

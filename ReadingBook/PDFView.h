@@ -24,9 +24,9 @@
 - (void)reloadView;
 
 // 页面之间跳转
-- (void)goUpPage;
-- (void)goDownPage;
-- (void)jumpToPageByNumber:(int)gotoNumber;
+//- (void)goUpPage;
+//- (void)goDownPage;
+//- (void)jumpToPageByNumber:(int)gotoNumber;
 
 
 @end

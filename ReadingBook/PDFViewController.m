@@ -13,11 +13,9 @@
 @synthesize dataObject;
 @synthesize currentPage;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filePath:(NSString*)fPath pageNumber:(int)curPageNum
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.filePath = fPath;
+- (id)initWithPdfPathAndPageNumber:(NSString *)filePath pageNumber:(int)curPageNum{
+    if (self = [super init]) {
+        self.filePath = filePath;
         self.currentPage = curPageNum;
     }
     return self;

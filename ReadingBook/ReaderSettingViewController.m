@@ -6,48 +6,33 @@
 //  Copyright (c) 2013年 Jeff.King. All rights reserved.
 //
 
-#import "SettingViewController.h"
+#import "ReaderSettingViewController.h"
+
 #import "FontColorSecectActionSheet.h"
 
-@interface SettingViewController ()
-
-@end
-
-@implementation SettingViewController
+@implementation ReaderSettingViewController
 
 @synthesize settingListData;
 @synthesize settingTableView;
 @synthesize settingViewCell;
 @synthesize settingConfig;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (id)init{
+    NSLog(@"[ReaderSettingViewController.init] Start");
+    self = [super init];
 
     CGRect frame = self.view.bounds;
     frame.origin.x = 40.0f;
     frame.size.width -= 40.0f;
-    
     self.settingTableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStyleGrouped];
     self.settingTableView.delegate = self;
     self.settingTableView.dataSource = self;
     [self.view addSubview:self.settingTableView];
     
     self.settingConfig = [[NSMutableArray alloc] init];
-    
     // Read Setting plist file and get view config
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *plistPath = [bundle pathForResource:@"SettingProperty" ofType:@"plist"];
-    
     //    NSMutableArray *accessSettingAry = [[NSMutableArray alloc] initWithObjects:@"iCould账号",@"本地口令", nil];
     //    NSMutableArray *readSettingAry = [[NSMutableArray alloc] initWithObjects:@"字体颜色",@"阅读背景颜色",@"阅读背景",@"无操作退出",@"屏幕长背光",@"自动打开上次阅读",@"阅读进度条",@"压缩空行",@"字体带下划线",@"字体平滑",@"翻页保留最后一行",@"夜间模式",@"自动全屏", nil];
     //    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:accessSettingAry,@"Access Setting",readSettingAry,@"Reading Setting", nil];
@@ -56,19 +41,21 @@
     NSDictionary *settingPropertyDir = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     self.settingListData = settingPropertyDir;
     
-    for (int i = 0; i<[[self.settingListData allKeys] count]; i++) {
+    for (int i=0; i<[[self.settingListData allKeys] count]; i++) {
         NSDictionary *nsd =[self.settingListData objectForKey:[[self.settingListData allKeys]objectAtIndex:i]];
         NSMutableArray *nsmuary = [[NSMutableArray alloc]init];
-        for (int j = 0; j<[[nsd allKeys]count]; j++) {
+        for (int j=0; j<[[nsd allKeys]count]; j++) {
             [nsmuary addObject:[[nsd allValues] objectAtIndex:j]];
         }
         [self.settingConfig addObject:nsmuary];
     }
-    
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(rightBarButtonAction:)];
-    self.navigationItem.rightBarButtonItem = rightBarButton;
-    NSLog(@"View Did Load");
+    NSLog(@"[ReaderSettingViewController.init] End");
+    return  self;
+}
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
 }
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -133,22 +120,6 @@
 - (void)rightBarButtonAction:(id)sender
 {
     NSLog(@"Click Right Bar Button");
-}
-
-- (IBAction)updateSwitchAtIndexPath:(id)sender
-{
-    NSInteger section = [self.settingTableView indexPathForCell:((UITableViewCell*)[[sender superview]superview])].section;
-    NSInteger row = [self.settingTableView indexPathForCell:((UITableViewCell*)[[sender superview]superview])].row;
-    NSLog(@"section ->%d, row -> %d",section,row);
-    UISwitch *switchView = (UISwitch *)sender;
-        if ([switchView isOn]) {
-        NSLog(@"ON");
-    }
-    else{
-        NSLog(@"OFF");
-    }
-    NSNumber *switchStatue =[[NSNumber alloc]initWithBool:[switchView isOn]];
-    [[self.settingConfig objectAtIndex:section] setObject:switchStatue atIndex:row];
 }
 
 @end

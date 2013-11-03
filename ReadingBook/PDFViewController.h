@@ -11,11 +11,11 @@
 
 @interface PDFViewController : UIViewController
 
-@property (strong, nonatomic) IBOutlet PDFView *pdfView;
+@property (strong, nonatomic) PDFView *pdfView;
 @property (strong, nonatomic) id dataObject;
 @property (strong, nonatomic) NSString *filePath;
 @property int currentPage;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil filePath:(NSString*)fPath pageNumber:(int)curPageNum;
+- (id)initWithPdfPathAndPageNumber:(NSString *)filePath pageNumber:(int)curPageNum;
 
 @end

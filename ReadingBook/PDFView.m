@@ -71,28 +71,28 @@
     [super setNeedsDisplay];
 }
 
-- (void)goUpPage
-{
-    if (currentPage<2)
-        return;
-    --currentPage;
-    [self reloadView];
-}
-
-- (void)goDownPage
-{
-    if (currentPage >= totalPages)
-        return;
-    ++currentPage;
-    [self reloadView];
-}
-
-- (void) jumpToPageByNumber:(int)gotoNumber
-{
-    if (gotoNumber<1 || gotoNumber>totalPages)
-        return;
-    currentPage = gotoNumber;
-    [self reloadView];
-}
+//- (void)goUpPage
+//{
+//    if (currentPage<2)
+//        return;
+//    --currentPage;
+//    [self reloadView];
+//}
+//
+//- (void)goDownPage
+//{
+//    if (currentPage >= totalPages)
+//        return;
+//    ++currentPage;
+//    [self reloadView];
+//}
+//
+//- (void) jumpToPageByNumber:(int)gotoNumber
+//{
+//    if (gotoNumber<1 || gotoNumber>totalPages)
+//        return;
+//    currentPage = gotoNumber;
+//    [self reloadView];
+//}
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JKReaderRootViewController : UITableViewController
+@interface ReaderMainViewController : UITableViewController
 
 @property (copy, nonatomic) NSArray *controllers;
 @property (strong, nonatomic) NSMutableArray *allBooks;    // [key:file type, value: an array which contaion book path]
@@ -17,15 +17,15 @@
 
 - (id) init;
 
-// Function: get all books type and book path, defalt search path is NSDocumentDirectory
-// Input: nil
-// Return:a dictionary which contain book's path and order by file type
-- (NSMutableArray *) getAllBooksList;
+// Function: get all books type and book path, push them into a dictionary(allBooks)
+// Input: (NSString *) searchPath
+// Return: (void)
+- (void) getBooksListFromPath:(NSString *)searchPath;
 
 // Function: add book's path into the 'recentReadBookInfo' array
 // Input: book's path
 // Return: void
-- (void) addBookInfoToArray:(NSString*)bookPath;
+- (void) addBookInforToArray:(NSString*)bookPath;
 
 // Function: check all of the book path is exist or not which is in 'recentReadBookInfo' array, if not remove it from 'recentReadBookInfo' array
 // Input: nil
