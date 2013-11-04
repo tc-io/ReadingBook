@@ -12,13 +12,24 @@
 
 @synthesize pageController;
 @synthesize allPageViewController;
-
-@synthesize totalPages;
 @synthesize filePath;
-@synthesize currentReadNumber;
+@synthesize currentPageNumber;
 @synthesize pageTimer;
 
-- (void)createPageViewControllerArray
+- (id) initWithFilePathAndCurPageNumber: (NSString *)fPath :(int)curPageNum
+{
+    self = [super initWithNibName:Nil bundle:Nil];
+    if (self) {
+        self.filePath = [[NSString alloc]initWithString:fPath];
+        self.currentPageNumber = curPageNum;
+        //[self MyCreatePDFFile:self.view.frame :"Users/Jeff/Library/Application Support/iPhone Simulator/7.0.3/Applications/9262BEE0-FF1B-4181-9351-CD0EF00ADB2B/Documents/1.txt"];
+        //[self createPDF];
+    }
+    return self;
+}
+
+
+- (void)getAllPagesViewControllerToArray
 {
     CFStringRef path;
     CFURLRef url;
@@ -30,14 +41,13 @@
     
     document = CGPDFDocumentCreateWithURL(url);
     CFRelease(url);
-    totalPages = CGPDFDocumentGetNumberOfPages(document);
+    int totalPages = CGPDFDocumentGetNumberOfPages(document);
     CFRelease(document);
     
     self.allPageViewController = [[NSMutableArray alloc] init];
     for (int i=0; i<totalPages;i++) {
 //        PDFViewController * dataViewController = [[PDFViewController alloc] initWithNibName:@"PDFViewController" bundle:Nil filePath:self.filePath pageNumber:i+1];
-        PDFViewController * dataViewController = [[PDFViewController alloc] initWithPdfPathAndPageNumber:self.filePath pageNumber:i+1];
-        dataViewController.dataObject = [NSValue value:&i withObjCType:@encode(int)];
+        PDFViewController * dataViewController = [[PDFViewController alloc] initWithFilePathAndCurPageNumber:self.filePath :i+1];
         [self.allPageViewController addObject:dataViewController];
     }
 }
@@ -46,7 +56,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self createPageViewControllerArray];
+    [self getAllPagesViewControllerToArray];
     
     NSDictionary *options = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin] forKey:UIPageViewControllerOptionSpineLocationKey];
     self.pageController = [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
@@ -62,19 +72,6 @@
     self.pageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(nextPage) userInfo:nil repeats:YES];
 }
 
-- (id) initWithFilePath: (NSString *)fPath
-{
-    self = [super initWithNibName:Nil bundle:Nil];
-    if (self) {
-        self.filePath = [[NSString alloc]initWithString:fPath];
-        self.currentReadNumber = 1;
-        //[self MyCreatePDFFile:self.view.frame :"Users/Jeff/Library/Application Support/iPhone Simulator/7.0.3/Applications/9262BEE0-FF1B-4181-9351-CD0EF00ADB2B/Documents/1.txt"];
-        //[self createPDF];
-
-    }
-    return self;
-}
-
 - (PDFViewController *) viewControllerAtIndex:(NSInteger)index
 {
     return [self.allPageViewController objectAtIndex:index];
@@ -82,27 +79,27 @@
 
 - (NSUInteger) indexOfViewController:(PDFViewController*)viewController
 {
-    return currentReadNumber;
+    return currentPageNumber;
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    if (self.currentReadNumber <= 1) {
+    if (self.currentPageNumber <= 1) {
         return Nil;
     }
-    self.currentReadNumber--;
-    NSLog(@"[PageModelViewController.viewControllerAfterViewController] current read number is <%d>",self.currentReadNumber);
-    return [self.allPageViewController objectAtIndex:self.currentReadNumber];
+    self.currentPageNumber--;
+    NSLog(@"[PageModelViewController.viewControllerAfterViewController] current read number is <%d>",self.currentPageNumber);
+    return [self.allPageViewController objectAtIndex:self.currentPageNumber];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    self.currentReadNumber++;
-    NSLog(@"[PageModelViewController.viewControllerAfterViewController] current read number is <%d>",self.currentReadNumber);
-    if (self.currentReadNumber >= [self.allPageViewController count]) {
+    self.currentPageNumber++;
+    NSLog(@"[PageModelViewController.viewControllerAfterViewController] current read number is <%d>",self.currentPageNumber);
+    if (self.currentPageNumber >= [self.allPageViewController count]) {
         return Nil;
     }
-    return [self.allPageViewController objectAtIndex:self.currentReadNumber];
+    return [self.allPageViewController objectAtIndex:self.currentPageNumber];
 }
 
 - (void)nextPage

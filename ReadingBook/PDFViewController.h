@@ -12,10 +12,9 @@
 @interface PDFViewController : UIViewController
 
 @property (strong, nonatomic) PDFView *pdfView;
-@property (strong, nonatomic) id dataObject;
 @property (strong, nonatomic) NSString *filePath;
-@property int currentPage;
+@property int currentPageNumber;
 
-- (id)initWithPdfPathAndPageNumber:(NSString *)filePath pageNumber:(int)curPageNum;
+- (id)initWithFilePathAndCurPageNumber:(NSString *)fPath :(int)curPageNum;
 
 @end

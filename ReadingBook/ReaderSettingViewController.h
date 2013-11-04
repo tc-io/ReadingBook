@@ -10,10 +10,13 @@
 
 @interface ReaderSettingViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
-@property (strong, nonatomic) NSDictionary *settingListData;
+
 @property (strong, nonatomic) UITableView *settingTableView;
 @property (strong, nonatomic) UITableViewCell *settingViewCell;
-@property (strong, nonatomic) NSMutableArray *settingConfig;
+
+@property (strong, nonatomic) NSString* settingPlistPath;   //  record the setting plist file path
+@property (strong, nonatomic) NSMutableDictionary *settingPlistData; //  store the setting'Data
+
 
 - (id) init;
 

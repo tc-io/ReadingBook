@@ -12,18 +12,20 @@
 
 @synthesize pdf;
 @synthesize page;
-@synthesize totalPages;
-@synthesize currentPage;
+@synthesize currentPageNumber;
+@synthesize filePath;
 
-- (id)initWithFrame:(CGRect)frame filePath:(NSString *)fPath
+- (id)initWithFrame:(CGRect)frame :(NSString *)fPath :(int)curPageNum
 {
+    NSLog(@"[PDFView.initWithFrame] filePath: %@, currentPageNumber: %d",fPath,curPageNum);
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor blueColor];
-        
+        //self.backgroundColor = [UIColor blueColor];
+        self.filePath = fPath;
+        self.currentPageNumber = curPageNum;
+        self.page = CGPDFDocumentGetPage([self getPDFRefWithFilePath:self.filePath], self.currentPageNumber);
     }
     return self;
 }
-
 
 - (CGPDFDocumentRef)getPDFRefWithFilePath:(NSString *)aFilePath
 {
@@ -38,8 +40,7 @@
     document = CGPDFDocumentCreateWithURL(url);
     CFRelease(url);
     
-    totalPages = CGPDFDocumentGetNumberOfPages(document);
-    currentPage = 1;
+    int totalPages = CGPDFDocumentGetNumberOfPages(document);
     if (totalPages == 0) {
         return NULL;
     }
@@ -48,19 +49,20 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    NSLog(@"PDFView Draw Rect ->%@, CurrentPageNumber -> %d",self.pdf,self.currentPage);
+    NSLog(@"[PDFView.drawRect] filePath: %@, CurrentPageNumber: %d",self.filePath,self.currentPageNumber);
     
     //得到绘图上下文环境
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //得到一个PDF页面
-    page = CGPDFDocumentGetPage(pdf, self.currentPage);
+    //page = CGPDFDocumentGetPage(pdf, self.currentPage);
+    
     //坐标转换，Quartz的坐标系统是以左下角为起始点，但iPhone视图以左上角为起点
     CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
     //坐标系转换
     CGContextScaleCTM(context, 1.0, -1);
     //pdf文档适配屏幕大小
-    CGAffineTransform pdfTransform = CGPDFPageGetDrawingTransform(page, kCGPDFCropBox, self.bounds, 0, true);
+    CGAffineTransform pdfTransform = CGPDFPageGetDrawingTransform(self.page, kCGPDFCropBox, self.bounds, 0, true);
     CGContextConcatCTM(context, pdfTransform);
     
     CGContextDrawPDFPage(context, page);

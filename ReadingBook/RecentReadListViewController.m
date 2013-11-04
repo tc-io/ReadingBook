@@ -90,7 +90,7 @@ static NSString *RecentReadCellIdentifier = @"BooksListCell";
     }
     else if([selectedBook hasSuffix:@"pdf"]){
         //    NSString *filePath = [[NSString alloc]initWithFormat:@"%@/%@",@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents",selectedBook];
-        PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePath:selectedBookPath];
+        PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePathAndCurPageNumber:selectedBookPath :1];
         [self.navigationController pushViewController:pageModelViewController animated:YES];
     }
 }

@@ -10,22 +10,23 @@
 
 @implementation PDFViewController
 @synthesize pdfView;
-@synthesize dataObject;
-@synthesize currentPage;
+@synthesize currentPageNumber;
 
-- (id)initWithPdfPathAndPageNumber:(NSString *)filePath pageNumber:(int)curPageNum{
+- (id)initWithFilePathAndCurPageNumber:(NSString *)fPath :(int)curPageNum{
     if (self = [super init]) {
-        self.filePath = filePath;
-        self.currentPage = curPageNum;
+        self.filePath = fPath;
+        self.currentPageNumber = curPageNum;
     }
     return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"file Path %@, %d",self.filePath, self.currentPage);
-    self.pdfView.pdf = [self.pdfView getPDFRefWithFilePath:self.filePath];
-    self.pdfView.currentPage = self.currentPage;
+    NSLog(@"[PDFViewController.viewWillAppear] filePath: %@, currentPageNumber: %d",self.filePath, self.currentPageNumber);
+    self.pdfView = [[PDFView alloc]initWithFrame:self.view.frame :self.filePath :self.currentPageNumber];
+//    self.pdfView.pdf = [self.pdfView getPDFRefWithFilePath:self.pdfView.filePath];
+//    self.pdfView.currentPage = self.currentPage;
+    [self.view addSubview:self.pdfView];
     [super viewWillAppear:animated];
 }
 

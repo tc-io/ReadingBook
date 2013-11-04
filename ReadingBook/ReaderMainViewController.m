@@ -197,7 +197,7 @@ static NSString *RootLevelCell = @"MainViewCell";
         [self.navigationController pushViewController:readController animated:YES];
     }
     if ([[fileManager displayNameAtPath:filePath]hasSuffix:@"pdf"]) {
-        PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePath:filePath];
+        PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePathAndCurPageNumber:filePath :1];
         [self.navigationController pushViewController:pageModelViewController animated:YES];
     }
     [self addBookInforToArray:filePath];

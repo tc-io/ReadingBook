@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ReaderMainViewController.h"
 #import "DDMenuController.h"
+#import "LTHPasscodeViewController.h"
 
 #import "ReaderSettingViewController.h"
 
@@ -31,6 +32,14 @@
     self.window.rootViewController = rootController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    if ([LTHPasscodeViewController passcodeExistsInKeychain]) {
+		// Init the singleton
+		[LTHPasscodeViewController sharedUser];
+		if ([LTHPasscodeViewController didPasscodeTimerEnd])
+			[[LTHPasscodeViewController sharedUser] showLockscreen];
+	}
+    
     return YES;
 }
 
