@@ -20,14 +20,26 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    NSLog(@"[PDFViewController.viewWillAppear] filePath: %@, currentPageNumber: %d",self.filePath, self.currentPageNumber);
-    self.pdfView = [[PDFView alloc]initWithFrame:self.view.frame :self.filePath :self.currentPageNumber];
-//    self.pdfView.pdf = [self.pdfView getPDFRefWithFilePath:self.pdfView.filePath];
-//    self.pdfView.currentPage = self.currentPage;
+    [super viewDidLoad];
+    self.pdfView = [[PDFView alloc] initWithFrame:self.view.frame];
+    //NSLog(@"[viewWillAppear] PDF->%@, Page->%@", self.pdfView.pdf, self.pdfView.page);
+    //    self.pdfView = [[PDFView alloc]initWithFrame:self.view.frame :self.filePath :self.currentPageNumber];
+    CGPDFDocumentRef pdf = [self.pdfView getPDFRefWithFilePath:self.filePath];
+    self.pdfView.page = CGPDFDocumentGetPage(pdf, self.currentPageNumber);
+    NSLog(@"DidLoad ->%@", self.pdfView.page);
+    //    self.pdfView.currentPage = self.currentPage;
     [self.view addSubview:self.pdfView];
-    [super viewWillAppear:animated];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+        NSLog(@"Release ->%@", self.pdfView.page);
+    CFRelease(self.pdfView.page);
+
 }
 
 - (void)didReceiveMemoryWarning

@@ -10,19 +10,15 @@
 
 @implementation PDFView
 
-@synthesize pdf;
 @synthesize page;
 @synthesize currentPageNumber;
-@synthesize filePath;
+@synthesize pdf;
 
-- (id)initWithFrame:(CGRect)frame :(NSString *)fPath :(int)curPageNum
+
+- (id)initWithFrame:(CGRect)frame
 {
-    NSLog(@"[PDFView.initWithFrame] filePath: %@, currentPageNumber: %d",fPath,curPageNum);
     if (self = [super initWithFrame:frame]) {
-        //self.backgroundColor = [UIColor blueColor];
-        self.filePath = fPath;
-        self.currentPageNumber = curPageNum;
-        self.page = CGPDFDocumentGetPage([self getPDFRefWithFilePath:self.filePath], self.currentPageNumber);
+ 
     }
     return self;
 }
@@ -49,8 +45,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    NSLog(@"[PDFView.drawRect] filePath: %@, CurrentPageNumber: %d",self.filePath,self.currentPageNumber);
-    
     //得到绘图上下文环境
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -72,29 +66,5 @@
 {
     [super setNeedsDisplay];
 }
-
-//- (void)goUpPage
-//{
-//    if (currentPage<2)
-//        return;
-//    --currentPage;
-//    [self reloadView];
-//}
-//
-//- (void)goDownPage
-//{
-//    if (currentPage >= totalPages)
-//        return;
-//    ++currentPage;
-//    [self reloadView];
-//}
-//
-//- (void) jumpToPageByNumber:(int)gotoNumber
-//{
-//    if (gotoNumber<1 || gotoNumber>totalPages)
-//        return;
-//    currentPage = gotoNumber;
-//    [self reloadView];
-//}
 
 @end
