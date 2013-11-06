@@ -14,6 +14,7 @@
 @property (strong, nonatomic) PDFView *pdfView;
 @property (strong, nonatomic) NSString *filePath;
 @property int currentPageNumber;
+@property CGPDFDocumentRef pdf;
 
 - (id)initWithFilePathAndCurPageNumber:(NSString *)fPath :(int)curPageNum;
 

@@ -23,6 +23,58 @@
     return self;
 }
 
+- (void)CreatePDFFile:(CGRect)pageRect :(const char *)fileName
+{
+    CGContextRef pdfContext;
+    CFStringRef path;
+    CFURLRef url;
+    CFMutableDictionaryRef myDict = NULL;
+    
+    path = CFStringCreateWithCString(NULL, fileName, kCFStringEncodingUTF8);
+    url = CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, 0);
+    CFRelease(path);
+    
+    myDict = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    CFDictionarySetValue(myDict, kCGPDFContextTitle, CFSTR("My PDF File"));
+    CFDictionarySetValue(myDict, kCGPDFContextCreator, CFSTR("JKReader"));
+    pdfContext = CGPDFContextCreateWithURL(url, &pageRect, myDict);
+    CFRelease(myDict);
+    CFRelease(url);
+    
+    CGContextBeginPage(pdfContext, &pageRect);
+    
+//    CGContextStrokeRect(pdfContext, CGRectMake(50, 50, pageRect.size.width-100, pageRect.size.height-100));
+//    const char *picture = "/Users/Jeff/Desktop/CountryPicker/Flags/AC.png";
+//    CGImageRef image;
+//    CGDataProviderRef provider;
+//    CFStringRef picturePath;
+//    CFURLRef pictureURL;
+//    picturePath = CFStringCreateWithCString(NULL, picture, kCFStringEncodingUTF8);
+//    pictureURL = CFURLCreateWithFileSystemPath(NULL, picturePath, kCFURLPOSIXPathStyle, 0);
+//    CFRelease(picturePath);
+//    provider = CGDataProviderCreateWithURL(pictureURL);
+//    CFRelease(pictureURL);
+//    image = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+//    CGDataProviderRelease(provider);
+//    CGContextDrawImage(pdfContext, CGRectMake(0, 0, 48, 48), image);
+//    CGImageRelease(image);
+    
+    
+    CGContextSetTextDrawingMode(pdfContext, kCGTextFill);
+    CGContextSetRGBFillColor(pdfContext, 0, 0, 0, 1);
+    NSString *text = @"Hello World";
+    UIFont *font = [UIFont systemFontOfSize:14.0];
+    NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:font,NSFontAttributeName,[UIColor blackColor],NSForegroundColorAttributeName,nil];
+    
+//    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
+    [text drawInRect:self.frame withAttributes:dict];
+    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
+//    CGContextShowTextAtPoint(pdfContext, 260, 390, text, strlen(text));
+    
+    CGContextEndPage(pdfContext);
+    CGContextRelease(pdfContext);
+}
+
 - (CGPDFDocumentRef)getPDFRefWithFilePath:(NSString *)aFilePath
 {
     CFStringRef path;
@@ -40,6 +92,8 @@
     if (totalPages == 0) {
         return NULL;
     }
+    
+    [self CreatePDFFile:self.frame :"/Users/Jeff/Library/Application Support/iPhone Simulator/7.0.3/Applications/DF699FEC-EABA-455C-BD0B-3EA8D1D530D2/Documents/text.pdf"];
     return document;
 }
 

@@ -11,6 +11,7 @@
 @implementation PDFViewController
 @synthesize pdfView;
 @synthesize currentPageNumber;
+@synthesize pdf;
 
 - (id)initWithFilePathAndCurPageNumber:(NSString *)fPath :(int)curPageNum{
     if (self = [super init]) {
@@ -26,26 +27,29 @@
     self.pdfView = [[PDFView alloc] initWithFrame:self.view.frame];
     //NSLog(@"[viewWillAppear] PDF->%@, Page->%@", self.pdfView.pdf, self.pdfView.page);
     //    self.pdfView = [[PDFView alloc]initWithFrame:self.view.frame :self.filePath :self.currentPageNumber];
-    CGPDFDocumentRef pdf = [self.pdfView getPDFRefWithFilePath:self.filePath];
+    self.pdf = [self.pdfView getPDFRefWithFilePath:self.filePath];
     self.pdfView.page = CGPDFDocumentGetPage(pdf, self.currentPageNumber);
-    NSLog(@"DidLoad ->%@", self.pdfView.page);
+    NSLog(@"[PDFViewController.viewDidLoad] DidLoad pdfView.page-> %@", self.pdfView.page);
     //    self.pdfView.currentPage = self.currentPage;
     [self.view addSubview:self.pdfView];
-    
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-        NSLog(@"Release ->%@", self.pdfView.page);
-    CFRelease(self.pdfView.page);
-
-}
+//- (void)viewDidDisappear:(BOOL)animated
+//{
+//    [super viewDidDisappear:animated];
+//    NSLog(@"[PDFViewController.viewDidDisappear] Release pdfView.page-> %@", self.pdfView.page);
+//    CFRelease(self.pdfView.page);
+//}
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) dealloc
+{
+    CFRelease(self.pdf);
 }
 
 @end

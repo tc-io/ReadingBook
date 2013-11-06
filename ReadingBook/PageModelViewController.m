@@ -15,6 +15,8 @@
 @synthesize filePath;
 @synthesize currentPageNumber;
 @synthesize pageTimer;
+@synthesize autoFlipSpeed;
+@synthesize totalPages;
 
 - (id) initWithFilePathAndCurPageNumber: (NSString *)fPath :(int)curPageNum
 {
@@ -41,15 +43,15 @@
     
     document = CGPDFDocumentCreateWithURL(url);
     CFRelease(url);
-    int totalPages = CGPDFDocumentGetNumberOfPages(document);
+    self.totalPages = CGPDFDocumentGetNumberOfPages(document);
     CFRelease(document);
     
-    self.allPageViewController = [[NSMutableArray alloc] init];
-    for (int i=0; i<totalPages;i++) {
-//        PDFViewController * dataViewController = [[PDFViewController alloc] initWithNibName:@"PDFViewController" bundle:Nil filePath:self.filePath pageNumber:i+1];
-        PDFViewController * dataViewController = [[PDFViewController alloc] initWithFilePathAndCurPageNumber:self.filePath :i+1];
-        [self.allPageViewController addObject:dataViewController];
-    }
+    //    self.allPageViewController = [[NSMutableArray alloc] init];
+    //    for (int i=0; i<totalPages;i++) {
+    ////        PDFViewController * dataViewController = [[PDFViewController alloc] initWithNibName:@"PDFViewController" bundle:Nil filePath:self.filePath pageNumber:i+1];
+    //        PDFViewController * dataViewController = [[PDFViewController alloc] initWithFilePathAndCurPageNumber:self.filePath :i+1];
+    //        [self.allPageViewController addObject:dataViewController];
+    //    }
 }
 
 - (void)viewDidLoad
@@ -63,48 +65,67 @@
     pageController.dataSource = self;
     [[pageController view] setFrame:[[self view] bounds]];
     
-    PDFViewController *pdfViewController = [self viewControllerAtIndex:0];
-    NSArray *viewControllers = [NSArray arrayWithObject:pdfViewController];
-    [pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:Nil];
+    PDFViewController *pdfViewController = [[PDFViewController alloc] initWithFilePathAndCurPageNumber:self.filePath :self.currentPageNumber];
+    NSLog(@"pdfview controller %@",pdfViewController);
+    self.allPageViewController = [NSMutableArray arrayWithObject:pdfViewController];
+    [pageController setViewControllers:self.allPageViewController direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:Nil];
     [self addChildViewController:pageController];
     [[self view] addSubview:[pageController view]];
     [pageController didMoveToParentViewController:self];
-    self.pageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(nextPage) userInfo:nil repeats:YES];
+//    self.pageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(nextPage) userInfo:nil repeats:YES];
 }
 
-- (PDFViewController *) viewControllerAtIndex:(NSInteger)index
-{
-    return [self.allPageViewController objectAtIndex:index];
-}
+//- (PDFViewController *) viewControllerAtIndex:(NSInteger)index
+//{
+//    return [self.allPageViewController objectAtIndex:index];
+//}
 
-- (NSUInteger) indexOfViewController:(PDFViewController*)viewController
-{
-    return currentPageNumber;
-}
+//- (NSUInteger) indexOfViewController:(PDFViewController*)viewController
+//{
+//    return currentPageNumber;
+//}
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     if (self.currentPageNumber <= 1) {
+        NSLog(@"[PageModelViewController.viewControllerAfterViewController] curPageNumber is the Min <%d>",self.currentPageNumber);
         return Nil;
     }
     self.currentPageNumber--;
-    NSLog(@"[PageModelViewController.viewControllerAfterViewController] current read number is <%d>",self.currentPageNumber);
-    return [self.allPageViewController objectAtIndex:self.currentPageNumber];
+    NSLog(@"[PageModelViewController.viewControllerAfterViewController] curPageNumber: <%d>",self.currentPageNumber);
+    PDFViewController *beforeViewController = [[PDFViewController alloc] initWithFilePathAndCurPageNumber:self.filePath :self.currentPageNumber];
+    [self.allPageViewController removeObjectAtIndex:0];
+    [self.allPageViewController addObject:beforeViewController];
+    return [self.allPageViewController objectAtIndex:0];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     self.currentPageNumber++;
-    NSLog(@"[PageModelViewController.viewControllerAfterViewController] current read number is <%d>",self.currentPageNumber);
-    if (self.currentPageNumber >= [self.allPageViewController count]) {
+    if (self.currentPageNumber > self.totalPages) {
+        NSLog(@"[PageModelViewController.viewControllerAfterViewController] curPageNumber is out of total pages: <%d> > <%d>",self.currentPageNumber,self.totalPages);
         return Nil;
     }
-    return [self.allPageViewController objectAtIndex:self.currentPageNumber];
+    NSLog(@"[PageModelViewController.viewControllerAfterViewController] curPageNumber: <%d>",self.currentPageNumber);
+    PDFViewController *afterViewController = [[PDFViewController alloc] initWithFilePathAndCurPageNumber:self.filePath :self.currentPageNumber];
+    [self.allPageViewController removeObjectAtIndex:0];
+    [self.allPageViewController addObject:afterViewController];
+    return [self.allPageViewController objectAtIndex:0];
 }
 
 - (void)nextPage
 {
- //   [self.pageController setViewControllers:self.allPageViewController direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:Nil];
+    self.currentPageNumber++;
+    if (self.currentPageNumber > self.totalPages) {
+        NSLog(@"[PageModelViewController.viewControllerAfterViewController] curPageNumber is out of total pages: <%d> > <%d>",self.currentPageNumber,self.totalPages);
+        self.pageTimer = nil;
+        return;
+    }
+    NSLog(@"[PageModelViewController.viewControllerAfterViewController] curPageNumber: <%d>",self.currentPageNumber);
+    PDFViewController *afterViewController = [[PDFViewController alloc] initWithFilePathAndCurPageNumber:self.filePath :self.currentPageNumber];
+    [self.allPageViewController removeObjectAtIndex:0];
+    [self.allPageViewController addObject:afterViewController];
+    [self.pageController setViewControllers:self.allPageViewController direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:Nil];
 }
 
 @end

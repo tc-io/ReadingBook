@@ -23,7 +23,6 @@ static NSString *RootLevelCell = @"MainViewCell";
 
 - (void) getBooksListFromPath:(NSString *)searchPath
 {
-    NSLog(@"[ReaderMainViewController.getBooksListFromPath] Start");
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     NSArray *fileList = [[NSArray alloc] init];
@@ -42,41 +41,37 @@ static NSString *RootLevelCell = @"MainViewCell";
         }
         isDir = NO;
     }
-    NSLog(@"[ReaderMainViewController.getBooksListFromPath] End");
 }
 
 - (void) addBookInforToArray:(NSString*)bookPath
 {
-    NSLog(@"[ReaderMainViewController.addBookInforToArray] Start");
     if ([self.recentReadBookInfo count] > 0) {
         for (int i=0; i<[self.recentReadBookInfo count]; i++) {
             if ([[self.recentReadBookInfo objectAtIndex:i] isEqualToString:bookPath]) {
+                NSLog(@"[ReaderMainViewController.addBookInforToArray] book has exist in the recentReadBookInfo,bookPath: %@",bookPath);
                 return;
             }
         }
     }
+    NSLog(@"[ReaderMainViewController.addBookInforToArray] add book info into recentReadBookInfo,bookPath: %@",bookPath);
     [self.recentReadBookInfo addObject:bookPath];
     [self.tableView reloadData];
-    NSLog(@"[ReaderMainViewController.addBookInforToArray] End");
 }
 
 - (void) checkRecentBookIsExist
 {
-    NSLog(@"[ReaderMainViewController.checkRecentBookIsExist] Start");
     NSFileManager *fileManager = [NSFileManager defaultManager];
     for (int i=0; i<[self.recentReadBookInfo count]; i++) {
         NSString *filePath = [self.recentReadBookInfo objectAtIndex:i];
         if (![fileManager fileExistsAtPath:filePath]){
-            NSLog(@"<%@> is not Exist",filePath);
+            NSLog(@"[ReaderMainViewController.checkRecentBookIsExist] remove did not exist filePath from recentReadBookInfo, filePath <%@> ",filePath);
             [self.recentReadBookInfo removeObjectAtIndex:i];
         }
     }
     [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
-    NSLog(@"[ReaderMainViewController.checkRecentBookIsExist] End");
 }
 
 - (id)init{
-    NSLog(@"[ReaderMainViewController.init] Start");
     self = [super initWithNibName:Nil bundle:Nil];
     self.navigationController.navigationBar.translucent = NO;
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(rightBarButtonAction:)];
@@ -97,21 +92,17 @@ static NSString *RootLevelCell = @"MainViewCell";
         self.recentReadBookInfo = [[NSMutableArray alloc] init];
         [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
     }
-    NSLog(@"[ReaderMainViewController.init] End");
     return self;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    NSLog(@"[ReaderMainViewController.viewWillDisappear] Start");
     [super viewWillDisappear:animated];
     [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
     NSLog(@"[ReaderMainViewController.viewWillDisappear] Write Book information into plist");
-    NSLog(@"[ReaderMainViewController.viewWillDisappear] End");
 }
 
 - (void)viewDidLoad
 {
-    NSLog(@"[ReaderMainViewController.viewDidLoad] Start");
     [super viewDidLoad];
     
     NSArray *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -137,7 +128,6 @@ static NSString *RootLevelCell = @"MainViewCell";
 //    
 //    self.controllers = array;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:RootLevelCell];
-    NSLog(@"[ReaderMainViewController.viewDidLoad] End");
 }
 
 #pragma mark - Table view data source

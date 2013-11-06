@@ -16,7 +16,9 @@
 
 @property NSString *filePath;   // 文件路径
 @property int currentPageNumber;    //当前阅读页
+@property int totalPages;
 @property (nonatomic, strong) NSTimer * pageTimer;
+@property float autoFlipSpeed;
 
 - (id) initWithFilePathAndCurPageNumber: (NSString *)fPath :(int)curPageNum;
 
