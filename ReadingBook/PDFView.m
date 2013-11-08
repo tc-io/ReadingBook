@@ -23,6 +23,40 @@
     return self;
 }
 
+//- (void)generatePDFWithFilePath:(NSString *)newPDFFilePath
+//{
+//    UIGraphicsBeginPDFContextToFile(newPDFFilePath, CGRectZero, Nil);
+//    NSInteger currentPage = 0;
+//    BOOL done = NO;
+//    do{
+//        UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0,self.frame.size.width, self.frame.size.height), Nil);
+//        currentPage++;
+//        [self drawPageNumber:currentPage];
+//        [self drawBorder];
+//        [self drawHeader];
+//        [self drawLine];
+//        [self drawText];
+//        done = YES;
+//    }while (!done);
+//    UIGraphicsEndPDFContext();
+//}
+
+- (void)drawPageNumber:(NSInteger)pageNum
+{
+    NSString *pageString = [NSString stringWithFormat:@"Page %d",pageNum];
+    UIFont *theFont = [UIFont systemFontOfSize:12];
+    CGSize maxSize = CGSizeMake(612, 72);
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    paragraphStyle.alignment = NSTextAlignmentRight;
+    
+    NSDictionary *dict = @{NSFontAttributeName:theFont,
+                           NSParagraphStyleAttributeName:paragraphStyle};
+
+    CGRect stringRect = CGRectMake((612-self.frame.size.width)/2, 720+(72-self.frame.size.height)/2.0, self.frame.size.width, self.frame.size.height);
+    [pageString drawInRect:stringRect withAttributes:dict];
+}
+
 - (void)CreatePDFFile:(CGRect)pageRect :(const char *)fileName
 {
     CGContextRef pdfContext;
@@ -62,18 +96,25 @@
     
     CGContextSetTextDrawingMode(pdfContext, kCGTextFill);
     CGContextSetRGBFillColor(pdfContext, 0, 0, 0, 1);
-    NSString *text = @"Hello World";
-    UIFont *font = [UIFont systemFontOfSize:14.0];
-    NSDictionary *dict = [[NSDictionary alloc]initWithObjectsAndKeys:font,NSFontAttributeName,[UIColor blackColor],NSForegroundColorAttributeName,nil];
+    NSString *text = @"Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World";
+    UIFont *font = [UIFont fontWithName:@"Courier" size:14.0];
+    CGSize stringSize = [text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0f]}];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    paragraphStyle.alignment = NSTextAlignmentRight;
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+    
     
 //    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
-    [text drawInRect:self.frame withAttributes:dict];
-    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
+    [text drawInRect:CGRectMake(40, 40, 90, 90) withAttributes:dict];
+//    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
 //    CGContextShowTextAtPoint(pdfContext, 260, 390, text, strlen(text));
     
     CGContextEndPage(pdfContext);
     CGContextRelease(pdfContext);
 }
+
 
 - (CGPDFDocumentRef)getPDFRefWithFilePath:(NSString *)aFilePath
 {
@@ -120,5 +161,4 @@
 {
     [super setNeedsDisplay];
 }
-
 @end

@@ -10,7 +10,6 @@
 
 #define REFRESH_HEADER_HEIGHT 52.0f
 
-
 @implementation PullRefreshTableViewController
 
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
@@ -35,6 +34,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self != nil) {
         [self setupStrings];
+        self.navigationController.navigationBar.translucent = NO;
     }
     return self;
 }
@@ -60,9 +60,7 @@
     refreshLabel.textAlignment = UITextAlignmentCenter;
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
-    refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT - 27) / 2),
-                                    (floorf(REFRESH_HEADER_HEIGHT - 44) / 2),
-                                    27, 44);
+    refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT - 27) / 2), (floorf(REFRESH_HEADER_HEIGHT - 44) / 2), 27, 44);
     
     refreshSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     refreshSpinner.frame = CGRectMake(floorf(floorf(REFRESH_HEADER_HEIGHT - 20) / 2), floorf((REFRESH_HEADER_HEIGHT - 20) / 2), 20, 20);
@@ -75,7 +73,8 @@
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (isLoading) return;
+    if (isLoading)
+        return;
     isDragging = YES;
 }
 
@@ -93,7 +92,8 @@
             // User is scrolling above the header
             refreshLabel.text = self.textRelease;
             [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI, 0, 0, 1);
-        } else { // User is scrolling somewhere within the header
+        } else {
+            // User is scrolling somewhere within the header
             refreshLabel.text = self.textPull;
             [refreshArrow layer].transform = CATransform3DMakeRotation(M_PI * 2, 0, 0, 1);
         }
@@ -112,7 +112,6 @@
 
 - (void)startLoading {
     isLoading = YES;
-    
     // Show the header
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];

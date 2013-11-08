@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ReaderMainViewController : UITableViewController
+#import "PullRefreshTableViewController.h"
+@interface ReaderMainViewController : PullRefreshTableViewController
 
 @property (copy, nonatomic) NSArray *controllers;
 @property (strong, nonatomic) NSMutableArray *allBooks;    // [key:file type, value: an array which contaion book path]

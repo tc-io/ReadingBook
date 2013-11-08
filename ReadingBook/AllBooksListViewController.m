@@ -61,7 +61,7 @@ static NSString *CellIdentifier = @"ALLBooksListCell";
     self.allBooks = [[NSMutableDictionary alloc] init];
     self.allBooks = [self getAllBooksList];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+        self.navigationController.navigationBar.translucent = NO;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
 }
 
@@ -108,7 +108,7 @@ static NSString *CellIdentifier = @"ALLBooksListCell";
     //                          otherButtonTitles:nil];
     //    [alert show];
     NSString *selectedBook = [[self.allBooks objectForKey:[[self.allBooks allKeys] objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
-    NSLog(@"Selected Book is ->%@",selectedBook);
+    NSLog(@"[AllBooksListViewController.didSelectRowAtIndexPath] SelectedBook ->%@",selectedBook);
     
     if ([selectedBook hasSuffix:@"txt"]) {
         TxtViewController *readController = [[TxtViewController alloc] initWithBookPath:@"/Users/JK/Library/Application Support/iPhone Simulator/7.0/Applications/5A18296A-823E-4513-B198-0A48BEF1513A/Documents/1.txt"];
