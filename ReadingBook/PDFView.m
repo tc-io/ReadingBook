@@ -153,7 +153,7 @@
     //pdf文档适配屏幕大小
     CGAffineTransform pdfTransform = CGPDFPageGetDrawingTransform(self.page, kCGPDFCropBox, self.bounds, 0, true);
     CGContextConcatCTM(context, pdfTransform);
-    
+    CGContextSetAlpha(context, 0.8);
     CGContextDrawPDFPage(context, page);
 }
 

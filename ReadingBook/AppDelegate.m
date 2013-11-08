@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ReaderMainViewController.h"
+#import "MainViewController.h"
 #import "DDMenuController.h"
 #import "LTHPasscodeViewController.h"
 
@@ -21,7 +21,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    ReaderMainViewController *mainController = [[ReaderMainViewController alloc] init];
+    MainViewController *mainController = [[MainViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:mainController];
     
     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
