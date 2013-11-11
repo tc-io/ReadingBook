@@ -10,7 +10,6 @@
 		1F0A67201828900D0068AF73 /* PDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0A671E1828900D0068AF73 /* PDFViewController.m */; };
 		1F19D8D7182228A5009C67A9 /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F19D8D6182228A5009C67A9 /* DDMenuController.m */; };
 		1F19D8D918222B64009C67A9 /* nav_menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */; };
-		1F383187182CE8E8008666CA /* RecentReadBookInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F383186182CE8E8008666CA /* RecentReadBookInfo.plist */; };
 		1F4396A11827B45A006D9D5A /* LTHPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */; };
 		1F4396A41827B4B4006D9D5A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */; };
 		4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */; };
@@ -41,12 +40,12 @@
 		488EF3B017F966D900E03F0F /* ReadingBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EF3AF17F966D900E03F0F /* ReadingBookTests.m */; };
 		488EF40517F97E0B00E03F0F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EF40417F97E0B00E03F0F /* MainViewController.m */; };
 		48954CCD18084E0F000036B3 /* SettingProperty.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48954CCC18084E0F000036B3 /* SettingProperty.plist */; };
-		48954CD018084E24000036B3 /* ReaderSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48954CCF18084E24000036B3 /* ReaderSettingViewController.m */; };
+		48954CD018084E24000036B3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48954CCF18084E24000036B3 /* SettingViewController.m */; };
 		4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4898E31F17FE5F370071FC16 /* TxtViewController.m */; };
 		48C0324C18163F1400BB864F /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C0324B18163F1400BB864F /* PullRefreshTableViewController.m */; };
 		48C0324E1816429C00BB864F /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C0324D1816429C00BB864F /* arrow.png */; };
 		48D4B6D518125DCA00CA1155 /* RecentReadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D4B6D418125DCA00CA1155 /* RecentReadListViewController.m */; };
-		48D754EC180FBDAA004EBB57 /* PageModelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D754EB180FBDAA004EBB57 /* PageModelViewController.m */; };
+		48D754EC180FBDAA004EBB57 /* PageViewController_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D754EB180FBDAA004EBB57 /* PageViewController_Model.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +64,6 @@
 		1F19D8D5182228A5009C67A9 /* DDMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMenuController.h; sourceTree = "<group>"; };
 		1F19D8D6182228A5009C67A9 /* DDMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMenuController.m; sourceTree = "<group>"; };
 		1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_menu_icon@2x.png"; sourceTree = "<group>"; };
-		1F383186182CE8E8008666CA /* RecentReadBookInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RecentReadBookInfo.plist; sourceTree = "<group>"; };
 		1F43969F1827B45A006D9D5A /* LTHPasscodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LTHPasscodeViewController.h; path = ../LTHPasscodeViewController.h; sourceTree = "<group>"; };
 		1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LTHPasscodeViewController.m; path = ../LTHPasscodeViewController.m; sourceTree = "<group>"; };
 		1F4396A21827B4B4006D9D5A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFHFKeychainUtils.h; path = ../SFHFKeychainUtils.h; sourceTree = "<group>"; };
@@ -107,8 +105,8 @@
 		488EF40317F97E0B00E03F0F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		488EF40417F97E0B00E03F0F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		48954CCC18084E0F000036B3 /* SettingProperty.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingProperty.plist; sourceTree = "<group>"; };
-		48954CCE18084E24000036B3 /* ReaderSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReaderSettingViewController.h; sourceTree = "<group>"; };
-		48954CCF18084E24000036B3 /* ReaderSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReaderSettingViewController.m; sourceTree = "<group>"; };
+		48954CCE18084E24000036B3 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		48954CCF18084E24000036B3 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		4898E31E17FE5F370071FC16 /* TxtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TxtViewController.h; sourceTree = "<group>"; };
 		4898E31F17FE5F370071FC16 /* TxtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TxtViewController.m; sourceTree = "<group>"; };
 		48C0324A18163F1400BB864F /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
@@ -116,8 +114,8 @@
 		48C0324D1816429C00BB864F /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		48D4B6D318125DCA00CA1155 /* RecentReadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentReadListViewController.h; sourceTree = "<group>"; };
 		48D4B6D418125DCA00CA1155 /* RecentReadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentReadListViewController.m; sourceTree = "<group>"; };
-		48D754EA180FBDAA004EBB57 /* PageModelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageModelViewController.h; sourceTree = "<group>"; };
-		48D754EB180FBDAA004EBB57 /* PageModelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageModelViewController.m; sourceTree = "<group>"; };
+		48D754EA180FBDAA004EBB57 /* PageViewController_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController_Model.h; sourceTree = "<group>"; };
+		48D754EB180FBDAA004EBB57 /* PageViewController_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController_Model.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +142,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F6C26ED182F2835008AA749 /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				488EF40317F97E0B00E03F0F /* MainViewController.h */,
+				488EF40417F97E0B00E03F0F /* MainViewController.m */,
+			);
+			name = MainView;
+			sourceTree = "<group>";
+		};
+		1F6C26EE182F2862008AA749 /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+				48954CCE18084E24000036B3 /* SettingViewController.h */,
+				48954CCF18084E24000036B3 /* SettingViewController.m */,
+				48954CCC18084E0F000036B3 /* SettingProperty.plist */,
+			);
+			name = SettingView;
+			sourceTree = "<group>";
+		};
+		1F9F28BA18309EC100F1DF69 /* PageView */ = {
+			isa = PBXGroup;
+			children = (
+				48D754EA180FBDAA004EBB57 /* PageViewController_Model.h */,
+				48D754EB180FBDAA004EBB57 /* PageViewController_Model.m */,
+				1F0A671D1828900D0068AF73 /* PDFViewController.h */,
+				1F0A671E1828900D0068AF73 /* PDFViewController.m */,
+				48772CF1180284FB00A59201 /* PDFView.h */,
+				48772CF2180284FB00A59201 /* PDFView.m */,
+			);
+			name = PageView;
+			sourceTree = "<group>";
+		};
 		4856D0E117FC2D5F0095DEA8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,29 +226,17 @@
 		488EF39017F966D900E03F0F /* ReadingBook */ = {
 			isa = PBXGroup;
 			children = (
-				4856D0E117FC2D5F0095DEA8 /* Images */,
+				1F6C26ED182F2835008AA749 /* MainView */,
+				1F6C26EE182F2862008AA749 /* SettingView */,
+				1F9F28BA18309EC100F1DF69 /* PageView */,
 				488EF39917F966D900E03F0F /* AppDelegate.h */,
 				488EF39A17F966D900E03F0F /* AppDelegate.m */,
-				488EF39C17F966D900E03F0F /* Images.xcassets */,
-				488EF39117F966D900E03F0F /* Supporting Files */,
 				1F4396A21827B4B4006D9D5A /* SFHFKeychainUtils.h */,
 				1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */,
 				1F43969F1827B45A006D9D5A /* LTHPasscodeViewController.h */,
 				1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */,
 				1F19D8D5182228A5009C67A9 /* DDMenuController.h */,
 				1F19D8D6182228A5009C67A9 /* DDMenuController.m */,
-				488EF40317F97E0B00E03F0F /* MainViewController.h */,
-				488EF40417F97E0B00E03F0F /* MainViewController.m */,
-				1F383186182CE8E8008666CA /* RecentReadBookInfo.plist */,
-				48954CCE18084E24000036B3 /* ReaderSettingViewController.h */,
-				48954CCF18084E24000036B3 /* ReaderSettingViewController.m */,
-				48954CCC18084E0F000036B3 /* SettingProperty.plist */,
-				48D754EA180FBDAA004EBB57 /* PageModelViewController.h */,
-				48D754EB180FBDAA004EBB57 /* PageModelViewController.m */,
-				48772CF1180284FB00A59201 /* PDFView.h */,
-				48772CF2180284FB00A59201 /* PDFView.m */,
-				1F0A671D1828900D0068AF73 /* PDFViewController.h */,
-				1F0A671E1828900D0068AF73 /* PDFViewController.m */,
 				4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */,
 				4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */,
 				48D4B6D318125DCA00CA1155 /* RecentReadListViewController.h */,
@@ -231,6 +249,9 @@
 				4898E31F17FE5F370071FC16 /* TxtViewController.m */,
 				4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */,
 				4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */,
+				4856D0E117FC2D5F0095DEA8 /* Images */,
+				488EF39C17F966D900E03F0F /* Images.xcassets */,
+				488EF39117F966D900E03F0F /* Supporting Files */,
 			);
 			path = ReadingBook;
 			sourceTree = "<group>";
@@ -345,7 +366,6 @@
 				4885586B181768C800143FCF /* UpAccessory.png in Resources */,
 				48C0324E1816429C00BB864F /* arrow.png in Resources */,
 				48855869181768C800143FCF /* DownAccessory.png in Resources */,
-				1F383187182CE8E8008666CA /* RecentReadBookInfo.plist in Resources */,
 				48954CCD18084E0F000036B3 /* SettingProperty.plist in Resources */,
 				4856D0E817FC2D6F0095DEA8 /* checkmarkControllerIcon.png in Resources */,
 				4856D0ED17FC2D6F0095DEA8 /* rowControlsIcon.png in Resources */,
@@ -382,10 +402,10 @@
 				1F4396A41827B4B4006D9D5A /* SFHFKeychainUtils.m in Sources */,
 				1F0A67201828900D0068AF73 /* PDFViewController.m in Sources */,
 				4856D0E017FBBDE60095DEA8 /* AllBooksListViewController.m in Sources */,
-				48954CD018084E24000036B3 /* ReaderSettingViewController.m in Sources */,
+				48954CD018084E24000036B3 /* SettingViewController.m in Sources */,
 				488EF39717F966D900E03F0F /* main.m in Sources */,
 				488EF40517F97E0B00E03F0F /* MainViewController.m in Sources */,
-				48D754EC180FBDAA004EBB57 /* PageModelViewController.m in Sources */,
+				48D754EC180FBDAA004EBB57 /* PageViewController_Model.m in Sources */,
 				1F19D8D7182228A5009C67A9 /* DDMenuController.m in Sources */,
 				4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */,
 				1F4396A11827B45A006D9D5A /* LTHPasscodeViewController.m in Sources */,

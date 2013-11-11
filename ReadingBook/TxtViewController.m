@@ -177,14 +177,8 @@
 }
 
 - (void) singleTapAction:(id)sender {
-    //判断导航栏和toolbar是隐藏还是显示
-    if(!self.visible) {
-        self.visible = YES;
-        [self.navigationController setNavigationBarHidden:self.visible animated:YES];
-    } else {
-        self.visible = NO;
-        [self.navigationController setNavigationBarHidden:self.visible animated:YES];
-    }
+    BOOL isNavigationBarHidden = self.navigationController.navigationBarHidden;
+    [self.navigationController setNavigationBarHidden:!isNavigationBarHidden animated:YES];
 }
 
 - (void) swipeGestureAction:(UISwipeGestureRecognizer *)recognizer {
@@ -199,7 +193,6 @@
 - (void) readConfigFinished {
     self.fontSize = (int) 10;
     self.textView.font = [UIFont systemFontOfSize:self.fontSize];
-    
     [self.userDefault setValue:@(self.fontSize) forKey:kFontSizeId];
     self.autoPage = YES;
     self.autoSpeed = 12.0f;

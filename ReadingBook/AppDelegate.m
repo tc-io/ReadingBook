@@ -11,7 +11,7 @@
 #import "DDMenuController.h"
 #import "LTHPasscodeViewController.h"
 
-#import "ReaderSettingViewController.h"
+#import "SettingViewController.h"
 
 @implementation AppDelegate
 @synthesize window = _window;
@@ -26,8 +26,9 @@
     
     DDMenuController *rootController = [[DDMenuController alloc] initWithRootViewController:navController];
     _menuController = rootController;
-    ReaderSettingViewController *settingController = [[ReaderSettingViewController alloc] init];
-    rootController.rightViewController = settingController;
+    SettingViewController *settingController = [[SettingViewController alloc] init];
+    settingController.title = @"阅读设置";
+    rootController.leftViewController = settingController;
     
     self.window.rootViewController = rootController;
     self.window.backgroundColor = [UIColor whiteColor];

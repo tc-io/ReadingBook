@@ -374,14 +374,10 @@
         }
         
     } else if ([_root isKindOfClass:[UITabBarController class]]) {
-        
         UITabBarController *tabController = (UITabBarController*)_root;
         topController = [tabController selectedViewController];
-        
     } else {
-        
         topController = _root;
-        
     }
     
     if (_menuFlags.canShowLeft) {
@@ -394,10 +390,7 @@
     if (_menuFlags.canShowRight) {
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(showRight:)];
         topController.navigationItem.rightBarButtonItem = button;
-    } else {
-        topController.navigationItem.rightBarButtonItem = nil;
     }
-    
 }
 
 - (void)showShadow:(BOOL)val {

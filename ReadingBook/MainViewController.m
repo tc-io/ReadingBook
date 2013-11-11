@@ -7,11 +7,11 @@
 //
 
 #import "MainViewController.h"
-#import "ReaderSettingViewController.h"
+#import "SettingViewController.h"
 
 #import "SecondLevelViewController.h"
 #import "TxtViewController.h"
-#import "PageModelViewController.h"
+#import "PageViewController_Model.h"
 
 @interface MainViewController ()
 
@@ -30,27 +30,25 @@ static NSString *RootLevelCell = @"MainViewCell";
 - (id)init{
     self = [super initWithNibName:Nil bundle:Nil];
     self.title = @"主菜单";
-    self.navigationController.navigationBar.translucent = NO;
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(rightBarButtonAction:)];
-    self.navigationItem.rightBarButtonItem = rightBarButton;
+    //UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightBarButtonAction:)];
+    //self.navigationItem.rightBarButtonItem = rightBarButton;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    NSBundle *bundle = [NSBundle mainBundle];
-    self.recentReadBookInfoPlistPath = [bundle pathForResource:@"RecentReadBookInfo" ofType:@"plist"];
     self.allBooksInfo = [[NSMutableDictionary alloc] init];
-    self.recentReadBookInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:self.recentReadBookInfoPlistPath];
-    [self checkRecentBookIsExist];
-
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    if ([fileManager fileExistsAtPath:self.plistPath]) {
-//        self.recentReadBookInfo = [[NSMutableArray alloc] initWithContentsOfFile:self.plistPath];
-//        if ([self.recentReadBookInfo count] > 0){
-//            [self checkRecentBookIsExist];
-//        }
-//    }
-//    else{
-//        self.recentReadBookInfo = [[NSMutableArray alloc] init];
-//        [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
-//    }
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+    self.recentReadBookInfoPlistPath = [path stringByAppendingPathComponent:@"RecentReadBookInfo.plist"];
+    NSLog(@"[MainViewController.init] recentReadBookInfoPlistPath:%@",self.recentReadBookInfoPlistPath);
+    if ([fileManager fileExistsAtPath:self.recentReadBookInfoPlistPath])
+    {
+        self.recentReadBookInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:self.recentReadBookInfoPlistPath];
+        [self checkRecentBookIsExist];
+    }
+    else
+    {
+        self.recentReadBookInfo = [[NSMutableDictionary alloc] init];
+        [self.recentReadBookInfo writeToFile:self.recentReadBookInfoPlistPath atomically:YES];
+    }
     return self;
 }
 
@@ -69,11 +67,13 @@ static NSString *RootLevelCell = @"MainViewCell";
         {
             if ([[file pathExtension]  isEqualToString: @"txt"] || [[file pathExtension] isEqualToString:@"pdf"])
             {
-                NSString *currentReadPageNumString = [[NSString alloc] initWithFormat:@"%d",[self getBookCurrentReadPageNumber:path]];
-                [self.allBooksInfo setObject: currentReadPageNumString forKey:path];
+                NSString *currentReadPageNumString = [NSString stringWithFormat:@"%d",[self getBookCurrentReadPageNumber:path]];
+                [self.allBooksInfo setValue:currentReadPageNumString forKey:path];
             }
-            else
-                [self getAllBooksInfoListFromPath:path];
+        }
+        else
+        {
+            [self getAllBooksInfoListFromPath:path];
             isDir = NO;
         }
     }
@@ -82,39 +82,38 @@ static NSString *RootLevelCell = @"MainViewCell";
 - (NSInteger) getBookCurrentReadPageNumber: (NSString *) bookPath
 {
     NSInteger currentReadPageNum = 1;
-    if ([[self.recentReadBookInfo allKeys] valueForKey:bookPath] != Nil)
+    if ([self.recentReadBookInfo valueForKey:bookPath] != Nil)
     {
-        currentReadPageNum = [[self.recentReadBookInfo objectForKey:bookPath] integerValue];
-        NSLog(@"[ReaderMainViewController.getBookCurrentReadPageNumber] The book<%@> is in the recentReadBookInfo current read page number is <%d>",bookPath, currentReadPageNum);
+        currentReadPageNum = [[self.recentReadBookInfo valueForKey:bookPath] integerValue];
+        NSLog(@"[MainViewController.getBookCurrentReadPageNumber] The book<%@> is in the recentReadBookInfo current read page number is <%d>",bookPath, currentReadPageNum);
     }
     return currentReadPageNum;
-        
 }
 
 - (void) addBookInforToRecentReadList: (NSString *) bookPath :(NSInteger) currentReadPageNumber;
 {
-    if ([self.recentReadBookInfo valueForKey:bookPath] != Nil)
+    if ([self.recentReadBookInfo objectForKey:bookPath] != Nil)
     {
         if ([self getBookCurrentReadPageNumber:bookPath] != currentReadPageNumber) {
-            NSLog(@"[ReaderMainViewController.addBookInforToArray] update the book information, bookPath <%@>, currentReadPageNumber <%d>", bookPath,currentReadPageNumber);
+            NSLog(@"[MainViewController.addBookInforToArray] update the book information, bookPath <%@>, currentReadPageNumber <%d>", bookPath,currentReadPageNumber);
             [self updateBookInfo:bookPath :currentReadPageNumber];
         }
         else{
-            NSLog(@"[ReaderMainViewController.addBookInforToArray] There is same book information in the recentReadBookInfo, do nothing");
+            NSLog(@"[MainViewController.addBookInforToArray] There is same book information in the recentReadBookInfo, do nothing");
         }
     }
     else{
-        NSLog(@"[ReaderMainViewController.addBookInforToArray] add new book information into recentReadBookInfo, bookPath <%@>, currentReadPageNumber <%d>", bookPath,currentReadPageNumber);
-        NSString *currentReadPageNumString = [[NSString alloc] initWithFormat:@"%d", currentReadPageNumber ];
-        [self.recentReadBookInfo setObject:currentReadPageNumString forKey:bookPath];
+        NSLog(@"[MainViewController.addBookInforToArray] add new book information into recentReadBookInfo, bookPath <%@>, currentReadPageNumber <%d>", bookPath,currentReadPageNumber);
+        NSString *currentReadPageNumString = [NSString stringWithFormat:@"%d", currentReadPageNumber];
+        [self.recentReadBookInfo setValue:currentReadPageNumString forKey:bookPath];
     }
 }
 
 - (void) updateBookInfo: (NSString *) bookPath :(NSInteger) currentReadPageNumber
 {
-    NSString *currentReadPageNumString = [[NSString alloc] initWithFormat:@"%d", currentReadPageNumber ];
-    [self.recentReadBookInfo setObject:currentReadPageNumString forKey:bookPath];
-    [self.allBooksInfo setObject:currentReadPageNumString forKey:bookPath];
+    NSString *currentReadPageNumString = [NSString stringWithFormat:@"%d", currentReadPageNumber];
+    [self.recentReadBookInfo setValue:currentReadPageNumString forKey:bookPath];
+    [self.allBooksInfo setValue:currentReadPageNumString forKey:bookPath];
     [self.tableView reloadData];
 }
 
@@ -122,14 +121,14 @@ static NSString *RootLevelCell = @"MainViewCell";
 {
     if ([self.allBooksInfo valueForKey:bookPath] != Nil)
     {
-        NSLog(@"[ReaderMainViewController.removeBookInfoFromDictionary] remove book information from allBooksInfo and delete book, bookPath <%@> ",bookPath);
+        NSLog(@"[MainViewController.removeBookInfoFromDictionary] remove book information from allBooksInfo and delete book, bookPath <%@> ",bookPath);
         NSFileManager *fileManager = [NSFileManager defaultManager];
         [fileManager removeItemAtPath:bookPath error:Nil];
        [self.allBooksInfo removeObjectForKey:bookPath];
     }
     if ([self.recentReadBookInfo valueForKey:bookPath] != Nil)
     {
-        NSLog(@"[ReaderMainViewController.removeBookInfoFromDictionary] remove book information from recentReadBookInfo, bookPath <%@> ",bookPath);
+        NSLog(@"[MainViewController.removeBookInfoFromDictionary] remove book information from recentReadBookInfo, bookPath <%@> ",bookPath);
         [self.recentReadBookInfo removeObjectForKey:bookPath];
     }
 }
@@ -147,7 +146,7 @@ static NSString *RootLevelCell = @"MainViewCell";
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    NSLog(@"[ReaderMainViewController.viewWillDisappear] Write Book information into plist");
+    NSLog(@"[MainViewController.viewWillDisappear] Write Book information into plist");
     [super viewWillDisappear:animated];
     [self.recentReadBookInfo writeToFile:self.recentReadBookInfoPlistPath atomically:YES];
 }
@@ -242,36 +241,41 @@ static NSString *RootLevelCell = @"MainViewCell";
     }
     if ([[fileManager displayNameAtPath:filePath]hasSuffix:@"pdf"])
     {
-        PageModelViewController *pageModelViewController = [[PageModelViewController alloc] initWithFilePathAndCurPageNumber:filePath :1];
+        PageViewController_Model *pageModelViewController = [[PageViewController_Model alloc] initWithFilePathAndCurPageNumber:filePath :1];
         [self.navigationController pushViewController:pageModelViewController animated:YES];
     }
     [self addBookInforToRecentReadList:filePath :1];
     [self.tableView reloadData];
 }
 
+//设置可删除
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
 - (void)rightBarButtonAction:(id)sender
 {
-    ReaderSettingViewController *settingViewController = [[ReaderSettingViewController alloc] init];
+    SettingViewController *settingViewController = [[SettingViewController alloc] init];
     settingViewController.title = @"阅读设置";
     [self.navigationController pushViewController:settingViewController animated:YES];
 }
 
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (indexPath.section == 0) {
-//        [self.recentReadBookInfo removeObjectAtIndex:indexPath.row];
-//        [self.recentReadBookInfo writeToFile:self.plistPath atomically:YES];
-//    }
-//    if (indexPath.section == 1) {
-//        NSFileManager *fileManger = [NSFileManager defaultManager];
-//        NSLog(@"Remove Book Path is->%@",[self.allBooks objectAtIndex:indexPath.row]);
-//        [fileManger removeItemAtPath:[self.allBooks objectAtIndex:indexPath.row] error:Nil];
-//        [self.allBooks removeObjectAtIndex:indexPath.row];
-//    }
-////    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//    [self checkRecentBookIsExist];
-//    [self.tableView reloadData];
-//}recentReadBookInfoPlistPath	__NSCFString *	@"/Users/Jeff/Library/Application Support/iPhone Simulator/7.0.3/Applications/DF699FEC-EABA-455C-BD0B-3EA8D1D530D2/ReadingBook.app/RecentReadBookInfo.plist"	0x08c21210
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        [self.recentReadBookInfo removeObjectForKey:[[self.recentReadBookInfo allKeys] objectAtIndex:indexPath.row]];
+        [self.recentReadBookInfo writeToFile:self.recentReadBookInfoPlistPath atomically:YES];
+    }
+    if (indexPath.section == 1) {
+        NSLog(@"Remove Book Path is->%@",[[self.allBooksInfo allKeys] objectAtIndex:indexPath.row]);
+        NSFileManager *fileManger = [NSFileManager defaultManager];
+        [fileManger removeItemAtPath:[[self.allBooksInfo allKeys] objectAtIndex:indexPath.row] error:Nil];
+        [self.allBooksInfo removeObjectForKey:[[self.allBooksInfo allKeys] objectAtIndex:indexPath.row]];
+        [self checkRecentBookIsExist];
+    }
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadData];
+}
 
 @end

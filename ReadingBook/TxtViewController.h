@@ -13,7 +13,6 @@
 
 - (id) initWithBookPath:(NSString*)bookPath;
 
-
 - (void) prevPage;
 - (void) nextPage;
 

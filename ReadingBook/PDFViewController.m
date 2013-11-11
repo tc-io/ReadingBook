@@ -17,9 +17,10 @@
     if (self = [super init]) {
         self.filePath = fPath;
         self.currentPageNumber = curPageNum;
-        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
-        tapGesture.numberOfTapsRequired = 2;
-        [self.view addGestureRecognizer:tapGesture];
+
+//        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
+//        tapGesture.numberOfTapsRequired = 2;
+//        [self.view addGestureRecognizer:tapGesture];
 
     }
     return self;
@@ -29,12 +30,9 @@
 {
     [super viewDidLoad];
     self.pdfView = [[PDFView alloc] initWithFrame:self.view.frame];
-
-    //NSLog(@"[viewWillAppear] PDF->%@, Page->%@", self.pdfView.pdf, self.pdfView.page);
-    //    self.pdfView = [[PDFView alloc]initWithFrame:self.view.frame :self.filePath :self.currentPageNumber];
     self.pdf = [self.pdfView getPDFRefWithFilePath:self.filePath];
     self.pdfView.page = CGPDFDocumentGetPage(pdf, self.currentPageNumber);
-    NSLog(@"[PDFViewController.viewDidLoad] DidLoad pdfView.page-> %@", self.pdfView.page);
+    NSLog(@"[PDFViewController.viewDidLoad] pdfView.page-> %@", self.pdfView.page);
     //    self.pdfView.currentPage = self.currentPage;
     [self.view addSubview:self.pdfView];
 }
@@ -57,9 +55,11 @@
     CFRelease(self.pdf);
 }
 
-- (void) singleTapAction:(id)sender {
+- (void) singleTapAction:(id)sender
+{
     BOOL isHidden = self.navigationController.navigationBarHidden;
     [self.navigationController setNavigationBarHidden:!isHidden animated:YES];
+    //self.pdfView.frame = self.view.frame;
 }
 
 @end

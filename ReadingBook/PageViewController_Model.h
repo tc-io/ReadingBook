@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PDFViewController.h"
 
-@interface PageModelViewController : UIViewController <UIPageViewControllerDataSource>
+@interface PageViewController_Model : UIViewController <UIPageViewControllerDataSource>
 
 @property (strong, nonatomic) UIPageViewController *pageController;
 @property (strong, nonatomic) NSMutableArray *allPageViewController;

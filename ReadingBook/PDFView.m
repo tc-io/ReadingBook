@@ -17,8 +17,9 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+    NSLog(@"[PDFView.initWithFrame] %f,%f",frame.size.width,frame.size.height);
     if (self = [super initWithFrame:frame]) {
- 
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -41,79 +42,79 @@
 //    UIGraphicsEndPDFContext();
 //}
 
-- (void)drawPageNumber:(NSInteger)pageNum
-{
-    NSString *pageString = [NSString stringWithFormat:@"Page %d",pageNum];
-    UIFont *theFont = [UIFont systemFontOfSize:12];
-    CGSize maxSize = CGSizeMake(612, 72);
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-    paragraphStyle.alignment = NSTextAlignmentRight;
-    
-    NSDictionary *dict = @{NSFontAttributeName:theFont,
-                           NSParagraphStyleAttributeName:paragraphStyle};
-
-    CGRect stringRect = CGRectMake((612-self.frame.size.width)/2, 720+(72-self.frame.size.height)/2.0, self.frame.size.width, self.frame.size.height);
-    [pageString drawInRect:stringRect withAttributes:dict];
-}
-
-- (void)CreatePDFFile:(CGRect)pageRect :(const char *)fileName
-{
-    CGContextRef pdfContext;
-    CFStringRef path;
-    CFURLRef url;
-    CFMutableDictionaryRef myDict = NULL;
-    
-    path = CFStringCreateWithCString(NULL, fileName, kCFStringEncodingUTF8);
-    url = CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, 0);
-    CFRelease(path);
-    
-    myDict = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    CFDictionarySetValue(myDict, kCGPDFContextTitle, CFSTR("My PDF File"));
-    CFDictionarySetValue(myDict, kCGPDFContextCreator, CFSTR("JKReader"));
-    pdfContext = CGPDFContextCreateWithURL(url, &pageRect, myDict);
-    CFRelease(myDict);
-    CFRelease(url);
-    
-    CGContextBeginPage(pdfContext, &pageRect);
-    
-//    CGContextStrokeRect(pdfContext, CGRectMake(50, 50, pageRect.size.width-100, pageRect.size.height-100));
-//    const char *picture = "/Users/Jeff/Desktop/CountryPicker/Flags/AC.png";
-//    CGImageRef image;
-//    CGDataProviderRef provider;
-//    CFStringRef picturePath;
-//    CFURLRef pictureURL;
-//    picturePath = CFStringCreateWithCString(NULL, picture, kCFStringEncodingUTF8);
-//    pictureURL = CFURLCreateWithFileSystemPath(NULL, picturePath, kCFURLPOSIXPathStyle, 0);
-//    CFRelease(picturePath);
-//    provider = CGDataProviderCreateWithURL(pictureURL);
-//    CFRelease(pictureURL);
-//    image = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
-//    CGDataProviderRelease(provider);
-//    CGContextDrawImage(pdfContext, CGRectMake(0, 0, 48, 48), image);
-//    CGImageRelease(image);
-    
-    
-    CGContextSetTextDrawingMode(pdfContext, kCGTextFill);
-    CGContextSetRGBFillColor(pdfContext, 0, 0, 0, 1);
-    NSString *text = @"Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World";
-    UIFont *font = [UIFont fontWithName:@"Courier" size:14.0];
-    CGSize stringSize = [text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0f]}];
-    
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
-    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
-    paragraphStyle.alignment = NSTextAlignmentRight;
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
-    
-    
-//    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
-    [text drawInRect:CGRectMake(40, 40, 90, 90) withAttributes:dict];
-//    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
-//    CGContextShowTextAtPoint(pdfContext, 260, 390, text, strlen(text));
-    
-    CGContextEndPage(pdfContext);
-    CGContextRelease(pdfContext);
-}
+//- (void)drawPageNumber:(NSInteger)pageNum
+//{
+//    NSString *pageString = [NSString stringWithFormat:@"Page %d",pageNum];
+//    UIFont *theFont = [UIFont systemFontOfSize:12];
+//    CGSize maxSize = CGSizeMake(612, 72);
+//    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+//    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+//    paragraphStyle.alignment = NSTextAlignmentRight;
+//    
+//    NSDictionary *dict = @{NSFontAttributeName:theFont,
+//                           NSParagraphStyleAttributeName:paragraphStyle};
+//
+//    CGRect stringRect = CGRectMake((612-self.frame.size.width)/2, 720+(72-self.frame.size.height)/2.0, self.frame.size.width, self.frame.size.height);
+//    [pageString drawInRect:stringRect withAttributes:dict];
+//}
+//
+//- (void)CreatePDFFile:(CGRect)pageRect :(const char *)fileName
+//{
+//    CGContextRef pdfContext;
+//    CFStringRef path;
+//    CFURLRef url;
+//    CFMutableDictionaryRef myDict = NULL;
+//    
+//    path = CFStringCreateWithCString(NULL, fileName, kCFStringEncodingUTF8);
+//    url = CFURLCreateWithFileSystemPath(NULL, path, kCFURLPOSIXPathStyle, 0);
+//    CFRelease(path);
+//    
+//    myDict = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+//    CFDictionarySetValue(myDict, kCGPDFContextTitle, CFSTR("My PDF File"));
+//    CFDictionarySetValue(myDict, kCGPDFContextCreator, CFSTR("JKReader"));
+//    pdfContext = CGPDFContextCreateWithURL(url, &pageRect, myDict);
+//    CFRelease(myDict);
+//    CFRelease(url);
+//    
+//    CGContextBeginPage(pdfContext, &pageRect);
+//    
+////    CGContextStrokeRect(pdfContext, CGRectMake(50, 50, pageRect.size.width-100, pageRect.size.height-100));
+////    const char *picture = "/Users/Jeff/Desktop/CountryPicker/Flags/AC.png";
+////    CGImageRef image;
+////    CGDataProviderRef provider;
+////    CFStringRef picturePath;
+////    CFURLRef pictureURL;
+////    picturePath = CFStringCreateWithCString(NULL, picture, kCFStringEncodingUTF8);
+////    pictureURL = CFURLCreateWithFileSystemPath(NULL, picturePath, kCFURLPOSIXPathStyle, 0);
+////    CFRelease(picturePath);
+////    provider = CGDataProviderCreateWithURL(pictureURL);
+////    CFRelease(pictureURL);
+////    image = CGImageCreateWithPNGDataProvider(provider, NULL, true, kCGRenderingIntentDefault);
+////    CGDataProviderRelease(provider);
+////    CGContextDrawImage(pdfContext, CGRectMake(0, 0, 48, 48), image);
+////    CGImageRelease(image);
+//    
+//    
+//    CGContextSetTextDrawingMode(pdfContext, kCGTextFill);
+//    CGContextSetRGBFillColor(pdfContext, 0, 0, 0, 1);
+//    NSString *text = @"Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World,Hello World";
+//    UIFont *font = [UIFont fontWithName:@"Courier" size:14.0];
+//    CGSize stringSize = [text sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0f]}];
+//    
+//    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle defaultParagraphStyle] mutableCopy];
+//    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+//    paragraphStyle.alignment = NSTextAlignmentRight;
+//    NSDictionary *dict = [NSDictionary dictionaryWithObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+//    
+//    
+////    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
+//    [text drawInRect:CGRectMake(40, 40, 90, 90) withAttributes:dict];
+////    [text drawAtPoint:CGPointMake(120, 120) withAttributes:dict];
+////    CGContextShowTextAtPoint(pdfContext, 260, 390, text, strlen(text));
+//    
+//    CGContextEndPage(pdfContext);
+//    CGContextRelease(pdfContext);
+//}
 
 
 - (CGPDFDocumentRef)getPDFRefWithFilePath:(NSString *)aFilePath
@@ -134,7 +135,7 @@
         return NULL;
     }
     
-    [self CreatePDFFile:self.frame :"/Users/Jeff/Library/Application Support/iPhone Simulator/7.0.3/Applications/DF699FEC-EABA-455C-BD0B-3EA8D1D530D2/Documents/text.pdf"];
+    //[self CreatePDFFile:self.frame :"/Users/Jeff/Library/Application Support/iPhone Simulator/7.0.3/Applications/DF699FEC-EABA-455C-BD0B-3EA8D1D530D2/Documents/text.pdf"];
     return document;
 }
 

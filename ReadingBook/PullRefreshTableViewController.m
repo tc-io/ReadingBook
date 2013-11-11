@@ -57,7 +57,7 @@
     refreshLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, REFRESH_HEADER_HEIGHT)];
     refreshLabel.backgroundColor = [UIColor clearColor];
     refreshLabel.font = [UIFont boldSystemFontOfSize:12.0];
-    refreshLabel.textAlignment = UITextAlignmentCenter;
+    //refreshLabel.textAlignment = UITextAlignmentCenter;
     
     refreshArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow.png"]];
     refreshArrow.frame = CGRectMake(floorf((REFRESH_HEADER_HEIGHT - 27) / 2), (floorf(REFRESH_HEADER_HEIGHT - 44) / 2), 27, 44);
