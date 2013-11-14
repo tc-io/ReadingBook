@@ -28,7 +28,7 @@
 // Function: add book's information into the 'recentReadBookInfo'
 // Input: (NSString*) bookPath :(NSInteger)currentReadPageNumber
 // Return: (void)
-- (void) addBookInforToRecentReadList: (NSString *) bookPath :(NSInteger) currentReadPageNumber;
+- (void) addBookInfoToRecentReadList: (NSString *) bookPath :(NSInteger) currentReadPageNumber;
 
 // Function: check the book path whether is in 'recentReadBookInfo'
 // Input: Nil

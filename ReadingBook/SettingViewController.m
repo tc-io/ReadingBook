@@ -23,7 +23,7 @@
 - (id)init{
     self = [super init];
     CGRect frame = self.view.bounds;
-//    frame.origin.x = 40.0f;
+    //    frame.origin.x = 40.0f;
     frame.size.width -= 40.0f;
     self.settingTableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStyleGrouped];
     self.settingTableView.delegate = self;
@@ -32,7 +32,6 @@
     
     // Read Setting plist file and get view config
     self.settingPlistPath = [[NSBundle mainBundle] pathForResource:@"SettingProperty" ofType:@"plist"];
-    NSLog(@"[SettingViewController.init] settingPlistPath: %@",self.settingPlistPath);
     self.settingData = [[NSMutableArray alloc] initWithContentsOfFile:self.settingPlistPath];
     
     //    NSMutableArray *accessSettingAry = [[NSMutableArray alloc] initWithObjects:@"iCould账号",@"本地口令", nil];
@@ -68,7 +67,6 @@
     NSString *cellContent = [NSString stringWithFormat:@"%@",[[[self.settingData objectAtIndex:indexPath.section] allKeys] objectAtIndex:indexPath.row]];
     NSString *cellConfig = [[self.settingData objectAtIndex:indexPath.section] valueForKey:cellContent];
     cell.textLabel.text = cellContent;
-    NSLog(@"[SettingViewController] <%@> Cell Config<%@>",cellContent,cellConfig);
     if ([cellContent isEqualToString:@"字体颜色"] || [cellContent isEqualToString:@"阅读背景颜色"] || [cellContent isEqualToString:@"阅读背景"]) {
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
@@ -111,7 +109,6 @@
 
 - (void)updateSwitchAtIndexPath:(id)sender{
     UISwitch *changeSwitch = (UISwitch *)sender;
-    NSLog(@"Statue %d, Tag %d",changeSwitch.on,changeSwitch.tag);
     [[self.settingData objectAtIndex:0] setValue:@"haha" forKey:@"阅读背景颜色"];
     [self.settingData writeToFile:self.settingPlistPath atomically:YES];
     if (changeSwitch.on)

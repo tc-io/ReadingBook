@@ -7,21 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F0A67201828900D0068AF73 /* PDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0A671E1828900D0068AF73 /* PDFViewController.m */; };
 		1F19D8D7182228A5009C67A9 /* DDMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F19D8D6182228A5009C67A9 /* DDMenuController.m */; };
 		1F19D8D918222B64009C67A9 /* nav_menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */; };
 		1F4396A11827B45A006D9D5A /* LTHPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */; };
 		1F4396A41827B4B4006D9D5A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */; };
+		1FF66AAD183467A0001984B9 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF66AAC183467A0001984B9 /* ContentViewController.m */; };
+		1FF66AB0183467BF001984B9 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF66AAF183467BF001984B9 /* PageViewController.m */; };
+		1FF66AB3183467FC001984B9 /* PDFScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF66AB2183467FC001984B9 /* PDFScrollView.m */; };
+		1FF66AB618346836001984B9 /* TiledPDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF66AB518346836001984B9 /* TiledPDFView.m */; };
 		4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */; };
 		4856D0DD17FBB9B10095DEA8 /* SecondLevelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */; };
-		4856D0E017FBBDE60095DEA8 /* AllBooksListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4856D0DF17FBBDE60095DEA8 /* AllBooksListViewController.m */; };
 		4856D0E817FC2D6F0095DEA8 /* checkmarkControllerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E217FC2D6F0095DEA8 /* checkmarkControllerIcon.png */; };
 		4856D0E917FC2D6F0095DEA8 /* deleteMeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E317FC2D6F0095DEA8 /* deleteMeIcon.png */; };
 		4856D0EA17FC2D6F0095DEA8 /* detailEditIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E417FC2D6F0095DEA8 /* detailEditIcon.png */; };
 		4856D0EB17FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E517FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png */; };
 		4856D0EC17FC2D6F0095DEA8 /* moveMeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E617FC2D6F0095DEA8 /* moveMeIcon.png */; };
 		4856D0ED17FC2D6F0095DEA8 /* rowControlsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4856D0E717FC2D6F0095DEA8 /* rowControlsIcon.png */; };
-		48772CF3180284FB00A59201 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 48772CF2180284FB00A59201 /* PDFView.m */; };
 		48855869181768C800143FCF /* DownAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 48855865181768C800143FCF /* DownAccessory.png */; };
 		4885586A181768C800143FCF /* DownAccessory@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 48855866181768C800143FCF /* DownAccessory@2x.png */; };
 		4885586B181768C800143FCF /* UpAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 48855867181768C800143FCF /* UpAccessory.png */; };
@@ -44,8 +45,6 @@
 		4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4898E31F17FE5F370071FC16 /* TxtViewController.m */; };
 		48C0324C18163F1400BB864F /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C0324B18163F1400BB864F /* PullRefreshTableViewController.m */; };
 		48C0324E1816429C00BB864F /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 48C0324D1816429C00BB864F /* arrow.png */; };
-		48D4B6D518125DCA00CA1155 /* RecentReadListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D4B6D418125DCA00CA1155 /* RecentReadListViewController.m */; };
-		48D754EC180FBDAA004EBB57 /* PageViewController_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D754EB180FBDAA004EBB57 /* PageViewController_Model.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,8 +58,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F0A671D1828900D0068AF73 /* PDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFViewController.h; sourceTree = "<group>"; };
-		1F0A671E1828900D0068AF73 /* PDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFViewController.m; sourceTree = "<group>"; };
 		1F19D8D5182228A5009C67A9 /* DDMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMenuController.h; sourceTree = "<group>"; };
 		1F19D8D6182228A5009C67A9 /* DDMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMenuController.m; sourceTree = "<group>"; };
 		1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_menu_icon@2x.png"; sourceTree = "<group>"; };
@@ -68,20 +65,24 @@
 		1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LTHPasscodeViewController.m; path = ../LTHPasscodeViewController.m; sourceTree = "<group>"; };
 		1F4396A21827B4B4006D9D5A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFHFKeychainUtils.h; path = ../SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFHFKeychainUtils.m; path = ../SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		1FF66AAB183467A0001984B9 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
+		1FF66AAC183467A0001984B9 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
+		1FF66AAE183467BF001984B9 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		1FF66AAF183467BF001984B9 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		1FF66AB1183467FC001984B9 /* PDFScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFScrollView.h; sourceTree = "<group>"; };
+		1FF66AB2183467FC001984B9 /* PDFScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFScrollView.m; sourceTree = "<group>"; };
+		1FF66AB418346836001984B9 /* TiledPDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledPDFView.h; sourceTree = "<group>"; };
+		1FF66AB518346836001984B9 /* TiledPDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiledPDFView.m; sourceTree = "<group>"; };
 		4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontColorSecectActionSheet.h; sourceTree = "<group>"; };
 		4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontColorSecectActionSheet.m; sourceTree = "<group>"; };
 		4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondLevelViewController.h; sourceTree = "<group>"; };
 		4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondLevelViewController.m; sourceTree = "<group>"; };
-		4856D0DE17FBBDE60095DEA8 /* AllBooksListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllBooksListViewController.h; sourceTree = "<group>"; };
-		4856D0DF17FBBDE60095DEA8 /* AllBooksListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllBooksListViewController.m; sourceTree = "<group>"; };
 		4856D0E217FC2D6F0095DEA8 /* checkmarkControllerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmarkControllerIcon.png; sourceTree = "<group>"; };
 		4856D0E317FC2D6F0095DEA8 /* deleteMeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deleteMeIcon.png; sourceTree = "<group>"; };
 		4856D0E417FC2D6F0095DEA8 /* detailEditIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = detailEditIcon.png; sourceTree = "<group>"; };
 		4856D0E517FC2D6F0095DEA8 /* disclosureButtonControllerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosureButtonControllerIcon.png; sourceTree = "<group>"; };
 		4856D0E617FC2D6F0095DEA8 /* moveMeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moveMeIcon.png; sourceTree = "<group>"; };
 		4856D0E717FC2D6F0095DEA8 /* rowControlsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rowControlsIcon.png; sourceTree = "<group>"; };
-		48772CF1180284FB00A59201 /* PDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFView.h; sourceTree = "<group>"; };
-		48772CF2180284FB00A59201 /* PDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFView.m; sourceTree = "<group>"; };
 		48855865181768C800143FCF /* DownAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DownAccessory.png; sourceTree = "<group>"; };
 		48855866181768C800143FCF /* DownAccessory@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DownAccessory@2x.png"; sourceTree = "<group>"; };
 		48855867181768C800143FCF /* UpAccessory.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UpAccessory.png; sourceTree = "<group>"; };
@@ -112,10 +113,6 @@
 		48C0324A18163F1400BB864F /* PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		48C0324B18163F1400BB864F /* PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRefreshTableViewController.m; sourceTree = "<group>"; };
 		48C0324D1816429C00BB864F /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
-		48D4B6D318125DCA00CA1155 /* RecentReadListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentReadListViewController.h; sourceTree = "<group>"; };
-		48D4B6D418125DCA00CA1155 /* RecentReadListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentReadListViewController.m; sourceTree = "<group>"; };
-		48D754EA180FBDAA004EBB57 /* PageViewController_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController_Model.h; sourceTree = "<group>"; };
-		48D754EB180FBDAA004EBB57 /* PageViewController_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController_Model.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,12 +161,14 @@
 		1F9F28BA18309EC100F1DF69 /* PageView */ = {
 			isa = PBXGroup;
 			children = (
-				48D754EA180FBDAA004EBB57 /* PageViewController_Model.h */,
-				48D754EB180FBDAA004EBB57 /* PageViewController_Model.m */,
-				1F0A671D1828900D0068AF73 /* PDFViewController.h */,
-				1F0A671E1828900D0068AF73 /* PDFViewController.m */,
-				48772CF1180284FB00A59201 /* PDFView.h */,
-				48772CF2180284FB00A59201 /* PDFView.m */,
+				1FF66AAE183467BF001984B9 /* PageViewController.h */,
+				1FF66AAF183467BF001984B9 /* PageViewController.m */,
+				1FF66AAB183467A0001984B9 /* ContentViewController.h */,
+				1FF66AAC183467A0001984B9 /* ContentViewController.m */,
+				1FF66AB1183467FC001984B9 /* PDFScrollView.h */,
+				1FF66AB2183467FC001984B9 /* PDFScrollView.m */,
+				1FF66AB418346836001984B9 /* TiledPDFView.h */,
+				1FF66AB518346836001984B9 /* TiledPDFView.m */,
 			);
 			name = PageView;
 			sourceTree = "<group>";
@@ -226,11 +225,11 @@
 		488EF39017F966D900E03F0F /* ReadingBook */ = {
 			isa = PBXGroup;
 			children = (
+				488EF39917F966D900E03F0F /* AppDelegate.h */,
+				488EF39A17F966D900E03F0F /* AppDelegate.m */,
 				1F6C26ED182F2835008AA749 /* MainView */,
 				1F6C26EE182F2862008AA749 /* SettingView */,
 				1F9F28BA18309EC100F1DF69 /* PageView */,
-				488EF39917F966D900E03F0F /* AppDelegate.h */,
-				488EF39A17F966D900E03F0F /* AppDelegate.m */,
 				1F4396A21827B4B4006D9D5A /* SFHFKeychainUtils.h */,
 				1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */,
 				1F43969F1827B45A006D9D5A /* LTHPasscodeViewController.h */,
@@ -239,10 +238,6 @@
 				1F19D8D6182228A5009C67A9 /* DDMenuController.m */,
 				4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */,
 				4856D0DC17FBB9B10095DEA8 /* SecondLevelViewController.m */,
-				48D4B6D318125DCA00CA1155 /* RecentReadListViewController.h */,
-				48D4B6D418125DCA00CA1155 /* RecentReadListViewController.m */,
-				4856D0DE17FBBDE60095DEA8 /* AllBooksListViewController.h */,
-				4856D0DF17FBBDE60095DEA8 /* AllBooksListViewController.m */,
 				48C0324A18163F1400BB864F /* PullRefreshTableViewController.h */,
 				48C0324B18163F1400BB864F /* PullRefreshTableViewController.m */,
 				4898E31E17FE5F370071FC16 /* TxtViewController.h */,
@@ -395,18 +390,17 @@
 			files = (
 				48C0324C18163F1400BB864F /* PullRefreshTableViewController.m in Sources */,
 				488EF39B17F966D900E03F0F /* AppDelegate.m in Sources */,
-				48D4B6D518125DCA00CA1155 /* RecentReadListViewController.m in Sources */,
 				4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */,
 				4856D0DD17FBB9B10095DEA8 /* SecondLevelViewController.m in Sources */,
-				48772CF3180284FB00A59201 /* PDFView.m in Sources */,
 				1F4396A41827B4B4006D9D5A /* SFHFKeychainUtils.m in Sources */,
-				1F0A67201828900D0068AF73 /* PDFViewController.m in Sources */,
-				4856D0E017FBBDE60095DEA8 /* AllBooksListViewController.m in Sources */,
+				1FF66AB3183467FC001984B9 /* PDFScrollView.m in Sources */,
+				1FF66AB618346836001984B9 /* TiledPDFView.m in Sources */,
 				48954CD018084E24000036B3 /* SettingViewController.m in Sources */,
 				488EF39717F966D900E03F0F /* main.m in Sources */,
+				1FF66AB0183467BF001984B9 /* PageViewController.m in Sources */,
 				488EF40517F97E0B00E03F0F /* MainViewController.m in Sources */,
-				48D754EC180FBDAA004EBB57 /* PageViewController_Model.m in Sources */,
 				1F19D8D7182228A5009C67A9 /* DDMenuController.m in Sources */,
+				1FF66AAD183467A0001984B9 /* ContentViewController.m in Sources */,
 				4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */,
 				1F4396A11827B45A006D9D5A /* LTHPasscodeViewController.m in Sources */,
 			);

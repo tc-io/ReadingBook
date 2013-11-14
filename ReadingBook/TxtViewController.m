@@ -49,7 +49,7 @@
 {
     self = [super initWithNibName:Nil bundle:Nil];
     if (self) {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
         self.bookPath = bookPath;
         self.bookName = [fileManager displayNameAtPath:self.bookPath];
         
@@ -72,8 +72,8 @@
 
 - (void) loadView
 {
-    [super loadView];
     
+    [super loadView];
     // Get Txt Book's Content
     self.bookContent = [[NSString alloc]initWithContentsOfFile:self.bookPath encoding:NSUTF8StringEncoding error:NULL];
     if (!self.bookContent) {
@@ -83,7 +83,6 @@
         self.bookContent = [NSString stringWithContentsOfFile:self.bookPath encoding:NSUTF16StringEncoding error:NULL];
     }
     if (!(self.bookContent.length > 0)) {
-        NSLog(@"Empy Book");
         return;
     }
 }
@@ -118,24 +117,24 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
-    CATransition * animation = [CATransition animation];
-    animation.type = @"oglFlip";
-    animation.subtype = kCATransitionFromLeft;
-    animation.duration = 0.45;
-    animation.removedOnCompletion = YES;
-    [self.navigationController.view.layer addAnimation:animation forKey:nil];
+//    CATransition * animation = [CATransition animation];
+//    animation.type = @"oglFlip";
+//    animation.subtype = kCATransitionFromLeft;
+//    animation.duration = 0.45;
+//    animation.removedOnCompletion = YES;
+//    [self.navigationController.view.layer addAnimation:animation forKey:nil];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:NO];
     [self.pageTimer invalidate];
     self.pageTimer = nil;
-    CATransition * animation = [CATransition animation];
-    animation.type = @"oglFlip";
-    animation.subtype = kCATransitionFromRight;
-    animation.duration = 0.45;
-    animation.removedOnCompletion = YES;
-    [self.navigationController.view.layer addAnimation:animation forKey:nil];
+//    CATransition * animation = [CATransition animation];
+//    animation.type = @"oglFlip";
+//    animation.subtype = kCATransitionFromRight;
+//    animation.duration = 0.45;
+//    animation.removedOnCompletion = YES;
+//    [self.navigationController.view.layer addAnimation:animation forKey:nil];
     
 }
 
