@@ -16,22 +16,19 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     // Create our PDFScrollView and add it to the view controller.
     CGPDFPageRef PDFPage = CGPDFDocumentGetPage(thePDF, [_page intValue]);
     pdfScrollView = [[PDFScrollView alloc] initWithFrame:self.view.frame];
     [pdfScrollView setPDFPage:PDFPage];
     [self.view addSubview:pdfScrollView];
-    self.view.backgroundColor = [UIColor redColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     pdfScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
@@ -41,15 +38,13 @@
     pdfScrollView = nil;
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [super viewDidUnload];
     _page = nil;
     pdfScrollView = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return YES;
 }
 

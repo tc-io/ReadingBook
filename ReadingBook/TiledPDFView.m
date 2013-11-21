@@ -9,16 +9,14 @@
 #import "TiledPDFView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation TiledPDFView
-{
+@implementation TiledPDFView {
     CGPDFPageRef pdfPage;
     CGFloat myScale;
 }
 
 
 // Create a new TiledPDFView with the desired frame and scale.
-- (id)initWithFrame:(CGRect)frame scale:(CGFloat)scale
-{
+- (id)initWithFrame:(CGRect)frame scale:(CGFloat)scale {
     self = [super initWithFrame:frame];
     if (self) {
         
@@ -37,22 +35,19 @@
 
 
 // The layer's class should be CATiledLayer.
-+ (Class)layerClass
-{
++ (Class)layerClass {
     return [CATiledLayer class];
 }
 
 
 // Set the CGPDFPageRef for the view.
-- (void)setPage:(CGPDFPageRef)newPage
-{
+- (void)setPage:(CGPDFPageRef)newPage {
     CGPDFPageRelease(self->pdfPage);
     self->pdfPage = CGPDFPageRetain(newPage);
 }
 
 
--(void)drawRect:(CGRect)r
-{
+-(void)drawRect:(CGRect)r {
     /*
      UIView uses the existence of -drawRect: to determine if it should allow its CALayer to be invalidated, which would then lead to the layer creating a backing store and -drawLayer:inContext: being called.
      Implementing an empty -drawRect: method allows UIKit to continue to implement this logic, while doing the real drawing work inside of -drawLayer:inContext:.
@@ -61,8 +56,7 @@
 
 
 // Draw the CGPDFPageRef into the layer at the correct scale.
--(void)drawLayer:(CALayer*)layer inContext:(CGContextRef)context
-{
+-(void)drawLayer:(CALayer*)layer inContext:(CGContextRef)context {
     // Fill the background with white.
     CGContextSetRGBFillColor(context, 1.0,1.0,1.0,1.0);
     CGContextFillRect(context, self.bounds);
@@ -80,10 +74,8 @@
 
 
 // Clean up.
-- (void)dealloc
-{
+- (void)dealloc {
     CGPDFPageRelease(pdfPage);
 }
-
 
 @end

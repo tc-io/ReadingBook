@@ -45,8 +45,7 @@
 
 @implementation TxtViewController
 
-- (id) initWithBookPath:(NSString *)bookPath
-{
+- (id) initWithBookPath:(NSString *)bookPath {
     self = [super initWithNibName:Nil bundle:Nil];
     if (self) {
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -70,36 +69,27 @@
     return self;
 }
 
-- (void) loadView
-{
-    
+- (void) loadView {
     [super loadView];
     // Get Txt Book's Content
     self.bookContent = [[NSString alloc]initWithContentsOfFile:self.bookPath encoding:NSUTF8StringEncoding error:NULL];
-    if (!self.bookContent) {
+    if (!self.bookContent)
         self.bookContent = [NSString stringWithContentsOfFile:self.bookPath encoding:NSASCIIStringEncoding error:NULL];
-    }
-    if (!self.bookContent) {
+    if (!self.bookContent)
         self.bookContent = [NSString stringWithContentsOfFile:self.bookPath encoding:NSUTF16StringEncoding error:NULL];
-    }
-    if (!(self.bookContent.length > 0)) {
+    if (!(self.bookContent.length > 0))
         return;
-    }
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.bookName;
     self.view.backgroundColor = [UIColor whiteColor];
-    
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction:)];
     tapGesture.numberOfTapsRequired = 1;
     //左右滑动的手势
-    
     UISwipeGestureRecognizer * swipeLeftGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeGestureAction:)];
     swipeLeftGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    
     UISwipeGestureRecognizer * swipeRightGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeGestureAction:)];
     swipeRightGesture.direction = UISwipeGestureRecognizerDirectionRight;
     if ([self.bookName hasSuffix:@"txt"]) {

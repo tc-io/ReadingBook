@@ -14,20 +14,17 @@
     NSURL *pdfUrl = [NSURL fileURLWithPath:path];
     PDFDocument = CGPDFDocumentCreateWithURL((__bridge CFURLRef)pdfUrl);
     totalPages = (int)CGPDFDocumentGetNumberOfPages(PDFDocument);
-//    self = [super initWithNibName:nil bundle:nil];
-    self = [super init];
+    self = [super initWithNibName:nil bundle:nil];
     UITapGestureRecognizer * doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dobuleTapAction:)];
     doubleTapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTapGesture];
     return self;
 }
 
-- (void) dobuleTapAction:(id)sender
-{
+- (void) dobuleTapAction:(id)sender {
     BOOL isHidden = self.navigationController.navigationBarHidden;
     [self.navigationController setNavigationBarHidden:!isHidden animated:YES];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -35,8 +32,11 @@
 
 #pragma mark - UIPageViewControllerDataSource Methods
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-      viewControllerBeforeViewController:(UIViewController *)viewController {
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    BOOL isHidden = self.navigationController.navigationBarHidden;
+    if (!isHidden)
+        [self.navigationController setNavigationBarHidden:!isHidden animated:YES];
+
     contentViewController = [[ContentViewController alloc] initWithPDF:PDFDocument];
     currentIndex = [modelArray indexOfObject:[(ContentViewController *)viewController page]];
     if (currentIndex == 0)
@@ -46,8 +46,12 @@
     return contentViewController;
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-       viewControllerAfterViewController:(UIViewController *)viewController {
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    BOOL isHidden = self.navigationController.navigationBarHidden;
+    if (!isHidden)
+        [self.navigationController setNavigationBarHidden:!isHidden animated:YES];
+
+    
     contentViewController = [[ContentViewController alloc] initWithPDF:PDFDocument];
     //get the current page
     currentIndex = [modelArray indexOfObject:[(ContentViewController *)viewController page]];
@@ -63,29 +67,23 @@
 }
 
 #pragma mark - UIPageViewControllerDelegate Methods
-
-- (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController
-                   spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation {
-    
+- (UIPageViewControllerSpineLocation)pageViewController:(UIPageViewController *)pageViewController spineLocationForInterfaceOrientation:(UIInterfaceOrientation)orientation {
     UIViewController *currentViewController = [thePageViewController.viewControllers objectAtIndex:0];
     NSArray *viewControllers = [NSArray arrayWithObject:currentViewController];
     [thePageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:NULL];
     
     thePageViewController.doubleSided = NO;
-    
     return UIPageViewControllerSpineLocationMin;
-    
 }
 
 #pragma mark - View lifecycle
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     //modelArray holds the page numbers
     modelArray = [[NSMutableArray alloc] init];
-    for (int index = 1; index <= totalPages; index++) {
+    for (int index = 1; index <= totalPages; index++)
         [modelArray addObject:[NSString stringWithFormat:@"%i", index]];
-    }
+        
     thePageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation: UIPageViewControllerNavigationOrientationHorizontal options:nil];
     thePageViewController.delegate = self;
     thePageViewController.dataSource = self;
@@ -95,14 +93,10 @@
     contentViewController.page = [modelArray objectAtIndex:0];
     
     NSArray *viewControllers = [NSArray arrayWithObject:contentViewController];
-    
     [thePageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
     [self addChildViewController:thePageViewController];
     [self.view addSubview:thePageViewController.view];
-    thePageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [thePageViewController didMoveToParentViewController:self];
-    self.view.backgroundColor = [UIColor blueColor];
 }
 
 -(void)dealloc {
@@ -116,28 +110,23 @@
     modelArray = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return YES;
 }
 

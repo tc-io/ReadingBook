@@ -13,17 +13,13 @@
 @synthesize view;
 @synthesize toolBar;
 
--(id)initWithHeight:(float)height WithSheetTitle:(NSString*)title
-{
+-(id)initWithHeight:(float)height WithSheetTitle:(NSString*)title {
     self = [super init];
-    if (self)
-    {
+    if (self) {
         int theight = height - 40;
         int btnnum = theight/50;
         for(int i=0; i<btnnum; i++)
-        {
             [self addButtonWithTitle:@" "];
-        }
         
         toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
         toolBar.barStyle = UIBarStyleBlackOpaque;
@@ -55,13 +51,11 @@
     return self;
 }
 
--(void)done
-{
+-(void)done {
     [self dismissWithClickedButtonIndex:0 animated:YES];
 }
 
--(void)docancel
-{
+-(void)docancel {
     [self dismissWithClickedButtonIndex:0 animated:YES];
 }
 
@@ -73,7 +67,5 @@
     // Drawing code
 }
 */
-
-
 
 @end

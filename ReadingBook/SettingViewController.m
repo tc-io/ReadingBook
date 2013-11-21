@@ -20,7 +20,7 @@
 @synthesize settingViewCell;
 
 
-- (id)init{
+- (id)init {
     self = [super init];
     CGRect frame = self.view.bounds;
     //    frame.origin.x = 40.0f;
@@ -42,22 +42,18 @@
     return  self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 }
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[self.settingData objectAtIndex:section] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *settingCellIdentifer = @"SettingCellIndentifer";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:settingCellIdentifer];
     if (cell == Nil) {
@@ -80,17 +76,15 @@
     return cell;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if ([[self.settingData objectAtIndex:section] count]>2)
         return @"阅读设置";
     else
         return @"访问设置";
 }
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     FontColorSecectActionSheet* sheet = [[FontColorSecectActionSheet alloc] initWithHeight:284.0f WithSheetTitle:@"自定义ActionSheet"];
-    
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];
     NSDate *now = [[NSDate alloc] init];
     [datePicker setDate:now animated:NO];
@@ -107,7 +101,7 @@
     ////    [self.navigationController pushViewController:self.bookReadController animated:YES];
 }
 
-- (void)updateSwitchAtIndexPath:(id)sender{
+- (void)updateSwitchAtIndexPath:(id)sender {
     UISwitch *changeSwitch = (UISwitch *)sender;
     [[self.settingData objectAtIndex:0] setValue:@"haha" forKey:@"阅读背景颜色"];
     [self.settingData writeToFile:self.settingPlistPath atomically:YES];
@@ -117,18 +111,14 @@
         [[LTHPasscodeViewController sharedUser] showForTurningOffPasscodeInViewController: self];
 }
 
-- (void) saveConfigToPlistFile
-{
+- (void) saveConfigToPlistFile {
     [self.settingData writeToFile:self.settingPlistPath atomically:YES];
 }
 
-- (NSString *) getSettingConfigByKeyword:(NSString*) configKeyword
-{
+- (NSString *) getSettingConfigByKeyword:(NSString*) configKeyword {
     for (int i=0; i<[self.settingData count]; i++) {
         if ([[[self.settingData objectAtIndex:i] allKeys] indexOfObject:configKeyword]!= NSNotFound)
-        {
             return [[self.settingData objectAtIndex:i] valueForKey:configKeyword];
-        }
     }
     return  Nil;
 }

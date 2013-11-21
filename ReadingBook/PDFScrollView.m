@@ -26,20 +26,15 @@
 
 
 
-@implementation PDFScrollView
-{
+@implementation PDFScrollView {
     CGPDFPageRef _PDFPage;
-    
     // Current PDF zoom scale.
     CGFloat _PDFScale;
 }
 
-
 @synthesize backgroundImageView=_backgroundImageView, tiledPDFView=_tiledPDFView, oldTiledPDFView=_oldTiledPDFView;
 
-
-- (id)initWithCoder:(NSCoder *)coder
-{
+- (id)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
         self.decelerationRate = UIScrollViewDecelerationRateFast;
@@ -48,9 +43,7 @@
     return self;
 }
 
-
-- (void)setPDFPage:(CGPDFPageRef)PDFPage;
-{
+- (void)setPDFPage:(CGPDFPageRef)PDFPage {
     CGPDFPageRetain(PDFPage);
     CGPDFPageRelease(_PDFPage);
     _PDFPage = PDFPage;
@@ -58,8 +51,7 @@
     // Determine the size of the PDF page.
     CGRect pageRect = CGPDFPageGetBoxRect(_PDFPage, kCGPDFMediaBox);
     _PDFScale = self.frame.size.width/pageRect.size.width;
-    pageRect.size = CGSizeMake(pageRect.size.width*_PDFScale, pageRect.size.height*_PDFScale);
-    
+    pageRect.size = CGSizeMake(pageRect.size.width*_PDFScale, self.frame.size.height);
     
     /*
      Create a low resolution image representation of the PDF page to display before the TiledPDFView renders its content.
@@ -107,19 +99,16 @@
 }
 
 
-- (void)dealloc
-{
+- (void)dealloc {
     // Clean up.
     CGPDFPageRelease(_PDFPage);
 }
-
 
 #pragma mark -
 #pragma mark Override layoutSubviews to center content
 
 // Use layoutSubviews to center the PDF page in the view.
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
     
     // Center the image as it becomes smaller than the size of the screen.
@@ -159,8 +148,7 @@
  A UIScrollView delegate callback, called when the user starts zooming.
  Return the current TiledPDFView.
  */
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.tiledPDFView;
 }
 
@@ -168,8 +156,7 @@
  A UIScrollView delegate callback, called when the user begins zooming.
  When the user begins zooming, remove the old TiledPDFView and set the current TiledPDFView to be the old view so we can create a new TiledPDFView when the zooming ends.
  */
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
-{
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
     // Remove back tiled view.
     [self.oldTiledPDFView removeFromSuperview];
     
@@ -183,8 +170,7 @@
  A UIScrollView delegate callback, called when the user stops zooming.
  When the user stops zooming, create a new TiledPDFView based on the new zoom level and draw it on top of the old TiledPDFView.
  */
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale
-{
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
     // Set the new scale factor for the TiledPDFView.
     _PDFScale *= scale;
     
@@ -200,6 +186,5 @@
     [self addSubview:tiledPDFView];
     self.tiledPDFView = tiledPDFView;
 }
-
 
 @end
