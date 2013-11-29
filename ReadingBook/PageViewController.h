@@ -16,6 +16,7 @@
     ContentViewController *contentViewController;
     NSMutableArray *modelArray;
     CGPDFDocumentRef PDFDocument;
+    NSString *bookPath;
     int currentIndex;
     int totalPages;
 }

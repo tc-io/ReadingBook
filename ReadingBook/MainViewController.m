@@ -37,6 +37,7 @@ static NSString *RootLevelCell = @"MainViewCell";
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
     self.recentReadBookInfoPlistPath = [path stringByAppendingPathComponent:@"RecentReadBookInfo.plist"];
+        NSLog(@"%@",self.recentReadBookInfoPlistPath);
     if ([fileManager fileExistsAtPath:self.recentReadBookInfoPlistPath]) {
         self.recentReadBookInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:self.recentReadBookInfoPlistPath];
         [self checkRecentBookIsExist];
@@ -120,7 +121,7 @@ static NSString *RootLevelCell = @"MainViewCell";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.recentReadBookInfo writeToFile:self.recentReadBookInfoPlistPath atomically:YES];
+    //[self.recentReadBookInfo writeToFile:self.recentReadBookInfoPlistPath atomically:YES];
 }
 
 - (void)viewDidLoad {
@@ -128,25 +129,6 @@ static NSString *RootLevelCell = @"MainViewCell";
     NSArray *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentDir = [documentPath objectAtIndex:0];
     [self getAllBooksInfoListFromPath:documentDir];
-    
-//    NSMutableArray *array = [[NSMutableArray alloc]init];
-//    //Book List View
-//    BooksListViewController *booksListViewController = [[BooksListViewController alloc]initWithStyle:UITableViewStylePlain];
-//    booksListViewController.title = @"Books List";
-//    booksListViewController.bookDisplayImage = [UIImage imageNamed:@"disclosureButtonControllerIcon.png"];
-//    [array addObject:booksListViewController];
-//    
-//    //Setting View
-//    SettingViewController *settingViewController = [[SettingViewController alloc] init];
-//    settingViewController.title = @"Setting";
-//    [array addObject:settingViewController];
-//    
-//    //Recent Read Book List
-//    RecentReadListViewController *recentReadListViewController = [[RecentReadListViewController alloc] init];
-//    recentReadListViewController.title = @"Recent Read List";
-//    [array addObject:recentReadListViewController];
-//    
-//    self.controllers = array;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:RootLevelCell];
 }
 

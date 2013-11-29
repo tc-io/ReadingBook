@@ -14,6 +14,7 @@
     NSURL *pdfUrl = [NSURL fileURLWithPath:path];
     PDFDocument = CGPDFDocumentCreateWithURL((__bridge CFURLRef)pdfUrl);
     totalPages = (int)CGPDFDocumentGetNumberOfPages(PDFDocument);
+    bookPath = path;
     self = [super initWithNibName:nil bundle:nil];
     UITapGestureRecognizer * doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dobuleTapAction:)];
     doubleTapGesture.numberOfTapsRequired = 2;
@@ -90,8 +91,13 @@
     thePageViewController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
     contentViewController = [[ContentViewController alloc] initWithPDF:PDFDocument];
-    contentViewController.page = [modelArray objectAtIndex:0];
     
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+    NSString *recentReadBookInfoPlistPath = [path stringByAppendingPathComponent:@"RecentReadBookInfo.plist"];
+    NSMutableDictionary *recentReadBookInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:recentReadBookInfoPlistPath];
+    currentIndex = [[recentReadBookInfo valueForKey:bookPath] integerValue];
+    contentViewController.page = [modelArray objectAtIndex:currentIndex];
+    NSLog(@"viewDidLoad -> recent page %d",currentIndex);
     NSArray *viewControllers = [NSArray arrayWithObject:contentViewController];
     [thePageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     [self addChildViewController:thePageViewController];
@@ -124,6 +130,14 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+    NSString *recentReadBookInfoPlistPath = [path stringByAppendingPathComponent:@"RecentReadBookInfo.plist"];
+    NSMutableDictionary *recentReadBookInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:recentReadBookInfoPlistPath];
+    NSString *currentReadPageNumString = [NSString stringWithFormat:@"%d", currentIndex];
+    NSLog(@"viewDidDisappear -> current page %@",currentReadPageNumString);
+    [recentReadBookInfo setValue:currentReadPageNumString forKey:bookPath];
+    [recentReadBookInfo writeToFile:recentReadBookInfoPlistPath atomically:YES];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
