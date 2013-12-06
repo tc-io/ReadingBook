@@ -3,15 +3,23 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[SettingViewController init]:SettingViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[SettingViewController updateSwitchAtIndexPath:]:SettingViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[self.settingData objectAtIndex:0] allkeys]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[SettingViewController tableView:cellForRowAtIndexPath:]:SettingViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "[[self.settingData allKeys] objectAtIndex:indexPath.section]">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[SettingViewController init]:SettingViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

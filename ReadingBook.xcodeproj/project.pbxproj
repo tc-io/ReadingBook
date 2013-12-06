@@ -151,6 +151,10 @@
 		1F6C26EE182F2862008AA749 /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
+				1F4396A21827B4B4006D9D5A /* SFHFKeychainUtils.h */,
+				1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */,
+				1F43969F1827B45A006D9D5A /* LTHPasscodeViewController.h */,
+				1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */,
 				48954CCE18084E24000036B3 /* SettingViewController.h */,
 				48954CCF18084E24000036B3 /* SettingViewController.m */,
 				48954CCC18084E0F000036B3 /* SettingProperty.plist */,
@@ -230,10 +234,6 @@
 				1F6C26ED182F2835008AA749 /* MainView */,
 				1F6C26EE182F2862008AA749 /* SettingView */,
 				1F9F28BA18309EC100F1DF69 /* PageView */,
-				1F4396A21827B4B4006D9D5A /* SFHFKeychainUtils.h */,
-				1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */,
-				1F43969F1827B45A006D9D5A /* LTHPasscodeViewController.h */,
-				1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */,
 				1F19D8D5182228A5009C67A9 /* DDMenuController.h */,
 				1F19D8D6182228A5009C67A9 /* DDMenuController.m */,
 				4856D0DB17FBB9B10095DEA8 /* SecondLevelViewController.h */,

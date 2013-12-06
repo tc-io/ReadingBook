@@ -31,6 +31,8 @@
     [self.view addSubview:self.settingTableView];
     
     // Read Setting plist file and get view config
+    
+    
     self.settingPlistPath = [[NSBundle mainBundle] pathForResource:@"SettingProperty" ofType:@"plist"];
     self.settingData = [[NSMutableArray alloc] initWithContentsOfFile:self.settingPlistPath];
     
@@ -104,6 +106,7 @@
 - (void)updateSwitchAtIndexPath:(id)sender {
     UISwitch *changeSwitch = (UISwitch *)sender;
     [[self.settingData objectAtIndex:0] setValue:@"haha" forKey:@"阅读背景颜色"];
+    NSLog(@"%@",[[self.settingData objectAtIndex:0] valueForKey:@"阅读背景颜色"]);
     [self.settingData writeToFile:self.settingPlistPath atomically:YES];
     if (changeSwitch.on)
     	[[LTHPasscodeViewController sharedUser] showForEnablingPasscodeInViewController: self];

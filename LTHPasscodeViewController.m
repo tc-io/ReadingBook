@@ -91,7 +91,8 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 + (BOOL)didPasscodeTimerEnd {
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	// startTime wasn't saved yet (first app use and it crashed, phone force closed, etc) if it returns -1.
-	if (now - [self timerStartTime] >= [self timerDuration] || [self timerStartTime] == -1) return YES;
+	if (now - [self timerStartTime] >= [self timerDuration] || [self timerStartTime] == -1)
+        return YES;
 	return NO;
 }
 
