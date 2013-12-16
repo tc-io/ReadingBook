@@ -20,6 +20,7 @@ static CGFloat const kFontSizeModifier = 1.5f;
 static CGFloat const kiPhoneHorizontalGap = 40.0f;
 static CGFloat const kLockAnimationDuration = 0.15f;
 static CGFloat const kSlideAnimationDuration = 0.15f;
+static BOOL isCancle = NO;
 
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 // Gaps
@@ -57,8 +58,12 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 
 @implementation LTHPasscodeViewController
 
+@synthesize isCurrentlyOnScreen;
 
 #pragma mark - Private
+
+
+
 + (BOOL)passcodeExistsInKeychain {
 	return [SFHFKeychainUtils getPasswordForUsername: kKeychainPasscode
 									  andServiceName: kKeychainServiceName
@@ -96,19 +101,26 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 	return NO;
 }
 
++ (BOOL)getState{
+    BOOL gs = isCancle;
+    isCancle = NO;
+    return gs;
+}
+
+
 #pragma mark - View life
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	self.view.backgroundColor = kBackgroundColor;
 	if (!_beingDisplayedAsLockscreen) {
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel
 																							   target: self
 																							   action: @selector(cancelAndDismissMe)];
-		self.title = @"Enter Passcode";
+		self.title = @"输入本地口令";
 	}
 	
-	_isCurrentlyOnScreen = YES;
+	isCurrentlyOnScreen = YES;
 	_failedAttempts = 0;
 	_animatingView = [[UIView alloc] initWithFrame: self.view.frame];
 	[self.view addSubview: _animatingView];
@@ -318,7 +330,8 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 
 
 - (void)cancelAndDismissMe {
-	_isCurrentlyOnScreen = NO;
+	isCurrentlyOnScreen = NO;
+    isCancle = YES;
 	[_passcodeTextField resignFirstResponder];
 	[self resetUI];
 	// Or, if you prefer by notifications:
@@ -332,7 +345,8 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 
 
 - (void)dismissMe {
-	_isCurrentlyOnScreen = NO;
+	isCurrentlyOnScreen = NO;
+    isCancle = YES;
 	[self resetUI];
 	[_passcodeTextField resignFirstResponder];
 	[UIView animateWithDuration: kLockAnimationDuration animations: ^{
@@ -396,7 +410,7 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 	if (!_beingDisplayedAsLockscreen) [self cancelAndDismissMe];
 	[self prepareAsLockscreen];
 	// In case the user leaves the app while the lockscreen is already active.
-	if (!_isCurrentlyOnScreen) {
+	if (!isCurrentlyOnScreen) {
 		[[UIApplication sharedApplication].keyWindow addSubview: self.view];
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(statusBarFrameOrOrientationChanged:)
@@ -442,8 +456,9 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 		[UIView animateWithDuration: kLockAnimationDuration animations: ^{
 			self.view.center = newCenter;
 		}];
-		_isCurrentlyOnScreen = YES;
+		isCurrentlyOnScreen = YES;
 	}
+    NSLog(@"Show Lock Screen");
 }
 
 
@@ -451,7 +466,7 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController: self];
 	[viewController presentViewController: navController animated: YES completion: nil];
 	[self rotateAccordingToStatusBarOrientationAndSupportedOrientations];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel
 																						   target: self
 																						   action: @selector(cancelAndDismissMe)];
 }
@@ -460,21 +475,23 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 - (void)showForEnablingPasscodeInViewController:(UIViewController *)viewController {
 	[self prepareForEnablingPasscode];
 	[self prepareNavigationControllerWithController: viewController];
-	self.title = @"Enable Passcode";
+	self.title = @"设置本地口令";
 }
 
 
 - (void)showForChangingPasscodeInViewController:(UIViewController *)viewController {
 	[self prepareForChangingPasscode];
 	[self prepareNavigationControllerWithController: viewController];
-	self.title = @"Change Passcode";
+	self.title = @"更改本地口令";
 }
 
 
 - (void)showForTurningOffPasscodeInViewController:(UIViewController *)viewController {
-	[self prepareForTurningOffPasscode];
-	[self prepareNavigationControllerWithController: viewController];
-	self.title = @"Turn Off Passcode";
+    if ([LTHPasscodeViewController passcodeExistsInKeychain]){
+        [self prepareForTurningOffPasscode];
+        [self prepareNavigationControllerWithController: viewController];
+        self.title = @"关闭本地口令";
+    }
 }
 
 
@@ -490,7 +507,7 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 
 
 - (void)prepareForChangingPasscode {
-	_isCurrentlyOnScreen = YES;
+	isCurrentlyOnScreen = YES;
 	_beingDisplayedAsLockscreen = NO;
 	_isUserTurningPasscodeOff = NO;
 	_isUserChangingPasscode = YES;
@@ -501,7 +518,7 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 
 
 - (void)prepareForTurningOffPasscode {
-	_isCurrentlyOnScreen = YES;
+	isCurrentlyOnScreen = YES;
 	_beingDisplayedAsLockscreen = NO;
 	_isUserTurningPasscodeOff = YES;
 	_isUserChangingPasscode = NO;
@@ -512,7 +529,7 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 
 
 - (void)prepareForEnablingPasscode {
-	_isCurrentlyOnScreen = YES;
+	isCurrentlyOnScreen = YES;
 	_beingDisplayedAsLockscreen = NO;
 	_isUserTurningPasscodeOff = NO;
 	_isUserChangingPasscode = NO;
@@ -524,7 +541,7 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-	return !_isCurrentlyOnScreen;
+	return !isCurrentlyOnScreen;
 }
 
 
@@ -661,15 +678,18 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 	_failedAttemptLabel.hidden = YES;
 	_passcodeTextField.text = @"";
 	if (_isUserConfirmingPasscode) {
-		if (_isUserEnablingPasscode) _enterPasscodeLabel.text = @"Re-enter your passcode";
-		else if (_isUserChangingPasscode) _enterPasscodeLabel.text = @"Re-enter your new passcode";
+		if (_isUserEnablingPasscode)
+            _enterPasscodeLabel.text = @"Re-enter your passcode";
+		else if (_isUserChangingPasscode)
+            _enterPasscodeLabel.text = @"Re-enter your new passcode";
 	}
 	else if (_isUserBeingAskedForNewPasscode) {
 		if (_isUserEnablingPasscode || _isUserChangingPasscode) {
 			_enterPasscodeLabel.text = @"Enter your new passcode";
 		}
 	}
-	else _enterPasscodeLabel.text = @"Enter your passcode";
+	else
+        _enterPasscodeLabel.text = @"Enter your passcode";
 }
 
 
@@ -695,10 +715,10 @@ static CGFloat const kSlideAnimationDuration = 0.15f;
 	[self resetTextFields];
 	_passcodeTextField.text = @"";
 	_failedAttempts++;
-	if (_failedAttempts == 1) _failedAttemptLabel.text = [NSString stringWithFormat: @"%i Passcode Failed Attempt", _failedAttempts];
-	else {
+	if (_failedAttempts == 1)
+        _failedAttemptLabel.text = [NSString stringWithFormat: @"%i Passcode Failed Attempt", _failedAttempts];
+	else
 		_failedAttemptLabel.text = [NSString stringWithFormat: @"%i Passcode Failed Attempts", _failedAttempts];
-	}
 	_failedAttemptLabel.layer.cornerRadius = kFailedAttemptLabelHeight * 0.65f;
 	_failedAttemptLabel.hidden = NO;
 }
@@ -894,5 +914,6 @@ CGFloat UIInterfaceOrientationAngleOfOrientation(UIInterfaceOrientation orientat
 UIInterfaceOrientationMask UIInterfaceOrientationMaskFromOrientation(UIInterfaceOrientation orientation) {
     return 1 << orientation;
 }
+
 
 @end

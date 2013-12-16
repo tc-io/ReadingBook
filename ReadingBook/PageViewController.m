@@ -96,7 +96,6 @@
     NSMutableDictionary *recentReadBookInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:recentReadBookInfoPlistPath];
     currentIndex = [[recentReadBookInfo valueForKey:bookPath] integerValue];
     contentViewController.page = [modelArray objectAtIndex:currentIndex+1];
-    NSLog(@"viewDidLoad -> recent page %d",currentIndex);
     NSArray *viewControllers = [NSArray arrayWithObject:contentViewController];
     [thePageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     [self addChildViewController:thePageViewController];
@@ -133,10 +132,8 @@
     NSString *recentReadBookInfoPlistPath = [path stringByAppendingPathComponent:@"RecentReadBookInfo.plist"];
     NSMutableDictionary *recentReadBookInfo = [[NSMutableDictionary alloc] initWithContentsOfFile:recentReadBookInfoPlistPath];
     NSString *currentReadPageNumString = [NSString stringWithFormat:@"%d", currentIndex];
-    NSLog(@"viewDidDisappear -> current page %@",currentReadPageNumString);
     [recentReadBookInfo setValue:currentReadPageNumString forKey:bookPath];
     [recentReadBookInfo writeToFile:recentReadBookInfoPlistPath atomically:YES];
-
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

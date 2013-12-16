@@ -44,6 +44,8 @@
 - (void)prepareForTurningOffPasscode;
 - (void)prepareForEnablingPasscode;
 
++ (BOOL)getState;
+
 + (BOOL)passcodeExistsInKeychain;
 + (BOOL)didPasscodeTimerEnd;
 + (void)saveTimerStartTime;

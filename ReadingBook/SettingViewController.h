@@ -16,7 +16,8 @@
 
 @property (strong, nonatomic) NSString* settingPlistPath;   //  record the setting plist file path
 @property (strong, nonatomic) NSMutableArray *settingData; //  store the setting'Data
-
+@property (strong, nonatomic) NSUserDefaults *settingDefaults;
+@property (strong, nonatomic) UISwitch *switchView;
 
 - (id) init;
 

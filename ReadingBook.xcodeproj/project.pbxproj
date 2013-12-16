@@ -40,7 +40,6 @@
 		488EF3AE17F966D900E03F0F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 488EF3AC17F966D900E03F0F /* InfoPlist.strings */; };
 		488EF3B017F966D900E03F0F /* ReadingBookTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EF3AF17F966D900E03F0F /* ReadingBookTests.m */; };
 		488EF40517F97E0B00E03F0F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 488EF40417F97E0B00E03F0F /* MainViewController.m */; };
-		48954CCD18084E0F000036B3 /* SettingProperty.plist in Resources */ = {isa = PBXBuildFile; fileRef = 48954CCC18084E0F000036B3 /* SettingProperty.plist */; };
 		48954CD018084E24000036B3 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48954CCF18084E24000036B3 /* SettingViewController.m */; };
 		4898E32017FE5F370071FC16 /* TxtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4898E31F17FE5F370071FC16 /* TxtViewController.m */; };
 		48C0324C18163F1400BB864F /* PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C0324B18163F1400BB864F /* PullRefreshTableViewController.m */; };
@@ -105,7 +104,6 @@
 		488EF3AF17F966D900E03F0F /* ReadingBookTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadingBookTests.m; sourceTree = "<group>"; };
 		488EF40317F97E0B00E03F0F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		488EF40417F97E0B00E03F0F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		48954CCC18084E0F000036B3 /* SettingProperty.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SettingProperty.plist; sourceTree = "<group>"; };
 		48954CCE18084E24000036B3 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		48954CCF18084E24000036B3 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		4898E31E17FE5F370071FC16 /* TxtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TxtViewController.h; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 				1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */,
 				48954CCE18084E24000036B3 /* SettingViewController.h */,
 				48954CCF18084E24000036B3 /* SettingViewController.m */,
-				48954CCC18084E0F000036B3 /* SettingProperty.plist */,
 			);
 			name = SettingView;
 			sourceTree = "<group>";
@@ -361,7 +358,6 @@
 				4885586B181768C800143FCF /* UpAccessory.png in Resources */,
 				48C0324E1816429C00BB864F /* arrow.png in Resources */,
 				48855869181768C800143FCF /* DownAccessory.png in Resources */,
-				48954CCD18084E0F000036B3 /* SettingProperty.plist in Resources */,
 				4856D0E817FC2D6F0095DEA8 /* checkmarkControllerIcon.png in Resources */,
 				4856D0ED17FC2D6F0095DEA8 /* rowControlsIcon.png in Resources */,
 				4885586C181768C800143FCF /* UpAccessory@2x.png in Resources */,
