@@ -9,8 +9,6 @@
 #import "SettingViewController.h"
 #import "LTHPasscodeViewController.h"
 
-#import "FontColorSecectActionSheet.h"
-
 @implementation SettingViewController
 
 @synthesize settingPlistPath;
@@ -20,14 +18,17 @@
 @synthesize settingViewCell;
 @synthesize settingDefaults;
 @synthesize switchView;
-
+@synthesize colorsArray;
+@synthesize picker;
+@synthesize customActionSheet;
 
 - (id)init {
     self = [super init];
     NSMutableDictionary *readSettingDic = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *accessSettingDic = [[NSMutableDictionary alloc] init];
-self.switchView = [[UISwitch alloc] init];
-    
+    self.colorsArray = [NSArray arrayWithObjects:[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor greenColor],[UIColor cyanColor],[UIColor blueColor],[UIColor purpleColor],nil];
+
+    self.switchView = [[UISwitch alloc] init];
     self.settingDefaults = [NSUserDefaults standardUserDefaults];
     if ([self.settingDefaults valueForKey:@"字体颜色"] == Nil)
         [self.settingDefaults setObject:@"R,G,B" forKey:@"字体颜色"];
@@ -66,7 +67,6 @@ self.switchView = [[UISwitch alloc] init];
     
     // Read Setting plist file and get view config    
     //self.settingPlistPath = [[NSBundle mainBundle] pathForResource:@"SettingProperty" ofType:@"plist"];
-
     return  self;
 }
 
@@ -140,21 +140,18 @@ self.switchView = [[UISwitch alloc] init];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    FontColorSecectActionSheet* sheet = [[FontColorSecectActionSheet alloc] initWithHeight:284.0f WithSheetTitle:@"自定义ActionSheet"];
-    UIDatePicker *datePicker = [[UIDatePicker alloc]init];
-    NSDate *now = [[NSDate alloc] init];
-    [datePicker setDate:now animated:NO];
-    
+    NSLog(@"%f",self.view.bounds.size.width);
+    self.customActionSheet = [[CustomActionSheet alloc] initWithHeight:284.0f WithSheetTitle:@"自定义ActionSheet"];
+    self.picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,50)];
+    self.picker.delegate = self;
+    self.picker.dataSource = self;
+    self.picker.showsSelectionIndicator = YES;
+
     //    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,50, 320, 50)];
     //    label.text = @"这里是要自定义放的控制";
-    //    label.backgroundColor = [UIColor clearColor];
-    //    label.textAlignment = UITextAlignmentCenter;
-    [sheet.view addSubview:datePicker];
-    [sheet showInView:self.view];
-    //
-    ////    self.bookReadController.message = detailMessage;
-    ////    self.bookReadController.title = selectedMovie;
-    ////    [self.navigationController pushViewController:self.bookReadController animated:YES];
+    //    label.backgroundColor = [UIColor redColor];
+    [self.customActionSheet addSubview:self.picker];
+    [self.customActionSheet showInView:self.view];
 }
 
 - (void)localPasswordSwitch:(id)sender {
@@ -220,6 +217,51 @@ self.switchView = [[UISwitch alloc] init];
             return [[self.settingData objectAtIndex:i] valueForKey:configKeyword];
     }
     return  Nil;
+}
+
+-(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    NSLog(@"1234");
+    return 3;
+}
+
+-(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return [self.colorsArray count];
+}
+
+-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    return 40;
+}
+
+-(CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
+    return 70;
+}
+
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    CGFloat width = [self pickerView:pickerView widthForComponent:component];
+    CGFloat height = [self pickerView:pickerView rowHeightForComponent:component];
+    UIView *myView = [[UIView alloc] init];
+    myView.frame = CGRectMake(0, 0, width, height);
+    UILabel *labelOnComponent = [[UILabel alloc] init];
+    labelOnComponent.frame = myView.frame;
+    labelOnComponent.tag = 200;
+    labelOnComponent.backgroundColor = [self.colorsArray objectAtIndex:row];
+    [myView addSubview:labelOnComponent];
+    return myView;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    int rowOfComponent0 = [pickerView selectedRowInComponent:0];
+    int rowOfComponent1 = [pickerView selectedRowInComponent:1];
+    int rowOfComponent2 = [pickerView selectedRowInComponent:2];
+    
+    UIView *viewOfComponent0 = (UILabel *)[pickerView viewForRow:rowOfComponent0 forComponent:0];
+    UIView *viewOfComponent1 = (UILabel *)[pickerView viewForRow:rowOfComponent1 forComponent:1];
+    UIView *viewOfComponent2 = (UILabel *)[pickerView viewForRow:rowOfComponent2 forComponent:2];
+    
+    UILabel *labelOnView0 = (UILabel *)[viewOfComponent0 viewWithTag:200];
+    UILabel *labelOnView1 = (UILabel *)[viewOfComponent1 viewWithTag:200];
+    UILabel *labelOnView2 = (UILabel *)[viewOfComponent2 viewWithTag:200];
+    NSLog(@"R,G,B: %@, %@, %@",[labelOnView0 backgroundColor],[labelOnView1 backgroundColor],[labelOnView2 backgroundColor]);
 }
 
 @end

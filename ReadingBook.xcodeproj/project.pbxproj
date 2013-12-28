@@ -11,6 +11,7 @@
 		1F19D8D918222B64009C67A9 /* nav_menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F19D8D818222B64009C67A9 /* nav_menu_icon@2x.png */; };
 		1F4396A11827B45A006D9D5A /* LTHPasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */; };
 		1F4396A41827B4B4006D9D5A /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */; };
+		1F55B9D91868760000E417F5 /* PickupColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F55B9D81868760000E417F5 /* PickupColorViewController.m */; };
 		1FF66AAD183467A0001984B9 /* ContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF66AAC183467A0001984B9 /* ContentViewController.m */; };
 		1FF66AB0183467BF001984B9 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF66AAF183467BF001984B9 /* PageViewController.m */; };
 		1FF66AB3183467FC001984B9 /* PDFScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF66AB2183467FC001984B9 /* PDFScrollView.m */; };
@@ -64,6 +65,8 @@
 		1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LTHPasscodeViewController.m; path = ../LTHPasscodeViewController.m; sourceTree = "<group>"; };
 		1F4396A21827B4B4006D9D5A /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFHFKeychainUtils.h; path = ../SFHFKeychainUtils.h; sourceTree = "<group>"; };
 		1F4396A31827B4B4006D9D5A /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFHFKeychainUtils.m; path = ../SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		1F55B9D71868760000E417F5 /* PickupColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickupColorViewController.h; sourceTree = "<group>"; };
+		1F55B9D81868760000E417F5 /* PickupColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickupColorViewController.m; sourceTree = "<group>"; };
 		1FF66AAB183467A0001984B9 /* ContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentViewController.h; sourceTree = "<group>"; };
 		1FF66AAC183467A0001984B9 /* ContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentViewController.m; sourceTree = "<group>"; };
 		1FF66AAE183467BF001984B9 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
@@ -155,6 +158,10 @@
 				1F4396A01827B45A006D9D5A /* LTHPasscodeViewController.m */,
 				48954CCE18084E24000036B3 /* SettingViewController.h */,
 				48954CCF18084E24000036B3 /* SettingViewController.m */,
+				4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */,
+				4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */,
+				1F55B9D71868760000E417F5 /* PickupColorViewController.h */,
+				1F55B9D81868760000E417F5 /* PickupColorViewController.m */,
 			);
 			name = SettingView;
 			sourceTree = "<group>";
@@ -239,8 +246,6 @@
 				48C0324B18163F1400BB864F /* PullRefreshTableViewController.m */,
 				4898E31E17FE5F370071FC16 /* TxtViewController.h */,
 				4898E31F17FE5F370071FC16 /* TxtViewController.m */,
-				4810DA65180AC925009CC4B7 /* FontColorSecectActionSheet.h */,
-				4810DA66180AC925009CC4B7 /* FontColorSecectActionSheet.m */,
 				4856D0E117FC2D5F0095DEA8 /* Images */,
 				488EF39C17F966D900E03F0F /* Images.xcassets */,
 				488EF39117F966D900E03F0F /* Supporting Files */,
@@ -384,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F55B9D91868760000E417F5 /* PickupColorViewController.m in Sources */,
 				48C0324C18163F1400BB864F /* PullRefreshTableViewController.m in Sources */,
 				488EF39B17F966D900E03F0F /* AppDelegate.m in Sources */,
 				4810DA67180AC925009CC4B7 /* FontColorSecectActionSheet.m in Sources */,
