@@ -115,8 +115,8 @@ static BOOL isCancle = NO;
 	self.view.backgroundColor = kBackgroundColor;
 	if (!_beingDisplayedAsLockscreen) {
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel
-																							   target: self
-																							   action: @selector(cancelAndDismissMe)];
+                                                                                              target: self
+                                                                                              action: @selector(cancelAndDismissMe)];
 		self.title = @"输入本地口令";
 	}
 	
@@ -467,8 +467,8 @@ static BOOL isCancle = NO;
 	[viewController presentViewController: navController animated: YES completion: nil];
 	[self rotateAccordingToStatusBarOrientationAndSupportedOrientations];
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel
-																						   target: self
-																						   action: @selector(cancelAndDismissMe)];
+                                                                                          target: self
+                                                                                          action: @selector(cancelAndDismissMe)];
 }
 
 

@@ -130,7 +130,7 @@ static NSString *SFHFKeychainUtilsErrorDomain = @"SFHFKeychainUtilsErrorDomain";
 		// No existing entry (or an existing, improperly entered, and therefore now
 		// deleted, entry).  Create a new entry.
 		NSArray *keys = [[NSArray alloc] initWithObjects: (__bridge_transfer NSString *) kSecClass,kSecAttrService,kSecAttrLabel,kSecAttrAccount,kSecValueData,nil];
-
+        
 		NSArray *objects = [[NSArray alloc] initWithObjects: (__bridge_transfer NSString *) kSecClassGenericPassword,serviceName,serviceName,username,[password dataUsingEncoding: NSUTF8StringEncoding],nil];
 		
 		NSDictionary *query = [[NSDictionary alloc] initWithObjects: objects forKeys: keys];

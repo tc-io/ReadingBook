@@ -107,24 +107,24 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:NO];
-//    CATransition * animation = [CATransition animation];
-//    animation.type = @"oglFlip";
-//    animation.subtype = kCATransitionFromLeft;
-//    animation.duration = 0.45;
-//    animation.removedOnCompletion = YES;
-//    [self.navigationController.view.layer addAnimation:animation forKey:nil];
+    //    CATransition * animation = [CATransition animation];
+    //    animation.type = @"oglFlip";
+    //    animation.subtype = kCATransitionFromLeft;
+    //    animation.duration = 0.45;
+    //    animation.removedOnCompletion = YES;
+    //    [self.navigationController.view.layer addAnimation:animation forKey:nil];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:NO];
     [self.pageTimer invalidate];
     self.pageTimer = nil;
-//    CATransition * animation = [CATransition animation];
-//    animation.type = @"oglFlip";
-//    animation.subtype = kCATransitionFromRight;
-//    animation.duration = 0.45;
-//    animation.removedOnCompletion = YES;
-//    [self.navigationController.view.layer addAnimation:animation forKey:nil];
+    //    CATransition * animation = [CATransition animation];
+    //    animation.type = @"oglFlip";
+    //    animation.subtype = kCATransitionFromRight;
+    //    animation.duration = 0.45;
+    //    animation.removedOnCompletion = YES;
+    //    [self.navigationController.view.layer addAnimation:animation forKey:nil];
     
 }
 

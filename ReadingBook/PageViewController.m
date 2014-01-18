@@ -37,12 +37,12 @@
     BOOL isHidden = self.navigationController.navigationBarHidden;
     if (!isHidden)
         [self.navigationController setNavigationBarHidden:!isHidden animated:YES];
-
+    
     contentViewController = [[ContentViewController alloc] initWithPDF:PDFDocument];
     currentIndex = [modelArray indexOfObject:[(ContentViewController *)viewController page]];
     if (currentIndex == 0)
         return nil;
-
+    
     contentViewController.page = [modelArray objectAtIndex:currentIndex - 1];
     return contentViewController;
 }
@@ -83,7 +83,7 @@
     modelArray = [[NSMutableArray alloc] init];
     for (int index = 1; index <= totalPages; index++)
         [modelArray addObject:[NSString stringWithFormat:@"%i", index]];
-        
+    
     thePageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation: UIPageViewControllerNavigationOrientationHorizontal options:nil];
     thePageViewController.delegate = self;
     thePageViewController.dataSource = self;

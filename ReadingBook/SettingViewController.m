@@ -27,7 +27,7 @@
     NSMutableDictionary *readSettingDic = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *accessSettingDic = [[NSMutableDictionary alloc] init];
     self.colorsArray = [NSArray arrayWithObjects:[UIColor redColor],[UIColor orangeColor],[UIColor yellowColor],[UIColor greenColor],[UIColor cyanColor],[UIColor blueColor],[UIColor purpleColor],nil];
-
+    
     self.switchView = [[UISwitch alloc] init];
     self.settingDefaults = [NSUserDefaults standardUserDefaults];
     if ([self.settingDefaults valueForKey:@"字体颜色"] == Nil)
@@ -56,7 +56,7 @@
     [accessSettingDic setValue:[self.settingDefaults valueForKey:@"本地口令"] forKey:@"本地口令"];
     [self.settingDefaults synchronize];
     self.settingData = [[NSMutableArray alloc] initWithObjects:readSettingDic,accessSettingDic, nil];
-
+    
     CGRect frame = self.view.bounds;
     //    frame.origin.x = 40.0f;
     frame.size.width -= 40.0f;
@@ -65,7 +65,7 @@
     self.settingTableView.dataSource = self;
     [self.view addSubview:self.settingTableView];
     
-    // Read Setting plist file and get view config    
+    // Read Setting plist file and get view config
     //self.settingPlistPath = [[NSBundle mainBundle] pathForResource:@"SettingProperty" ofType:@"plist"];
     return  self;
 }
@@ -146,7 +146,7 @@
     self.picker.delegate = self;
     self.picker.dataSource = self;
     self.picker.showsSelectionIndicator = YES;
-
+    
     //    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,50, 320, 50)];
     //    label.text = @"这里是要自定义放的控制";
     //    label.backgroundColor = [UIColor redColor];
@@ -220,7 +220,6 @@
 }
 
 -(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    NSLog(@"1234");
     return 3;
 }
 

@@ -23,7 +23,7 @@
 // Function: get the book has read number from recent read book list.
 // Input: (NSString *) bookPath
 // Return: (NSInteger) current read number, if the book path is not in the rectent read book list this function will return 1
-- (NSInteger) getBookCurrentReadPageNumber: (NSString *) bookPath;
+- (NSInteger) getCurrentReadPageNumber: (NSString *) bookPath;
 
 // Function: add book's information into the 'recentReadBookInfo'
 // Input: (NSString*) bookPath :(NSInteger)currentReadPageNumber
